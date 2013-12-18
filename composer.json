@@ -1,7 +1,21 @@
 {
 	"name": "rusporting/yii2-admin-panel",
-	"version": "0.1",
-	"require":{
-        "php":">=5.3.0"
+	"type": "yii2-extension",
+	"description": "Admin panel extension for Yii2.",
+	"authors": [
+        {
+            "name": "Vitaliy Syrchikov",
+            "email": "maddoger@hotmail.com"
+        }
+    ],
+	"autoload": {
+        "psr-0": {
+            "yii\\redactor\\": ""
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0",
+        "yiisoft/yii2": "*"
     }
 }
