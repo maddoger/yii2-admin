@@ -5,17 +5,18 @@
 	"authors": [
         {
             "name": "Vitaliy Syrchikov",
-            "email": "maddoger@hotmail.com"
+            "email": "maddoger@gmail.com"
         }
     ],
 	"autoload": {
         "psr-0": {
-            "yii\\redactor\\": ""
+            "rusporting\\admin\\": ""
         }
     },
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0",
         "yiisoft/yii2": "*"
-    }
+    },
+	"target-dir": "rusporting/admin"
 }
