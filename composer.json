@@ -1,5 +1,5 @@
 {
-	"name": "rusporting/yii2-admin-panel",
+	"name": "rusporting/yii2-admin",
 	"type": "yii2-extension",
 	"description": "Admin panel extension for Yii2.",
 	"authors": [
@@ -16,7 +16,9 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0",
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
+	    "rusporting/core": "*",
+	    "rusporting/user": "*"
     },
 	"target-dir": "rusporting/admin"
 }
