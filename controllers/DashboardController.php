@@ -2,7 +2,7 @@
 
 namespace rusporting\admin\controllers;
 
-use rusporting\core\components\BackendController;
+use rusporting\core\BackendController;
 use Yii;
 
 /**

@@ -74,6 +74,7 @@ class ErrorController extends Controller
 			$message = $this->defaultMessage ?: Yii::t('yii', 'An internal server error occurred.');
 		}
 
+
 		if (Yii::$app->getRequest()->getIsAjax()) {
 			return "$name: $message";
 		} else {

@@ -13,7 +13,7 @@ use rusporting\admin\widgets\Menu;
  */
 
 AdminAsset::register($this);
-$module = $this->context->module;
+$module = Yii::$app->getModule('admin');
 
 ?>
 <?php $this->beginPage() ?>
@@ -65,7 +65,14 @@ NavBar::end();*/
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"><?= Html::encode($module->brandName) ?></a>
+			<a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"><?php
+				$brandLogo = $module->brandLogo;
+				if (!empty($brandLogo)) {
+					echo '<img src="'.Html::encode(Yii::getAlias($module->brandLogo)).'" alt="'.Html::encode($module->brandName).'" class="brand-logo" />';
+				} else {
+					echo Html::encode($module->brandName);
+				}
+				?></a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -74,10 +81,15 @@ NavBar::end();*/
 			//Modules navigation
 			$items = $module->getBackendModulesNavigationItems();
 			if ($items) {
+				$route = Yii::$app->controller->getRoute();
+				if (Yii::$app->controller->module->id == 'backend') {
+					$route = str_replace('/backend', '', $route);
+				}
 				array_unshift($items, ['label'=> Yii::t('rusporting/admin', 'Dashboard'), 'url'=> ['/admin/dashboard/index'], 'fa' => 'dashboard']);
 				echo Menu::widget([
 					'options' => ['class' => 'nav navbar-nav side-nav'],
 					'items' => $items,
+					'route' => $route,
 				]);
 			}
 			?>
@@ -96,7 +108,7 @@ NavBar::end();*/
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
 								class="fa fa-user"></i> <?= Html::encode($identity->short_name) ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/profile/show/'.$identity->getId()) ?>"><i class="fa fa-user"></i> <?= Yii::t('rusporting/admin', 'Profile') ?></a></li>
+							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/users/show/'.$identity->getId()) ?>"><i class="fa fa-user"></i> <?= Yii::t('rusporting/admin', 'Profile') ?></a></li>
 							<!--<li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>-->
 							<li><a href="<?= Yii::$app->urlManager->createUrl('/config') ?>"><i class="fa fa-gear"></i> <?= Yii::t('rusporting/admin', 'Settings') ?></a></li>
 							<li class="divider"></li>

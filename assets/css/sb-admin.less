@@ -62,7 +62,7 @@ body {
 
 /* Table Headers */
 
-table.tablesorter thead {
+table.table-sorter thead {
 	cursor: pointer;
 	tr th:hover {
 		background-color: #f5f5f5;
@@ -81,12 +81,27 @@ table.tablesorter thead {
 	height: 100%;
 }
 
+.navbar-brand {
+	display: inline-block;
+	text-align: left;
+	.brand-logo {
+		max-width: 195px;
+		margin: -25px 0;
+		max-height: 35px;
+	}
+}
+
 /* Edit Below to Customize Widths > 768px */
 @media (min-width: 768px) {
 
-	.side-nav & > li.dropdown & > ul.dropdown-menu & > li & > a:hover,
-	.side-nav & > li.dropdown & > ul.dropdown-menu & > li & > a.active,
-	.side-nav & > li.dropdown & > ul.dropdown-menu & > li & > a:focus {
+	.navbar-brand {
+		width: 225px;
+		text-align: center;
+	}
+
+	.side-nav > li.dropdown > ul.dropdown-menu & > li & > a:hover,
+	.side-nav > li.dropdown > ul.dropdown-menu & > li & > a.active,
+	.side-nav > li.dropdown > ul.dropdown-menu & > li & > a:focus {
 		color: #fff;
 		background-color: #080808;
 	}
@@ -149,6 +164,17 @@ table.tablesorter thead {
 					& > a {
 						color: #999999;
 						padding: 15px 15px 15px 25px;
+
+						&.active, &:hover, &:focus {
+							color: #fff;
+							background-color: #080808;
+						}
+					}
+					&.active, &:hover, &:focus {
+						& > a {
+							color: #fff;
+							background-color: #080808;
+						}
 					}
 				}
 			}

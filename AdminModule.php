@@ -9,11 +9,10 @@
 namespace rusporting\admin;
 
 use Yii;
-use rusporting\core\components\Module;
+use rusporting\core\Module;
 
 class AdminModule extends Module
 {
-	public $layout = 'main';
 	public $pageTitle = 'Rusporting Marketing';
 	public $brandLogo;
 	public $brandName = 'Rusporting Marketing';
@@ -25,6 +24,9 @@ class AdminModule extends Module
 	 * @var string
 	 */
 	public $translationCategory = 'rusporting/admin';
+
+	protected $hasFrontend = false;
+	protected $hasBackend = true;
 
 	/**
 	 * @inheritdoc
@@ -74,31 +76,15 @@ class AdminModule extends Module
 	/**
 	 * @inheritdoc
 	 */
-	public function getIcon()
+	public function getFaIcon()
 	{
-		return null;
+		return 'gear';
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	public function isMultiLanguage()
-	{
-		return true;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function hasFrontend()
-	{
-		return false;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function hasBackend()
 	{
 		return true;
 	}
@@ -128,7 +114,16 @@ class AdminModule extends Module
 	 */
 	public function getBackendNavigation()
 	{
-		return null;
+		return [
+			[
+				'label' => Yii::t('rusporting/admin', 'Settings'),
+				//'url' => 'user/user-backend/index',
+				'items' => [
+					['label' => Yii::t('rusporting/admin', 'Modules'), 'fa'=>'gears', 'url'=> ['/'.$this->id.'/modules/index']],
+					['label' => Yii::t('rusporting/admin', 'Routes'), 'fa'=>'arrows', 'url'=> ['/'.$this->id.'/routes/index']],
+				],
+			]
+		];
 	}
 
 	/*** Admin panel functions ***/

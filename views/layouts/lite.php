@@ -36,9 +36,7 @@ BootstrapPluginAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="container" id="content">
-	<?= $content ?>
-</div>
+<?= $content ?>
 <?php $this->endBody() ?>
 </body>
 </html>

@@ -32,6 +32,11 @@ class Menu extends BaseMenu
 	/**
 	 * @inheritdoc
 	 */
+	public $activateParents = true;
+
+	/**
+	 * @inheritdoc
+	 */
 	protected function renderItems($items)
 	{
 		$n = count($items);
@@ -50,8 +55,11 @@ class Menu extends BaseMenu
 				$class[] = $this->lastItemCssClass;
 			}
 			if (!empty($item['items'])) {
-				$item['fa'] = 'caret-square-o-down';
+				//$item['fa'] = 'caret-square-o-down';
 				$class[] = 'dropdown';
+				if ($item['active']) {
+					$class[] = 'open';
+				}
 			}
 
 			if (!empty($class)) {
@@ -81,16 +89,28 @@ class Menu extends BaseMenu
 	 */
 	protected function renderItem($item)
 	{
-		$result = parent::renderItem($item);
-		if (isset($item['fa'])) {
-			$result = strtr($result, [
-				'{icon}' => '<i class="fa fa-'.$item['fa'].'"></i> ',
+		if (isset($item['items'])) {
+			$item['label'] .= ' <span class="caret"></span>';
+		}
+
+		$icon = '';
+		if (isset($item['fa']) && !empty($item['fa'])) {
+			$icon = '<i class="fa fa-'.$item['fa'].'"></i> ';
+		}
+
+		if (isset($item['url'])) {
+			$template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
+			return strtr($template, [
+				'{url}' => Html::url($item['url']),
+				'{icon}' => $icon,
+				'{label}' => $item['label'],
 			]);
 		} else {
-			$result = strtr($result, [
-				'{icon}' => '',
+			$template = ArrayHelper::getValue($item, 'template', $this->labelTemplate);
+			return strtr($template, [
+				'{label}' => $item['label'],
+				'{icon}' => $icon,
 			]);
 		}
-		return $result;
 	}
 }
