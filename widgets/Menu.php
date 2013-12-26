@@ -5,6 +5,7 @@ namespace rusporting\admin\widgets;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\Menu as BaseMenu;
+use Yii;
 
 /**
  * Class Menu
@@ -111,6 +112,38 @@ class Menu extends BaseMenu
 				'{label}' => $item['label'],
 				'{icon}' => $icon,
 			]);
+		}
+	}
+
+
+	/**
+	 * Checks whether a menu item is active.
+	 * This is done by checking if [[route]] and [[params]] match that specified in the `url` option of the menu item.
+	 * When the `url` option of a menu item is specified in terms of an array, its first element is treated
+	 * as the route for the item and the rest of the elements are the associated parameters.
+	 * Only when its route and parameters match [[route]] and [[params]], respectively, will a menu item
+	 * be considered active.
+	 * @param array $item the menu item to be checked
+	 * @return boolean whether the menu item is active
+	 */
+	protected function isItemActive($item)
+	{
+		if (isset($item['activeUrl'])) {
+
+			if (is_array($item['activeUrl'])) {
+				$route = $item['activeUrl'][0];
+			} else {
+				$route = $item['activeUrl'];
+			}
+			if ($route[0] !== '/' && Yii::$app->controller) {
+				$route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
+			}
+			$route = ltrim($route, '/');
+
+			$preg = '/^'.str_replace('*', '(.*?)',  str_replace('/', '\/', $route)).'$/is';
+			return preg_match($preg, $this->route);
+		} else {
+			return parent::isItemActive($item);
 		}
 	}
 }

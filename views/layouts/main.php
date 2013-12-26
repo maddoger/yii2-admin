@@ -1,10 +1,9 @@
 <?php
 use rusporting\admin\AdminAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use rusporting\admin\widgets\Breadcrumbs;
 use rusporting\admin\widgets\Menu;
+use rusporting\user\widgets\Alert;
 
 /**
  * @var \yii\web\View $this
@@ -148,6 +147,7 @@ NavBar::end();*/
 			</div>
 		</div>
 		<!-- /.row -->
+		<?= Alert::widget() ?>
 		<?= $content ?>
 	</div>
 	<!-- /#page-wrapper -->

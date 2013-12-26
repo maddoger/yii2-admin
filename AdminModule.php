@@ -92,9 +92,15 @@ class AdminModule extends Module
 	/**
 	 * @inheritdoc
 	 */
-	public function getConfigurationForm()
+	public function getConfigurationModel()
 	{
-		return null;
+		$model = parent::getConfigurationModel();
+		$model->addAttributes([
+			'pageTitle' => ['label' => Yii::t('rusporting/admin', 'Window title in admin panel')],
+			'brandName' => ['label' => Yii::t('rusporting/admin', 'Brand name'), 'help' => Yii::t('rusporting/admin', 'Help text')],
+			'brandLogo' => ['type'=>'file', 'label' => Yii::t('rusporting/admin', 'Brand logo file')],
+		]);
+		return $model;
 	}
 
 	/**
@@ -119,8 +125,16 @@ class AdminModule extends Module
 				'label' => Yii::t('rusporting/admin', 'Settings'),
 				//'url' => 'user/user-backend/index',
 				'items' => [
-					['label' => Yii::t('rusporting/admin', 'Modules'), 'fa'=>'gears', 'url'=> ['/'.$this->id.'/modules/index']],
-					['label' => Yii::t('rusporting/admin', 'Routes'), 'fa'=>'arrows', 'url'=> ['/'.$this->id.'/routes/index']],
+					[
+						'label' => Yii::t('rusporting/admin', 'Modules'), 'fa'=>'gears',
+						'url'=> ['/'.$this->id.'/modules/index'],
+						'activeUrl'=> ['/'.$this->id.'/modules/*'],
+					],
+					[
+						'label' => Yii::t('rusporting/admin', 'Routes'), 'fa'=>'arrows',
+						'url'=> ['/'.$this->id.'/routes/index'],
+						'activeUrl'=> ['/'.$this->id.'/routes/*'],
+					],
 				],
 			]
 		];

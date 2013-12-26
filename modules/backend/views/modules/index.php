@@ -16,6 +16,7 @@ $this->params['breadcrumbs'] = [['label'=>Yii::t('rusporting/admin', 'Modules'),
 			<table class="table table-hover table-sorter">
 				<thead>
 				<tr>
+					<th><?= Yii::t('rusporting/admin', 'ID') ?> <i class="fa fa-sort"></i></th>
 					<th><?= Yii::t('rusporting/admin', 'Module name') ?> <i class="fa fa-sort"></i></th>
 					<th><?= Yii::t('rusporting/admin', 'Description') ?> <i class="fa fa-sort"></i></th>
 					<th><?= Yii::t('rusporting/admin', 'Version') ?> <i class="fa fa-sort"></i></th>
@@ -25,6 +26,7 @@ $this->params['breadcrumbs'] = [['label'=>Yii::t('rusporting/admin', 'Modules'),
 				<tbody>
 				<?php if ($modules) { foreach ($modules as $module) {?>
 				<tr>
+					<td><?= Html::encode($module->id) ?></td>
 					<td><?= Html::encode($module->getName()) ?></td>
 					<td><?= Html::encode($module->getDescription()) ?></td>
 					<td><?= Html::encode($module->getVersion()) ?></td>

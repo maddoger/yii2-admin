@@ -3,8 +3,9 @@
 namespace rusporting\admin\modules\backend\controllers;
 
 use rusporting\core\BackendController;
+use rusporting\core\DynamicModel;
 use Yii;
-use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -30,43 +31,40 @@ class ModulesController extends BackendController
 
 	public function actionConfig($module)
 	{
+		/**
+		 * @var \rusporting\core\Module $moduleObject
+		 */
 		$moduleObject = Yii::$app->getModule($module);
 		if (!$moduleObject) {
 			throw new NotFoundHttpException(Yii::t('rusporting/admin', 'Module not found.'));
 		}
-		/*$man = Yii::$app->getUrlManager();
 
-		$urls = [
-			'admin/backend/modules/index',
-			'/admin/backend/modules/index',
-			['admin/backend/modules/index'],
-			['/admin/backend/modules/index'],
-
-			'admin/modules/index',
-			'/admin/modules/index',
-			['admin/modules/index'],
-			['/admin/modules/index'],
-
-			'admin/modules',
-			'/admin/modules',
-			['admin/modules'],
-			['/admin/modules'],
-
-
-			'config',
-			'/config',
-			['config'],
-			['/config'],
-		];
-
-		foreach ($urls as $url) {
-			echo (is_array($url) ? 'array ['.$url[0].']' : $url),' -> ',Html::url($url),'<br />';
-			echo (is_array($url) ? 'array ['.$url[0].']' : $url),' -> ',
-			(is_array($url) ? $man->createUrl($url[0], array_slice($url, 1)) : $man->createUrl($url) ),
-			'<br /><br />';
+		//Get model for configuration
+		$model = $moduleObject->getConfigurationModel();
+		$model->scenario = 'all';
+		$attributes = $model->attributes();
+		foreach ($attributes as $name) {
+			$model->{$name} = $moduleObject->{$name};
 		}
-		return false;*/
+		$configView = $moduleObject->getConfigurationView();
 
-		return $this->render('config', ['module' => $moduleObject]);
+		if ($model->load($_POST) && $model->validate()) {
+			//All is good, saving
+			$path = Yii::getAlias('@common' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'modules-config.php');
+			$modulesConfig = (file_exists($path)) ? include($path) : [];
+
+			$config = array_filter($model->getAttributes());
+			$modulesConfig[$module] = $config;
+
+			if (file_put_contents($path, '<?php return '.var_export($modulesConfig, true).';')) {
+				Yii::$app->getSession()->setFlash('success', Yii::t('rusporting/admin', 'Configuration was saved successfully.'));
+				$this->redirect(['index']);
+				return;
+			} else {
+				Yii::$app->getSession()->setFlash('error', Yii::t('rusporting/admin', 'Couldn\'t save configuration file.'));
+			}
+		}
+
+		return $this->render('config', ['module' => $moduleObject, 'model'=>$model, 'configView'=>$configView]);
 	}
 }
