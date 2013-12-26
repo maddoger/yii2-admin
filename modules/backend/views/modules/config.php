@@ -9,11 +9,6 @@ use rusporting\admin\widgets\ModelActiveForm;
  * @var \yii\base\View $this
  * @var \rusporting\core\Module $module
  */
-$this->params['breadcrumbs'] = [
-	['label'=>Yii::t('rusporting/admin', 'Modules'), 'fa'=>'gears', 'url'=> ['/admin/modules']],
-	['label'=>$module->getName(), 'url'=> ['/admin/modules/config', 'module'=>$module->id], 'fa'=>$module->getFaIcon()],
-	['label'=>Yii::t('rusporting/admin', 'Configuration')],
-];
 
 if ($configView !== null) {
 	echo $this->renderFile($configView, $_params_, $this->context);

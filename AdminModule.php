@@ -10,6 +10,7 @@ namespace rusporting\admin;
 
 use Yii;
 use rusporting\core\Module;
+use yii\rbac\Item;
 
 class AdminModule extends Module
 {
@@ -108,10 +109,13 @@ class AdminModule extends Module
 	 *
 	 * @return array|null
 	 */
-	public function getRights()
+	/**
+	 * @inheritdoc
+	 */
+	public function getRbacRoles()
 	{
 		return [
-			'moduleSettings' => ['label' => Yii::t('rusporting/admin', 'Change site settings')],
+			'admin.modulesConfiguration' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('rusporting/admin', 'Modules Configuration')],
 		];
 	}
 
@@ -123,6 +127,7 @@ class AdminModule extends Module
 		return [
 			[
 				'label' => Yii::t('rusporting/admin', 'Settings'),
+				'fa'=>'gears',
 				//'url' => 'user/user-backend/index',
 				'items' => [
 					[

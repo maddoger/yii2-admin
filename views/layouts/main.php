@@ -144,10 +144,10 @@ NavBar::end();*/
 				}
 				echo Breadcrumbs::widget(['homeLink'=>false, 'links' => $breadcrumbs]);
 				?>
+				<?= Alert::widget() ?>
 			</div>
 		</div>
 		<!-- /.row -->
-		<?= Alert::widget() ?>
 		<?= $content ?>
 	</div>
 	<!-- /#page-wrapper -->

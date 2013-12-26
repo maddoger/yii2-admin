@@ -20,6 +20,8 @@ class ModulesController extends BackendController
 	{
 		parent::init();
 		$this->title = Yii::t('rusporting/admin', 'Modules');
+
+		$this->breadcrumbs[] = ['label'=>Yii::t('rusporting/admin', 'Modules'), 'fa'=>'gears', 'url'=> ['/admin/modules']];
 	}
 
 	public function actionIndex()
@@ -39,8 +41,14 @@ class ModulesController extends BackendController
 			throw new NotFoundHttpException(Yii::t('rusporting/admin', 'Module not found.'));
 		}
 
+		$this->breadcrumbs[] = ['label'=>$moduleObject->getName(), 'url'=> ['/admin/modules/config', 'module'=>$moduleObject->id], 'fa'=>$moduleObject->getFaIcon()];
+		$this->breadcrumbs[] = ['label'=>Yii::t('rusporting/admin', 'Configuration')];
+
 		//Get model for configuration
 		$model = $moduleObject->getConfigurationModel();
+		if (!$model) {
+			throw new NotFoundHttpException(Yii::t('rusporting/admin', 'Settings not found.'));
+		}
 		$model->scenario = 'all';
 		$attributes = $model->attributes();
 		foreach ($attributes as $name) {
@@ -63,6 +71,9 @@ class ModulesController extends BackendController
 				Yii::$app->getSession()->setFlash('error', Yii::t('rusporting/admin', 'Couldn\'t save configuration file.'));
 			}
 		}
+
+		$this->title = $moduleObject->getName();
+		$this->subtitle = Yii::t('rusporting/admin', 'Module configuration');
 
 		return $this->render('config', ['module' => $moduleObject, 'model'=>$model, 'configView'=>$configView]);
 	}
