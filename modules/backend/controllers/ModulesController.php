@@ -58,8 +58,7 @@ class ModulesController extends BackendController
 
 			if (file_put_contents($path, '<?php return '.var_export($modulesConfig, true).';')) {
 				Yii::$app->getSession()->setFlash('success', Yii::t('rusporting/admin', 'Configuration was saved successfully.'));
-				$this->redirect(['index']);
-				return;
+				return $this->redirect(['index']);
 			} else {
 				Yii::$app->getSession()->setFlash('error', Yii::t('rusporting/admin', 'Couldn\'t save configuration file.'));
 			}
