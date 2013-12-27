@@ -65,13 +65,13 @@ class ErrorController extends Controller
 		if ($exception instanceof Exception) {
 			$name = $exception->getName();
 		} else {
-			$name = $this->defaultName ?: Yii::t('yii', 'Error');
+			$name = $this->defaultName ?: Yii::t('rusporting/admin', 'Error');
 		}
 
 		if ($exception instanceof UserException) {
 			$message = $exception->getMessage();
 		} else {
-			$message = $this->defaultMessage ?: Yii::t('yii', 'An internal server error occurred.');
+			$message = $this->defaultMessage ?: Yii::t('rusporting/admin', 'An internal server error occurred.');
 		}
 
 

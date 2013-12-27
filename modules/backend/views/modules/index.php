@@ -30,7 +30,14 @@ $this->params['breadcrumbs'] = [['label'=>Yii::t('rusporting/admin', 'Modules'),
 					<td><?= Html::encode($module->getName()) ?></td>
 					<td><?= Html::encode($module->getDescription()) ?></td>
 					<td><?= Html::encode($module->getVersion()) ?></td>
-					<td><?= Html::a('<i class="fa fa-gear"></i> '.Yii::t('rusporting/admin', 'Configuration'),['modules/config', 'module'=>$module->id]) ?></td>
+					<td>
+						<?php if ($module->getConfigurationModel() !== null) {
+							echo Html::a('<i class="fa fa-gear"></i> '.Yii::t('rusporting/admin', 'Configuration'),['modules/config', 'module'=>$module->id]);
+							} else {
+							echo '<span class="text-muted">'.Yii::t('rusporting/admin', 'No configuration').'</span>';
+							}
+						?>
+					</td>
 				</tr>
 				<?php }} else { ?>
 				<tr>

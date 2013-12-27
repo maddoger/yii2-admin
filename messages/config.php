@@ -41,5 +41,7 @@ return [
 		'.hgignore',
 		'.hgkeep',
 		'/messages',
+		'/gii',
+		'../gii',
 	],
 ];

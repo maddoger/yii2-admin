@@ -140,7 +140,7 @@ NavBar::end();*/
 				if (!$breadcrumbs) {
 					$breadcrumbs = [['label'=>Yii::t('rusporting/admin', 'Dashboard'), 'fa'=>'dashboard']];
 				} else {
-					array_unshift($breadcrumbs, ['label'=>Yii::t('rusporting/admin', 'Dashboard'), 'url'=>'/', 'fa'=>'dashboard']);
+					array_unshift($breadcrumbs, ['label'=>Yii::t('rusporting/admin', 'Dashboard'), 'url'=>['/admin/dashboard/index'], 'fa'=>'dashboard']);
 				}
 				echo Breadcrumbs::widget(['homeLink'=>false, 'links' => $breadcrumbs]);
 				?>

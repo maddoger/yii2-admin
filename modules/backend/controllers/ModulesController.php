@@ -64,6 +64,9 @@ class ModulesController extends BackendController
 			$config = array_filter($model->getAttributes());
 			$modulesConfig[$module] = $config;
 
+			//var_dump($config);
+			//exit();
+
 			if (file_put_contents($path, '<?php return '.var_export($modulesConfig, true).';')) {
 				Yii::$app->getSession()->setFlash('success', Yii::t('rusporting/admin', 'Configuration was saved successfully.'));
 				return $this->redirect(['index']);

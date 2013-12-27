@@ -188,6 +188,13 @@ class AdminModule extends Module
 				}
 			}
 		}
+		usort($backendModules, function($a, $b){
+			if ($a->backendSortNumber != $b->backendSortNumber) {
+				return $a->backendSortNumber>$b->backendSortNumber ? 1 : -1;
+			} else {
+				return strcmp($a->getName(), $b->getName());
+			}
+		});
 		return $backendModules;
 	}
 }
