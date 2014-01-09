@@ -217,3 +217,31 @@ table {
 	}
 
 }
+
+
+.tree-editor {
+	list-style: none;
+	padding: 0;
+	margin: 20px 0;
+
+	.tree-editor {
+		padding-left: 30px;
+		margin: 0;
+	}
+
+	& > li {
+		margin: 10px 0;
+	}
+}
+
+.checkbox-hidden {
+	width: 40px;
+	&::after {
+		.fa(@fa-var-square-o);
+	}
+	&.checked {
+		&::after {
+			.fa(@fa-var-check);
+		}
+	}
+}
