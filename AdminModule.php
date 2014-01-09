@@ -10,6 +10,7 @@ namespace rusporting\admin;
 
 use Yii;
 use rusporting\core\Module;
+use yii\helpers\Html;
 use yii\rbac\Item;
 
 class AdminModule extends Module
@@ -180,7 +181,10 @@ class AdminModule extends Module
 		$backendModules = [];
 		$allModules = Yii::$app->getModules(false);
 
-		foreach ($allModules as $module) {
+		foreach ($allModules as $id=>$module) {
+			if (is_array($module)) {
+				$module = Yii::$app->getModule($id);
+			}
 			//If is rusporting module with info
 			if ($module instanceof Module) {
 				if ($module->hasBackend()) {
@@ -188,6 +192,7 @@ class AdminModule extends Module
 				}
 			}
 		}
+
 		usort($backendModules, function($a, $b){
 			if ($a->backendSortNumber != $b->backendSortNumber) {
 				return $a->backendSortNumber>$b->backendSortNumber ? 1 : -1;
