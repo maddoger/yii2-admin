@@ -16,6 +16,24 @@ use yii\web\NotFoundHttpException;
  */
 class ModulesController extends BackendController
 {
+	public function behaviors()
+	{
+		return [
+			'access' => [
+				'class' => 'yii\web\AccessControl',
+				'rules' => [
+					[
+						'allow' => true,
+						'roles' => ['admin.modulesConfiguration'],
+					],
+					[
+						'allow' => false,
+					]
+				],
+			],
+		];
+	}
+
 	public function init()
 	{
 		parent::init();

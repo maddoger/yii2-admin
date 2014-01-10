@@ -18,7 +18,13 @@ if ($configView !== null) {
 	<div class="col-lg-12">
 		<?php
 			$attributesOptions = $model->attributeOptions();
-			$form = ModelActiveForm::begin(['model' => $model]);
+			$form = ModelActiveForm::begin(['model' => $model, 'options' => array('class' => 'form-horizontal'),
+				'fieldConfig' => array(
+					'labelOptions' => ['class' => 'control-label col-lg-3'],
+					'template' => "{label}\n<div class=\"col-lg-9\">{input}\n{error}\n{hint}</div>",
+					'hintOptions' => ['class' => 'hint-block text-muted small'],
+				)]
+			);
 			echo $form->fields();
 		?>
 		<br>

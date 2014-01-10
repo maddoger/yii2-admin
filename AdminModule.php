@@ -136,11 +136,11 @@ class AdminModule extends Module
 						'url'=> ['/'.$this->id.'/modules/index'],
 						'activeUrl'=> ['/'.$this->id.'/modules/*'],
 					],
-					[
+					/*[
 						'label' => Yii::t('rusporting/admin', 'Routes'), 'fa'=>'arrows',
 						'url'=> ['/'.$this->id.'/routes/index'],
 						'activeUrl'=> ['/'.$this->id.'/routes/*'],
-					],
+					],*/
 				],
 			]
 		];
