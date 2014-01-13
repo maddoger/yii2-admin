@@ -82,6 +82,16 @@ class FileInput extends InputWidget
 			$this->style = static::STYLE_INPUT;
 		}
 		parent::init();
+
+		if (!isset(Yii::$app->getI18n()->translations['rusporting/admin'])) {
+			//register translation messages from module
+			//so no need do add to config/main.php
+			Yii::$app->getI18n()->translations['rusporting/admin'] =
+				array(
+					'class' => 'yii\i18n\PhpMessageSource',
+					'basePath' => '@rusporting/admin/messages',
+				);
+		}
 	}
 
 	/**

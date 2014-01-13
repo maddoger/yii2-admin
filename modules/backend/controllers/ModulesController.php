@@ -49,7 +49,7 @@ class ModulesController extends BackendController
 		return $this->render('index', ['modules' => $modules]);
 	}
 
-	public function actionConfig($module)
+	public function actionConfig($module, $back_url=null)
 	{
 		/**
 		 * @var \rusporting\core\Module $moduleObject
@@ -87,7 +87,13 @@ class ModulesController extends BackendController
 
 			if (file_put_contents($path, '<?php return '.var_export($modulesConfig, true).';')) {
 				Yii::$app->getSession()->setFlash('success', Yii::t('rusporting/admin', 'Configuration was saved successfully.'));
-				return $this->redirect(['index']);
+
+				if ($back_url !== null) {
+					return $this->redirect($back_url);
+				} else {
+					return $this->redirect(['index']);
+				}
+
 			} else {
 				Yii::$app->getSession()->setFlash('error', Yii::t('rusporting/admin', 'Couldn\'t save configuration file.'));
 			}

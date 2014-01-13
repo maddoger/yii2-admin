@@ -8,11 +8,6 @@
             "email": "maddoger@gmail.com"
         }
     ],
-	"autoload": {
-        "psr-0": {
-            "rusporting\\admin\\": ""
-        }
-    },
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0",
@@ -20,5 +15,9 @@
 	    "rusporting/yii2-core": "*",
 	    "rusporting/yii2-user": "*"
     },
-	"target-dir": "rusporting/admin"
+	"autoload": {
+		"psr-4": {
+			"rusporting\\admin\\": ""
+		}
+	}
 }
