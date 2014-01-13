@@ -30,14 +30,25 @@ use yii\widgets\ActiveForm;
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
-	<?= "<?php " ?>$form = ActiveForm::begin(); ?>
+	<?= "<?php " ?>$form = ActiveForm::begin([
+			'options' => array('class' => 'form-horizontal'),
+			'fieldConfig' => array(
+				'labelOptions' => ['class' => 'control-label col-lg-2'],
+				'template' => "{label}\n<div class=\"col-lg-10\">{input}\n{error}\n{hint}</div>",
+				'hintOptions' => ['class' => 'hint-block text-muted small'],
+			),
+		]); ?>
+
+	<p>
+		<?= "<?= " ?>Html::submitButton($model->isNewRecord ? \Yii::t('<?= $generator->languageCategory ?>', 'Create') : \Yii::t('<?= $generator->languageCategory ?>', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	</p>
 
 <?php foreach ($safeAttributes as $attribute) {
 	echo "\t\t<?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
 } ?>
-		<div class="form-group">
+		<p>
 			<?= "<?= " ?>Html::submitButton($model->isNewRecord ? \Yii::t('<?= $generator->languageCategory ?>', 'Create') : \Yii::t('<?= $generator->languageCategory ?>', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-		</div>
+		</p>
 
 	<?= "<?php " ?>ActiveForm::end(); ?>
 
