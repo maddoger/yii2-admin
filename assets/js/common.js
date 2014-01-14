@@ -6,7 +6,9 @@ function docReady() {
 	$("table.table-sorter").tablesorter(/*{debug: true}*/);
 	$('.select2').select2();
 	$('.date-editor').datepicker({
-		format: 'dd.mm.yyyy'
+		format: 'dd.mm.yyyy',
+		weekStart: 1,
+		weekEnd: 6
 	});
 	$('.checkbox-hidden').each(function(){
 		var label = $(this);
