@@ -42,7 +42,6 @@ return [
 		'.hgkeep',
 		'/messages',
 		'/gii',
-		'gii',
-		'../gii',
+		'gii/',
 	],
 ];

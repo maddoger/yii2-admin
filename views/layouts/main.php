@@ -107,9 +107,9 @@ NavBar::end();*/
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
 								class="fa fa-user"></i> <?= Html::encode($identity->short_name) ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/users/show/'.$identity->getId()) ?>"><i class="fa fa-user"></i> <?= Yii::t('rusporting/admin', 'Profile') ?></a></li>
+							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/users/view', ['id' => $identity->getId()]) ?>"><i class="fa fa-user"></i> <?= Yii::t('rusporting/admin', 'Profile') ?></a></li>
 							<!--<li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>-->
-							<li><a href="<?= Yii::$app->urlManager->createUrl('/config') ?>"><i class="fa fa-gear"></i> <?= Yii::t('rusporting/admin', 'Settings') ?></a></li>
+							<!--<li><a href="<?/*= Yii::$app->urlManager->createUrl('/config') */?>"><i class="fa fa-gear"></i> <?/*= Yii::t('rusporting/admin', 'Settings') */?></a></li>-->
 							<li class="divider"></li>
 							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/logout') ?>"><i class="fa fa-power-off"></i> <?= Yii::t('rusporting/admin', 'Log Out') ?></a></li>
 						</ul>
