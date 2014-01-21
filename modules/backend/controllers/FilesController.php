@@ -26,13 +26,13 @@ class FilesController extends BackendController
 					[
 						'actions' => ['index', 'connector', 'dialog'],
 						'allow' => true,
-						'roles' => ['file.upload'],
+						'roles' => ['uploads.view', 'uploads.write'],
 					],
-					[
+					/*[
 						'actions' => ['image-upload', 'clipboard-upload'],
 						'allow' => true,
 						'roles' => ['image.upload'],
-					],
+					],*/
 					[
 						'allow' => false,
 					]
@@ -41,7 +41,6 @@ class FilesController extends BackendController
 			'verbs' => [
 				'class' => VerbFilter::className(),
 				'actions' => [
-					'delete' => ['post'],
 					'image-upload' => ['post'],
 					'clipboard-upload' => ['post'],
 					'file-upload' => ['post'],
@@ -53,6 +52,34 @@ class FilesController extends BackendController
 	public function actions()
 	{
 		$adminModule = Yii::$app->getModule('admin');
+
+		$attributes = array(
+			array( // hide .gitignore
+				'pattern' => '/\.gitignore$/',
+				'read' => false,
+				'write' => false,
+				'hidden' => true,
+				'locked' => true
+			),
+			array( // hide .php
+				'pattern' => '/\.php$/',
+				'read' => false,
+				'write' => false,
+				'hidden' => true,
+				'locked' => true
+			),
+		);
+		if (!Yii::$app->user->checkAccess('uploads.write')) {
+			//deny to uploading
+			$attributes[] = array(
+				'pattern' => '//',
+				'read' => true,
+				'write' => false,
+				'hidden' => false,
+				'locked' => true
+			);
+		}
+
 		return array(
 			'connector' => array(
 				'class' => 'rusporting\elfinder\ConnectorAction',
@@ -64,6 +91,7 @@ class FilesController extends BackendController
 							'driver' => 'LocalFileSystem',
 							'path'   => Yii::getAlias('@frontendPath'.$adminModule->uploadsDir),
 							'URL'    => Yii::getAlias('@frontendUrl'.$adminModule->uploadsDir),
+							'attributes' => $attributes
 						)
 					)
 				)
@@ -81,7 +109,7 @@ class FilesController extends BackendController
 		return $this->renderPartial('dialog');
 	}
 
-	public function actionFileUpload()
+	/*public function actionFileUpload()
 	{
 		$validator = new FileValidator();
 		$error = null;
@@ -190,5 +218,5 @@ class FilesController extends BackendController
 
 		//Yii::$app->response->setStatusCode('400');
 		return json_encode(['error'=>\Yii::t('rusporting/admin', 'Bad file.')]);
-	}
+	}*/
 }

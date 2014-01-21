@@ -67,7 +67,7 @@ NavBar::end();*/
 			<a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"><?php
 				$brandLogo = $module->brandLogo;
 				if (!empty($brandLogo)) {
-					echo '<img src="'.Html::encode(Yii::getAlias($module->brandLogo)).'" alt="'.Html::encode($module->brandName).'" class="brand-logo" />';
+					echo '<img src="'.@Html::encode(Yii::getAlias($module->brandLogo)).'" alt="'.Html::encode($module->brandName).'" class="brand-logo" />';
 				} else {
 					echo Html::encode($module->brandName);
 				}
