@@ -19,6 +19,7 @@ class AdminModule extends Module
 	public $brandLogo;
 	public $brandName = 'Rusporting Marketing';
 	public $dashboardUrl = null;
+	public $uploadsDir = '/uploads';
 
 	/**
 	 * Translation category for Yii::t function

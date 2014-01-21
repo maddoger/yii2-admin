@@ -109,7 +109,7 @@ class FileInput extends InputWidget
 				}
 			}
 
-			$field = Html::activeFileInput($this->model, $this->attribute, $this->options);
+			$field = Html::activeFileInput($this->model, $this->attribute, $this->config);
 		} else {
 			if ($this->style == static::STYLE_IMAGE && $this->thumbnail === null) {
 				if ($this->value) {
@@ -119,7 +119,7 @@ class FileInput extends InputWidget
 				}
 			}
 
-			$field = Html::fileInput($this->name, $this->value, $this->options);
+			$field = Html::fileInput($this->name, $this->value, $this->config);
 		}
 		echo $this->renderTemplate($field);
 		$this->registerPlugin();
@@ -172,7 +172,7 @@ class FileInput extends InputWidget
 	{
 		$view = $this->getView();
 
-		$id = $this->options['id'];
+		$id = $this->config['id'];
 
 		if (!empty($this->clientEvents)) {
 			$js = [];
