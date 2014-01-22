@@ -2,33 +2,25 @@
 
 namespace rusporting\admin\widgets;
 
-use rusporting\admin\TextEditorAsset;
+use rusporting\admin\DateTimeEditorAsset;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
 
 /**
- * CKEditor Widget For Yii2 class file.
+ * DateTimeEditor Widget For Yii2 class file.
  *
  * @property array $plugins
  *
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  */
 
-class TextEditor extends InputWidget
+class DateTimeEditor extends InputWidget
 {
-    /**
-     * @var array the options
-     */
     public $config = [];
 
 	public $options = [];
-
-    /**
-     * @var array plugins that you want to use
-     */
-    public $plugins = [];
 
     /*
      * @var object model for active text area
@@ -51,9 +43,9 @@ class TextEditor extends InputWidget
     public $value = '';
 
 	/**
-	 * @var bool Auto grow
+	 * @var string format
 	 */
-	public $autogrow = true;
+	public $format = 'DD.MM.YYYY - HH:mm';
 
 	/**
 	 * @var null|int Max characters count. Default is null (unlimited)
@@ -70,9 +62,6 @@ class TextEditor extends InputWidget
         if (!isset($this->config['id'])) {
             $this->config['id'] = $this->getId();
         }
-		if (!isset($this->config['filebrowserBrowseUrl'])) {
-			$this->config['filebrowserBrowseUrl'] = Yii::$app->urlManager->createUrl('/admin/files/dialog');
-		}
     }
 
     /**
@@ -84,15 +73,35 @@ class TextEditor extends InputWidget
 			$this->selector = '#' . $this->config['id'];
 			$this->options['id'] = $this->config['id'];
 
-			if (!is_null($this->model)) {
-				echo Html::activeTextarea($this->model, $this->attribute, $this->options);
-			} else {
-				echo Html::textarea($this->attribute, $this->value, $this->options);
+			if (!isset($this->options['class'])) {
+				$this->options['class'] = 'form-control';
 			}
 
+			if (!is_null($this->model) && empty($this->value)) {
+				echo Html::activeTextInput($this->model, $this->attribute, $this->options);
+			} else {
+				echo Html::textInput($this->attribute, $this->value, $this->options);
+			}
+
+			/*if (!empty($this->format)) {
+				//$this->options['data-format'] = $this->format;
+			}
+			if (!isset($this->options['class'])) {
+				$this->options['class'] = 'form-control';
+			}
+
+			echo '<div id="'.$this->config['id'].'" class="input-group">';
+
+			if (!is_null($this->model)) {
+				echo Html::activeTextInput($this->model, $this->attribute, $this->options);
+			} else {
+				echo Html::textInput($this->attribute, $this->value, $this->options);
+			}
+
+			echo '<span class="input-group-addon"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span></div>';*/
 		}
 
-        TextEditorAsset::register($this->getView());
+        DateTimeEditorAsset::register($this->getView());
         $this->registerClientScript();
     }
 
@@ -109,28 +118,10 @@ class TextEditor extends InputWidget
          */
         $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
         $this->config['language'] = $appLanguage;
-
-		if ($this->autogrow) {
-			$this->config['extraPlugins'] = (isset($this->config['extraPlugins']) ? $this->config['extraPlugins'].',' : '') . 'autogrow';
-			$this->config['removePlugins'] = (isset($this->config['removePlugins']) ? $this->config['removePlugins'].',' : '') .'resize';
-			$this->config['autoGrow_onStartup'] = true;
-		}
-		if ($this->maxLength !== null && $this->maxLength>0) {
-			$this->config['extraPlugins'] = (isset($this->config['extraPlugins']) ? $this->config['extraPlugins'].',' : '') . 'wordcount';
-			$this->config['wordcount'] = [
-				'showWordCount' => false,
-				'showCharCount' => true,
-				 // Whether or not to include Html chars in the Char Count
-				 'countHTML' => false,
-				// Option to limit the characters in the Editor
-				'charLimit' => $this->maxLength,
-				// Option to limit the words in the Editor
-				'wordLimit' => 'unlimited',
-			];
-		}
+		$this->config['format'] = $this->format;
 
         $config = empty($this->config) ? '' : Json::encode($this->config);
-        $js = "jQuery('" . $this->selector . "').ckeditor($config);";
+        $js = "jQuery('" . $this->selector . "').datetimepicker($config);";
         $view->registerJs($js);
     }
 }

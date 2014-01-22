@@ -29,6 +29,7 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
 
+use Yii;
 use <?= ltrim($generator->modelClass, '\\') ?>;
 use <?= ltrim($generator->searchModelClass, '\\') ?><?php if (isset($searchModelAlias)):?> as <?= $searchModelAlias ?><?php endif ?>;
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
@@ -181,7 +182,7 @@ if (count($pks) === 1) {
 		if (($model = <?= $modelClass ?>::find(<?= $condition ?>)) !== null) {
 			return $model;
 		} else {
-			throw new NotFoundHttpException(\Yii::t('<?= $generator->languageCategory ?>', 'The requested page does not exist.'));
+			throw new NotFoundHttpException(Yii::t('<?= $generator->languageCategory ?>', 'The requested page does not exist.'));
 		}
 	}
 }

@@ -86,7 +86,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			'baseControllerClass' => 'This is the class that the new CRUD controller class will extend from.
 				You should provide a fully qualified class name, e.g., <code>yii\web\Controller</code>.',
 			'moduleID' => 'This is the ID of the module that the generated controller will belong to.
-				If not set, it means the controller will belong to the application.',
+				If not set, it means the controller will belong to the application, e.g., <code>news/backend</code>.',
 			'indexWidgetType' => 'This is the widget type to be used in the index page to display list of the models.
 				You may choose either <code>GridView</code> or <code>ListView</code>',
 			'searchModelClass' => 'This is the class representing the data being collected in the search form.
