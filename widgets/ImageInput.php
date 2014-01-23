@@ -23,6 +23,11 @@ class ImageInput extends InputWidget
 	public $thumbnail = null;
 
 	/**
+	 * @var string url of preview image for thumbnail
+	 */
+	public $preview = null;
+
+	/**
 	 * @var null|int needed width
 	 */
 	public $width = 200;
@@ -85,8 +90,9 @@ class ImageInput extends InputWidget
 			$field = Html::hiddenInput($this->name, $this->value, $options);
 			$params['value'] = $this->value;
 		}
-		if ($this->thumbnail === null && !empty($params['value'])) {
-			$this->thumbnail = '<img src="'.Html::encode($params['value']).'" alt="'.Html::encode($params['value']).'" />';
+		$preview = $this->preview !== null ? $this->preview : $params['value'];
+		if ($this->thumbnail === null && !empty($preview)) {
+			$this->thumbnail = '<img src="'.Html::encode($preview).'" alt="'.Html::encode($preview).'" />';
 		}
 
 		$params['field'] = $field;

@@ -113,7 +113,7 @@ class TextEditor extends InputWidget
 		if ($this->autogrow) {
 			$this->config['extraPlugins'] = (isset($this->config['extraPlugins']) ? $this->config['extraPlugins'].',' : '') . 'autogrow';
 			$this->config['removePlugins'] = (isset($this->config['removePlugins']) ? $this->config['removePlugins'].',' : '') .'resize';
-			$this->config['autoGrow_onStartup'] = true;
+			//$this->config['autoGrow_onStartup'] = true;
 		}
 		if ($this->maxLength !== null && $this->maxLength>0) {
 			$this->config['extraPlugins'] = (isset($this->config['extraPlugins']) ? $this->config['extraPlugins'].',' : '') . 'wordcount';
