@@ -70,6 +70,55 @@
 		this.$element.find('.clear-button').on('click', $.proxy(this.clear, this))
 
 		this.$element.find('.browse-server-button').on('click', $.proxy(this.browseServer, this))
+
+		var el = this;
+
+		/*(function () { // add drag and drop
+			var area = el.$element[0];
+			var isOver = false;
+			var lastIsOver = false;
+
+			setInterval(function () {
+				if (isOver != lastIsOver) {
+					if (isOver) area.classList.add('over');
+					else area.classList.remove('over');
+					lastIsOver = isOver
+				}
+			}, 30);
+
+			function handleDragOver(e) {
+				e.preventDefault();
+				isOver = true;
+				return false;
+			}
+
+			function handleDragLeave() {
+				isOver = false;
+				return false;
+			}
+
+			function handleDrop(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+
+				var files = e.dataTransfer.files;
+				console.log(files);
+
+				isOver = false;
+				return false;
+			}
+
+			function handleDragEnd() {
+				isOver = false;
+			}
+
+
+			area.addEventListener('dragover', handleDragOver, false);
+			area.addEventListener('dragleave', handleDragLeave, false);
+			area.addEventListener('drop', handleDrop, false);
+			area.addEventListener('dragend', handleDragEnd, false);
+		})();*/
 	},
 
 	Fileupload.prototype.browseServer = function (e) {

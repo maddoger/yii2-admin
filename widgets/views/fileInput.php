@@ -20,7 +20,7 @@
 				<i class="fa fa-upload"></i>
 				<span class="no-file"><?php echo Yii::t('rusporting/admin', 'Upload…'); ?></span>
 				<span class="has-file"><?php echo Yii::t('rusporting/admin', 'Replace…'); ?></span>
-				<input type="file" name="<?= $widget->name ?>" class="afile" accept="image/*" />
+				<input type="file" name="<?= $widget->name ?>" class="afile" />
         	</span>
 
 			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
