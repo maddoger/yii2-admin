@@ -10,13 +10,28 @@ use yii\widgets\InputWidget;
 use Yii;
 
 /**
- * FileInput
+ * ImageInput
  *
  * @see http://jasny.github.io/bootstrap/javascript/#fileinput
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  */
-class FileInput extends InputWidget
+class ImageInput extends InputWidget
 {
+	/**
+	 * @var string the thumbnail to be displayed
+	 */
+	public $thumbnail = null;
+
+	/**
+	 * @var null|int needed width
+	 */
+	public $width = 200;
+
+	/**
+	 * @var null|int needed height
+	 */
+	public $height = 200;
+
 	/**
 	 * @var array the event handlers for the underlying Jasny file input JS plugin.
 	 * Please refer to the [Jasny Bootstrap File Input](http://jasny.github.io/bootstrap/javascript/#fileinput) plugin
@@ -70,10 +85,13 @@ class FileInput extends InputWidget
 			$field = Html::hiddenInput($this->name, $this->value, $options);
 			$params['value'] = $this->value;
 		}
+		if ($this->thumbnail === null && !empty($params['value'])) {
+			$this->thumbnail = '<img src="'.Html::encode($params['value']).'" alt="'.Html::encode($params['value']).'" />';
+		}
 
 		$params['field'] = $field;
 
-		echo $this->render('fileInput', $params);
+		echo $this->render('imageInput', $params);
 		if ($this->browseServer) {
 			CoreAsset::register($this->view);
 			$this->options['browseServerConnectorUrl'] = Html::url(['/admin/files/connector']);
