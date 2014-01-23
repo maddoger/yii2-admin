@@ -71,6 +71,8 @@
 
 		this.$element.find('.browse-server-button').on('click', $.proxy(this.browseServer, this))
 
+		this.reset()
+
 		var el = this;
 
 		/*(function () { // add drag and drop
@@ -149,6 +151,8 @@
 	Fileupload.prototype.setFile = function (file) {
 
 		this.$hidden.val(file.url)
+		this.$hidden.attr('name', this.name)
+		this.$input.attr('name', '')
 
 		if (this.$preview.length > 0 && (typeof file.type !== "undefined" ? file.type.match('image.*') : file.name.match(/\.(gif|png|jpe?g)$/i))) {
 
@@ -162,7 +166,7 @@
 				// if parent has max-height, using `(max-)height: 100%` on child doesn't take padding and border into account
 				if (preview.css('max-height') != 'none') $img.css('max-height', parseInt(preview.css('max-height'), 10) - parseInt(preview.css('padding-top'), 10) - parseInt(preview.css('padding-bottom'), 10) - parseInt(preview.css('border-top'), 10) - parseInt(preview.css('border-bottom'), 10))
 
-				preview.html('<a href="'+file.url+'" target="_blank">'+$img+'</a>')
+				preview.html($('<a href="'+file.url+'" target="_blank"></a>').append($img))
 
 		} else {
 			this.$preview.html('<a href="'+file.url+'" target="_blank">'+file.name+'</a>')
@@ -183,9 +187,9 @@
 		] : []
 		if (e.target.files.length === 0) return
 
-		/*this.$hidden.val('')
-		 this.$hidden.attr('name', '')
-		 this.$input.attr('name', this.name)*/
+		this.$hidden.val('')
+		this.$hidden.attr('name', '')
+		this.$input.attr('name', this.name)
 
 		var file = e.target.files[0]
 
@@ -225,8 +229,8 @@
 		if (e) e.preventDefault()
 
 		this.$hidden.val('')
-		//this.$hidden.attr('name', this.name)
-		//this.$input.attr('name', '')
+		this.$hidden.attr('name', this.name)
+		this.$input.attr('name', '')
 
 		//ie8+ doesn't support changing the value of input with type=file so clone instead
 		if (isIE) {
