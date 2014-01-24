@@ -79,11 +79,12 @@ class ModulesController extends BackendController
 			$path = Yii::getAlias('@common' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'modules-config.php');
 			$modulesConfig = (file_exists($path)) ? include($path) : [];
 
-			$config = array_filter($model->getAttributes());
-			$modulesConfig[$module] = $config;
-
-			//var_dump($config);
-			//exit();
+			//Remove all model attributes from config
+			$oldConfig = isset($modulesConfig[$module]) ? $modulesConfig[$module] : [];
+			foreach ($model->attributes as $attr) {
+				unset($oldConfig[$attr]);
+			}
+			$modulesConfig[$module] = array_merge($oldConfig, array_filter($model->getAttributes()));
 
 			if (file_put_contents($path, '<?php return '.var_export($modulesConfig, true).';')) {
 				Yii::$app->getSession()->setFlash('success', Yii::t('rusporting/admin', 'Configuration was saved successfully.'));
