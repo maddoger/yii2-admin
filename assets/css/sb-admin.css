@@ -210,3 +210,27 @@ table thead th a[data-sort].desc::after {
   -moz-osx-font-smoothing: grayscale;
   content: "\f00c";
 }
+.image-limiter {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+.image-limiter img {
+  padding: 2px;
+  margin: -2px;
+}
+.image-limiter:hover,
+.image-limiter:focus {
+  overflow: visible;
+}
+.image-limiter:hover img,
+.image-limiter:focus img {
+  z-index: 100;
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 2px solid #ddd;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+}
