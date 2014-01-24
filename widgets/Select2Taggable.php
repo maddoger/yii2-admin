@@ -5,7 +5,7 @@ namespace rusporting\admin\widgets;
 use yii\base\Exception;
 use yii\web\JsExpression;
 
-class Select2Tags extends Select2
+class Select2Taggable extends Select2
 {
 	/**
 	 * @var \rusporting\core\behaviors\Taggable
@@ -96,7 +96,7 @@ class Select2Tags extends Select2
 
 		} else {
 			$pluginsOptions['data'] = [
-				'results' => $this->behavior->getForAutocomplete(true),
+				'results' => $this->behavior->getAllExistingTagsFormAutocomplete(),
 				'text' => new JsExpression('function(item) { return item.text; }'),
 			];
 		}

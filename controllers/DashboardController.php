@@ -28,6 +28,6 @@ class DashboardController extends BackendController
 
 	public function actionIndex()
 	{
-		return $this->render('index.twig');
+		return $this->render('index');
 	}
 }

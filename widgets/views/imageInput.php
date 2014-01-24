@@ -12,8 +12,9 @@
 	<div class="preview-container">
 		<!--<div class="no-file message"><?php /*echo Yii::t('rusporting/admin', 'No file'); */?><br /><br /></div>-->
 		<div class="preview no-file"><img data-src="holder.js/<?=
-			($widget->width ? $widget->width : '') .'x'.($widget->height ? $widget->height : '') ?>" alt="<?=
-			($widget->width ? $widget->width : '') .'x'.($widget->height ? $widget->height : '') ?>"></div>
+			($widget->width ? $widget->width : '200') .'x'.($widget->height ? $widget->height : '200') ?>/text:<?=
+			($widget->width ? $widget->width : '...') .'x'.($widget->height ? $widget->height : '***') ?>" alt="<?=
+			($widget->width ? $widget->width : '...') .'x'.($widget->height ? $widget->height : '***') ?>"></div>
 		<div class="preview has-file" style="width: <?=($widget->width ? $widget->width.'px' : 'auto')?>; height: <?=($widget->height ? $widget->height.'px' : 'auto')?>;"><? if (!empty($value)) { ?><a href="<?= \yii\helpers\Html::encode($value) ?>" target="_blank" title="<?= \yii\helpers\Html::encode($value) ?>"><?= $widget->thumbnail ?></a><?php } ?></div>
 		<div class="has-file file-info"><span class="filename"></span></div>
 	</div>

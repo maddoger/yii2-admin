@@ -148,10 +148,10 @@ CKEDITOR.plugins.add('wordcount', {
             limitReachedNotified = true;
             limitRestoredNotified = false;
 
-            editorInstance.execCommand('undo');
+            //editorInstance.execCommand('undo');
 
             if (!notify) {
-               //counterElement(editorInstance).className = "cke_wordcount cke_wordcountLimitReached";
+               counterElement(editorInstance).className = "cke_wordcount cke_wordcountLimitReached";
                 
                editorInstance.fire('limitReached', {}, editor);
             }
