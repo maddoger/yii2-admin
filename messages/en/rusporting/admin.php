@@ -45,6 +45,7 @@ return array (
   'Modules' => '',
   'Modules Configuration' => '',
   'Modules not found.' => '',
+  'New' => '',
   'No configuration' => '',
   'No file' => '',
   'Profile' => '',

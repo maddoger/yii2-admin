@@ -14,17 +14,23 @@ class AdminAsset extends AssetBundle
 		'css/fileinput.css',
 		'css/sb-admin.less'
 	];
-	public $js = [
-		'js/tablesorter/jquery.tablesorter.js',
-		'js/select2/select2.min.js',
-		'js/fileinput.js',
-		'js/holder.js',
-		'js/tree-editor.js',
-		'js/common.js',
-	];
+	public $js = [];
 	public $depends = [
 		'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
 		'yii\bootstrap\BootstrapPluginAsset',
 	];
+
+	public function init() {
+		$this->js = [
+			'js/tablesorter/jquery.tablesorter.js',
+			'js/select2/select2.min.js',
+			'js/select2/select2_locale_'.\Yii::$app->language.'.js',
+			'js/fileinput.js',
+			'js/holder.js',
+			'js/tree-editor.js',
+			'js/common.js',
+		];
+		parent::init();
+	}
 }

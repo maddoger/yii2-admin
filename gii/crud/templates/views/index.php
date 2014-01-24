@@ -2,6 +2,7 @@
 
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
+use Yii;
 
 /**
  * @var yii\web\View $this
@@ -23,7 +24,7 @@ use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\w
  * @var <?= ltrim($generator->searchModelClass, '\\') ?> $searchModel
  */
 
-$this->title = \Yii::t('<?= $generator->languageCategory ?>', '<?= Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>');
+$this->title = Yii::t('<?= $generator->languageCategory ?>', '<?= Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= "<?php " . ($generator->indexWidgetType === 'grid' ? "// " : "") ?>echo $this->render('_search', ['model' => $searchModel]); ?>
 
 	<p>
-		<?= "<?= " ?>Html::a(\Yii::t('<?= $generator->languageCategory ?>', 'Create <?= StringHelper::basename($generator->modelClass) ?>'), ['create'], ['class' => 'btn btn-success']) ?>
+		<?= "<?= " ?>Html::a(Yii::t('<?= $generator->languageCategory ?>', 'Create <?= StringHelper::basename($generator->modelClass) ?>'), ['create'], ['class' => 'btn btn-success']) ?>
 	</p>
 
 <?php if ($generator->indexWidgetType === 'grid'): ?>
