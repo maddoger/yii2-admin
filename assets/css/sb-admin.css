@@ -218,6 +218,8 @@ table thead th a[data-sort].desc::after {
 .image-limiter img {
   padding: 2px;
   margin: -2px;
+  position: relative;
+  display: block;
 }
 .image-limiter:hover,
 .image-limiter:focus {
@@ -226,8 +228,6 @@ table thead th a[data-sort].desc::after {
 .image-limiter:hover img,
 .image-limiter:focus img {
   z-index: 100;
-  position: relative;
-  display: block;
   padding: 0;
   border: 2px solid #ddd;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
