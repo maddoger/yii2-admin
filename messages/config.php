@@ -29,7 +29,7 @@ return [
 	// and the '.svn' will match all files and directories whose name ends with '.svn'.
 	// Note, the '/' characters in a pattern matches both '/' and '\'.
 	// If a file/directory matches both a pattern in "only" and "except", it will NOT be processed.
-	'only' => ['.php'],
+	'only' => ['*.php'],
 	// array, list of patterns that specify which files/directories should NOT be processed.
 	// If empty or not set, all files/directories will be processed.
 	// Please refer to "only" for details about the patterns.
