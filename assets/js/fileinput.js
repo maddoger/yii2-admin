@@ -29,7 +29,10 @@
 		this.$element = $(element)
 
 		this.$input = this.$element.find('input[type=file]')
-		if (this.$input.length === 0) return
+		if (this.$input.length === 0) {
+			this.$input = $('<input type="file" />')
+		}
+
 
 		this.name = this.$input.attr('name') || options.name
 

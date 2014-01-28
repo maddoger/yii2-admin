@@ -47,6 +47,8 @@ class ImageInput extends InputWidget
 
 	public $browseServer = true;
 
+	public $upload = true;
+
 	/**
 	 * Initializes the widget.
 	 */
@@ -96,6 +98,8 @@ class ImageInput extends InputWidget
 		}
 
 		$params['field'] = $field;
+
+		if (!$this->upload) $this->browseServer = true;
 
 		echo $this->render('imageInput', $params);
 		if ($this->browseServer) {

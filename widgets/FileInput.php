@@ -27,6 +27,8 @@ class FileInput extends InputWidget
 
 	public $browseServer = true;
 
+	public $upload = true;
+
 	/**
 	 * Initializes the widget.
 	 */
@@ -71,7 +73,10 @@ class FileInput extends InputWidget
 			$params['value'] = $this->value;
 		}
 
+		$this->options['name'] = $this->name;
 		$params['field'] = $field;
+
+		if (!$this->upload) $this->browseServer = true;
 
 		echo $this->render('fileInput', $params);
 		if ($this->browseServer) {

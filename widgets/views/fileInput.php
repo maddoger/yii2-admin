@@ -16,20 +16,31 @@
 	<div class="btn-toolbar actions-bar">
 
 		<div class="btn-group">
-			<span class="btn btn-success choose-button">
-				<i class="fa fa-upload"></i>
-				<span class="no-file"><?php echo Yii::t('rusporting/admin', 'Upload…'); ?></span>
-				<span class="has-file"><?php echo Yii::t('rusporting/admin', 'Replace…'); ?></span>
-				<input type="file" name="<?= $widget->name ?>" class="afile" />
-        	</span>
+			<?php if ($widget->upload) { ?>
+				<span class="btn btn-success choose-button">
+					<i class="fa fa-upload"></i>
+					<span class="no-file"><?php echo Yii::t('rusporting/admin', 'Upload…'); ?></span>
+					<span class="has-file"><?php echo Yii::t('rusporting/admin', 'Replace…'); ?></span>
+					<input type="file" name="<?= $widget->name ?>" class="afile" />
+				</span>
 
-			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-				<span class="caret"></span>
-				<span class="sr-only"><?php echo Yii::t('rusporting/admin', 'Toggle Dropdown'); ?></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="javascript:void(0);" class="browse-server-button"><?php echo Yii::t('rusporting/admin', 'Browse server'); ?></a></li>
-			</ul>
+				<?php if ($widget->browseServer) : ?>
+					<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+						<span class="sr-only"><?php echo Yii::t('rusporting/admin', 'Toggle Dropdown'); ?></span>
+					</button>
+
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="javascript:void(0);" class="browse-server-button"><?php echo Yii::t('rusporting/admin', 'Browse server'); ?></a></li>
+					</ul>
+				<?php endif; ?>
+
+			<?php } else {  ?>
+				<a href="javascript:void(0);" class="browse-server-button btn btn-success ">
+					<span class="no-file"><?php echo Yii::t('rusporting/admin', 'Browse server'); ?></span>
+					<span class="has-file"><?php echo Yii::t('rusporting/admin', 'Replace…'); ?></span>
+				</a>
+			<?php } ?>
 		</div>
 
         <span class="btn btn-warning <?= (empty($value) ? 'disabled' : '') ?> clear-button">
