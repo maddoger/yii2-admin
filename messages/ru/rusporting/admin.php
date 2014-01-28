@@ -53,6 +53,7 @@ return array (
   'Return back' => 'Назад',
   'Routes' => 'Маршруты',
   'Save' => 'Сохранить',
+  'Set URL' => 'Ввести адрес',
   'Settings' => 'Настройки',
   'Settings not found.' => 'Настройки не найдены',
   'Sort in admin menu' => 'Сортировка в меню администратора (число)',

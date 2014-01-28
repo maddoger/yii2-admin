@@ -12,10 +12,10 @@
 	<div class="preview-container">
 		<!--<div class="no-file message"><?php /*echo Yii::t('rusporting/admin', 'No file'); */?><br /><br /></div>-->
 		<div class="preview no-file"><img data-src="holder.js/<?=
-			($widget->width ? $widget->width : '200') .'x'.($widget->height ? $widget->height : '200') ?>/text:<?=
+			($widget->previewWidth ? $widget->previewWidth : '200') .'x'.($widget->previewHeight ? $widget->previewHeight : '200') ?>/text:<?=
 			($widget->width ? $widget->width : '...') .'x'.($widget->height ? $widget->height : '***') ?>" alt="<?=
 			($widget->width ? $widget->width : '...') .'x'.($widget->height ? $widget->height : '***') ?>"></div>
-		<div class="preview has-file" style="width: <?=($widget->width ? $widget->width.'px' : 'auto')?>; height: <?=($widget->height ? $widget->height.'px' : 'auto')?>;"><? if (!empty($value)) { ?><a href="<?= \yii\helpers\Html::encode($value) ?>" target="_blank" title="<?= \yii\helpers\Html::encode($value) ?>"><?= $widget->thumbnail ?></a><?php } ?></div>
+		<div class="preview has-file" style="width: <?=($widget->previewWidth ? $widget->previewWidth.'px' : 'auto')?>; height: <?=($widget->previewHeight ? $widget->previewHeight.'px' : 'auto')?>;"><? if (!empty($value)) { ?><a href="<?= \yii\helpers\Html::encode($value) ?>" target="_blank" title="<?= \yii\helpers\Html::encode($value) ?>"><?= $widget->thumbnail ?></a><?php } ?></div>
 		<div class="has-file file-info"><span class="filename"></span></div>
 	</div>
 	<div class="btn-toolbar actions-bar">
@@ -26,19 +26,8 @@
 					<i class="fa fa-upload"></i>
 					<span class="no-file"><?php echo Yii::t('rusporting/admin', 'Upload…'); ?></span>
 					<span class="has-file"><?php echo Yii::t('rusporting/admin', 'Replace…'); ?></span>
-					<input type="file" name="<?= $widget->name ?>" class="afile" accept="image/*" />
+					<input type="file" name="<?= $widget->name ?>" class="afile" />
 				</span>
-
-				<?php if ($widget->browseServer) : ?>
-					<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-						<span class="caret"></span>
-						<span class="sr-only"><?php echo Yii::t('rusporting/admin', 'Toggle Dropdown'); ?></span>
-					</button>
-
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="javascript:void(0);" class="browse-server-button"><?php echo Yii::t('rusporting/admin', 'Browse server'); ?></a></li>
-					</ul>
-				<?php endif; ?>
 
 			<?php } else {  ?>
 				<a href="javascript:void(0);" class="browse-server-button btn btn-success ">
@@ -46,6 +35,18 @@
 					<span class="has-file"><?php echo Yii::t('rusporting/admin', 'Replace…'); ?></span>
 				</a>
 			<?php } ?>
+
+			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+				<span class="sr-only"><?php echo Yii::t('rusporting/admin', 'Toggle Dropdown'); ?></span>
+			</button>
+
+			<ul class="dropdown-menu" role="menu">
+				<?php if ($widget->upload && $widget->browseServer) : ?>
+					<li><a href="javascript:void(0);" class="browse-server-button"><?php echo Yii::t('rusporting/admin', 'Browse server'); ?></a></li>
+				<?php endif; ?>
+				<li><a href="javascript:void(0);" class="set-url-button"><?php echo Yii::t('rusporting/admin', 'Set URL'); ?></a></li>
+			</ul>
 		</div>
 
         <span class="btn btn-warning <?= (empty($value) ? 'disabled' : '') ?> clear-button">

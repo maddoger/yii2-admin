@@ -57,6 +57,7 @@ return array (
   'Save' => '',
   'Select file' => '@@@@',
   'Select image' => '@@@@',
+  'Set URL' => '',
   'Settings' => '',
   'Settings not found.' => '',
   'To site' => '',

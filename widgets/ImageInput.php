@@ -28,6 +28,16 @@ class ImageInput extends InputWidget
 	public $preview = null;
 
 	/**
+	 * @var int width of preview
+	 */
+	public $previewWidth = null;
+
+	/**
+	 * @var int height of preview
+	 */
+	public $previewHeight = null;
+
+	/**
 	 * @var null|int needed width
 	 */
 	public $width = 200;
@@ -36,6 +46,7 @@ class ImageInput extends InputWidget
 	 * @var null|int needed height
 	 */
 	public $height = 200;
+
 
 	/**
 	 * @var array the event handlers for the underlying Jasny file input JS plugin.
@@ -59,6 +70,12 @@ class ImageInput extends InputWidget
 			$this->options['id'] = $this->getId();
 		} else {
 			$this->setId($this->options['id']);
+		}
+		if ($this->previewWidth === null) {
+			$this->previewWidth = $this->width;
+		}
+		if ($this->previewHeight === null) {
+			$this->previewHeight = $this->height;
 		}
 
 		if (!isset(Yii::$app->getI18n()->translations['rusporting/admin'])) {

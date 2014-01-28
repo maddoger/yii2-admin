@@ -12,4 +12,8 @@ class TextEditorAsset extends AssetBundle
 		'js/ckeditor/ckeditor.js',
 		'js/ckeditor/adapters/jquery.js',
 	];
+
+	public  $depends = [
+		'yii\web\JqueryAsset',
+	];
 }
