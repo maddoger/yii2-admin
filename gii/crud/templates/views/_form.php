@@ -40,14 +40,14 @@ use yii\widgets\ActiveForm;
 		]); ?>
 
 	<p>
-		<?= "<?= " ?>Html::submitButton($model->isNewRecord ? \Yii::t('<?= $generator->languageCategory ?>', 'Create') : \Yii::t('<?= $generator->languageCategory ?>', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		<?= "<?= " ?>Html::submitButton($model->isNewRecord ? \Yii::t('<?= $generator->languageCategory ?>', 'Create') : \Yii::t('<?= $generator->languageCategory ?>', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 	</p>
 
 <?php foreach ($safeAttributes as $attribute) {
 	echo "\t\t<?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
 } ?>
 		<p>
-			<?= "<?= " ?>Html::submitButton($model->isNewRecord ? \Yii::t('<?= $generator->languageCategory ?>', 'Create') : \Yii::t('<?= $generator->languageCategory ?>', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+			<?= "<?= " ?>Html::submitButton($model->isNewRecord ? \Yii::t('<?= $generator->languageCategory ?>', 'Create') : \Yii::t('<?= $generator->languageCategory ?>', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 		</p>
 
 	<?= "<?php " ?>ActiveForm::end(); ?>
