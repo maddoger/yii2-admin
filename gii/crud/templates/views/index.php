@@ -2,7 +2,6 @@
 
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
-use Yii;
 
 /**
  * @var yii\web\View $this
