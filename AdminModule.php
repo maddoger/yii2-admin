@@ -178,7 +178,7 @@ class AdminModule extends Module
 				if ($childItems !== false) {
 					if (!$childItems) {
 						$faIcon = $module->getFaIcon();
-						$item = ['label' => $module->getName(), 'url' => $module->getBackendIndex()];
+						$item = ['label' => $module->getName(), 'url' => $module->getBackendIndex(), 'activeUrl' => ['/'.$module->id.'/*']];
 						if ($faIcon) {
 							$item['fa'] = $faIcon;
 						}
