@@ -128,6 +128,9 @@ class TextEditor extends InputWidget
 				'wordLimit' => 'unlimited',
 			];
 		}
+		if (!isset($this->config['allowedContent'])) {
+			$this->config['allowedContent'] = true;
+		}
 
         $config = empty($this->config) ? '' : Json::encode($this->config);
         $js = "jQuery('" . $this->selector . "').ckeditor($config);";
