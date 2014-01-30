@@ -71,7 +71,7 @@ table thead th a[data-sort].asc::after {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "\f0dd";
+  content: "\f15d";
 }
 table thead th a[data-sort].desc::after {
   display: inline-block;
@@ -81,7 +81,7 @@ table thead th a[data-sort].desc::after {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "\f0de";
+  content: "\f15e";
 }
 /* Flot Chart Containers */
 .flot-chart {
