@@ -45,7 +45,12 @@ class DateTimeEditor extends InputWidget
 	/**
 	 * @var string format
 	 */
-	public $format = 'DD.MM.YYYY - HH:mm';
+	public $jsFormat = 'DD.MM.YYYY - HH:mm';
+
+	/**
+	 * @var string format
+	 */
+	public $phpFormat = 'd.m.Y - H:i';
 
 	/**
 	 * @var null|int Max characters count. Default is null (unlimited)
@@ -77,11 +82,25 @@ class DateTimeEditor extends InputWidget
 				$this->options['class'] = 'form-control';
 			}
 
-			if (!is_null($this->model) && empty($this->value)) {
-				echo Html::activeTextInput($this->model, $this->attribute, $this->options);
-			} else {
-				echo Html::textInput($this->attribute, $this->value, $this->options);
+			$fieldName = $this->attribute;
+
+			if (!is_null($this->model)) {
+				$fieldName = Html::getInputName($this->model, $this->attribute);
+				if (!array_key_exists('id', $this->options)) {
+					$this->options['id'] = Html::getInputId($this->model, $this->attribute);
+				}
+				if (empty($this->value)) {
+					$value = Html::getAttributeValue($this->model, $this->attribute);
+					if ($value !== null) {
+						if (!is_numeric($value)) {
+							$value = strtotime($value);
+							$this->value = date($this->phpFormat, $value);
+						}
+					}
+				}
 			}
+			echo Html::textInput($fieldName, $this->value, $this->options);
+
 
 			/*if (!empty($this->format)) {
 				//$this->options['data-format'] = $this->format;
@@ -118,7 +137,7 @@ class DateTimeEditor extends InputWidget
          */
         $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
         $this->config['language'] = $appLanguage;
-		$this->config['format'] = $this->format;
+		$this->config['format'] = $this->jsFormat;
 
         $config = empty($this->config) ? '' : Json::encode($this->config);
         $js = "jQuery('" . $this->selector . "').datetimepicker($config);";

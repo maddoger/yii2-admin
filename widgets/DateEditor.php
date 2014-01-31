@@ -16,5 +16,6 @@ use yii\widgets\InputWidget;
 
 class DateEditor extends DateTimeEditor
 {
-	public $format = 'DD.MM.YYYY';
+	public $jsFormat = 'DD.MM.YYYY';
+	public $phpFormat = 'd.m.Y';
 }

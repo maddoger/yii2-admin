@@ -16,5 +16,6 @@ use yii\widgets\InputWidget;
 
 class TimeEditor extends DateTimeEditor
 {
-	public $format = 'HH:mm';
+	public $jsFormat = 'HH:mm';
+	public $phpFormat = 'H:i';
 }
