@@ -8,14 +8,10 @@
 
 namespace rusporting\admin\widgets;
 
-use rusporting\admin\AdminAsset;
 use Yii;
 use yii\helpers\Html;
-use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 use yii\base\InvalidConfigException;
-use yii\web\View;
-use yii\web\JsExpression;
 
 /**
  * Select2 widget is a Yii2 wrapper for the Select2 jQuery plugin. This
@@ -27,7 +23,7 @@ use yii\web\JsExpression;
  * @since 1.0
  * @see http://ivaynberg.github.com/select2/
  */
-class Select2 extends InputWidget {
+class Select2 extends JsInputWidget {
 
     const LARGE = 'lg';
     const MEDIUM = 'md';

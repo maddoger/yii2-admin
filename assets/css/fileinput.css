@@ -28,6 +28,7 @@
   color: #999;
 }
 .file-input > .preview-container .preview {
+  text-align: center;
   margin: 1px;
 }
 .file-input > .preview-container .preview img {
