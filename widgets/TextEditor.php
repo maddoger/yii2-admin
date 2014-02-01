@@ -41,11 +41,6 @@ class TextEditor extends InputWidget
     protected $selector = null;
 
     /*
-     * @var string name of textarea tag or name of attribute
-     */
-    public $attribute = null;
-
-    /*
      * @var string value for text area (without model)
      */
     public $value = '';
@@ -87,7 +82,7 @@ class TextEditor extends InputWidget
 			if (!is_null($this->model)) {
 				echo Html::activeTextarea($this->model, $this->attribute, $this->options);
 			} else {
-				echo Html::textarea($this->attribute, $this->value, $this->options);
+				echo Html::textarea($this->name, $this->value, $this->options);
 			}
 
 		}

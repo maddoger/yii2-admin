@@ -167,12 +167,25 @@ class Select2 extends JsInputWidget {
             Html::addCssClass($this->options, 'input-' . $this->size);
         }
         if ($this->_hidden) {
-            if ($this->hasModel()) {
-                $input = Html::activeTextInput($this->model, $this->attribute, $this->options);
-            }
-            else {
-                $input = Html::textInput($this->name, $this->value, $this->options);
-            }
+			if (
+				(isset($this->options['multiple']) && $this->options['multiple']) ||
+				(isset($this->pluginOptions['multiple']) && $this->pluginOptions['multiple'])
+			)
+			{
+				if ($this->hasModel()) {
+					$input = Html::activeDropDownList($this->model, $this->attribute, $this->data, $this->options);
+				} else {
+					$input = Html::dropDownList($this->name, $this->value, $this->data, $this->options);
+				}
+
+			} else {
+				if ($this->hasModel()) {
+					$input = Html::activeTextInput($this->model, $this->attribute, $this->options);
+				}
+				else {
+					$input = Html::textInput($this->name, $this->value, $this->options);
+				}
+			}
         }
         else {
             if ($this->hasModel()) {
