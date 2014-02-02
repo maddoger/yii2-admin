@@ -28,6 +28,8 @@ class DashboardController extends BackendController
 
 	public function actionIndex()
 	{
-		return $this->render('index');
+		return $this->render('index', [
+			'navigation' => $this->module->getBackendModulesNavigationItems()
+		]);
 	}
 }
