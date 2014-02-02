@@ -168,8 +168,7 @@ class Select2 extends JsInputWidget {
         }
         if ($this->_hidden) {
 			if (
-				(isset($this->options['multiple']) && $this->options['multiple']) ||
-				(isset($this->pluginOptions['multiple']) && $this->pluginOptions['multiple'])
+				(isset($this->options['multiple']) && $this->options['multiple'])
 			)
 			{
 				if ($this->hasModel()) {
