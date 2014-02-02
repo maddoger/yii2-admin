@@ -166,7 +166,7 @@ class AdminModule extends Module
 		//Cache
 		$cacheKey = 'adminModule.BackendModulesNavigationItems';
 		$items = Yii::$app->cache->get($cacheKey);
-		if (YII_DEBUG || $items === false) {
+		if (true && YII_DEBUG || $items === false) {
 
 			$modules = $this->getBackendModules();
 			$items = [];
@@ -241,7 +241,11 @@ class AdminModule extends Module
 		}
 
 		usort($backendModules, function($a, $b){
-			if ($a->backendSortNumber != $b->backendSortNumber) {
+			if ($a->backendSortNumber === null && $b->backendSortNumber !== null) {
+				return 1;
+			} elseif ($a->backendSortNumber !== null && $b->backendSortNumber === null) {
+				return -1;
+			} elseif ($a->backendSortNumber != $b->backendSortNumber) {
 				return $a->backendSortNumber>$b->backendSortNumber ? 1 : -1;
 			} else {
 				return strcmp($a->getName(), $b->getName());
