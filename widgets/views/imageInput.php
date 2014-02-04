@@ -41,7 +41,7 @@
 				<span class="sr-only"><?php echo Yii::t('rusporting/admin', 'Toggle Dropdown'); ?></span>
 			</button>
 
-			<?php if ($widget->setUrl || $widget->browseServer) : ?>
+			<?php if ($widget->setUrl || ($widget->upload && $widget->browseServer)) : ?>
 				<ul class="dropdown-menu" role="menu">
 					<?php if ($widget->upload && $widget->browseServer) : ?>
 						<li><a href="javascript:void(0);" class="browse-server-button"><?php echo Yii::t('rusporting/admin', 'Browse server'); ?></a></li>
