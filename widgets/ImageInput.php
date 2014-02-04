@@ -60,6 +60,8 @@ class ImageInput extends InputWidget
 
 	public $upload = true;
 
+	public $setUrl = true;
+
 	/**
 	 * Initializes the widget.
 	 */

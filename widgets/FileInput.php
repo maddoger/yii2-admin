@@ -24,10 +24,11 @@ class FileInput extends InputWidget
 	 */
 	public $clientEvents = [];
 
-
 	public $browseServer = true;
 
 	public $upload = true;
+
+	public $setUrl = true;
 
 	/**
 	 * Initializes the widget.

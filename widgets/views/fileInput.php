@@ -36,12 +36,16 @@
 				<span class="sr-only"><?php echo Yii::t('rusporting/admin', 'Toggle Dropdown'); ?></span>
 			</button>
 
+			<?php if ($widget->setUrl || $widget->browseServer) : ?>
 			<ul class="dropdown-menu" role="menu">
 				<?php if ($widget->upload && $widget->browseServer) : ?>
 				<li><a href="javascript:void(0);" class="browse-server-button"><?php echo Yii::t('rusporting/admin', 'Browse server'); ?></a></li>
 				<?php endif; ?>
+				<?php if ($widget->setUrl) : ?>
 				<li><a href="javascript:void(0);" class="set-url-button"><?php echo Yii::t('rusporting/admin', 'Set URL'); ?></a></li>
+				<?php endif; ?>
 			</ul>
+			<?php endif; ?>
 		</div>
 
         <span class="btn btn-warning <?= (empty($value) ? 'disabled' : '') ?> clear-button">
