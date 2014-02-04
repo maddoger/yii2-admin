@@ -18,4 +18,10 @@ class TimeEditor extends DateTimeEditor
 {
 	public $jsFormat = 'HH:mm';
 	public $phpFormat = 'H:i';
+
+	public function init()
+	{
+		parent::init();
+		$this->config['pickDate'] = false;
+	}
 }

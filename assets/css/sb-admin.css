@@ -279,3 +279,7 @@ table thead th a[data-sort].desc::after {
   margin-bottom: 10px;
   text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
+.datetime-editor {
+  width: auto;
+  max-width: 300px;
+}

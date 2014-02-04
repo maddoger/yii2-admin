@@ -99,25 +99,15 @@ class DateTimeEditor extends InputWidget
 					}
 				}
 			}
-			echo Html::textInput($fieldName, $this->value, $this->options);
 
-
-			/*if (!empty($this->format)) {
-				//$this->options['data-format'] = $this->format;
-			}
 			if (!isset($this->options['class'])) {
 				$this->options['class'] = 'form-control';
 			}
 
-			echo '<div id="'.$this->config['id'].'" class="input-group">';
-
-			if (!is_null($this->model)) {
-				echo Html::activeTextInput($this->model, $this->attribute, $this->options);
-			} else {
-				echo Html::textInput($this->attribute, $this->value, $this->options);
-			}
-
-			echo '<span class="input-group-addon"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span></div>';*/
+			echo '<div id="'.$this->config['id'].'" class="input-group datetime-editor">';
+			echo Html::textInput($fieldName, $this->value, $this->options);
+			echo '<span class="input-group-addon"><i class="fa fa-calendar"></i></span>';
+			echo '</div>';
 		}
 
         DateTimeEditorAsset::register($this->getView());
