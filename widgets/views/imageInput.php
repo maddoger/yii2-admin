@@ -36,11 +36,6 @@
 				</a>
 			<?php } ?>
 
-			<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-				<span class="caret"></span>
-				<span class="sr-only"><?php echo Yii::t('rusporting/admin', 'Toggle Dropdown'); ?></span>
-			</button>
-
 			<?php if ($widget->setUrl || ($widget->upload && $widget->browseServer)) : ?>
 				<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
 					<span class="caret"></span>
