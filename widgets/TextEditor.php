@@ -48,7 +48,7 @@ class TextEditor extends InputWidget
 	/**
 	 * @var bool Auto grow
 	 */
-	public $autogrow = true;
+	public $autogrow = false;
 
 	/**
 	 * @var null|int Max characters count. Default is null (unlimited)
@@ -122,6 +122,9 @@ class TextEditor extends InputWidget
 				// Option to limit the words in the Editor
 				'wordLimit' => 'unlimited',
 			];
+			if (!isset($this->config['height'])) { $this->config['height'] = 100; }
+		} else {
+			if (!isset($this->config['height'])) { $this->config['height'] = 300; }
 		}
 		if (!isset($this->config['allowedContent'])) {
 			$this->config['allowedContent'] = true;
