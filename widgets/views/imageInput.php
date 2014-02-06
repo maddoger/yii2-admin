@@ -26,7 +26,7 @@
 					<i class="fa fa-upload"></i>
 					<span class="no-file"><?php echo Yii::t('rusporting/admin', 'Upload…'); ?></span>
 					<span class="has-file"><?php echo Yii::t('rusporting/admin', 'Replace…'); ?></span>
-					<input type="file" name="<?= $widget->name ?>" class="afile" />
+					<input type="file" name="<?= $widget->name ?>" class="afile" accept="image/*" />
 				</span>
 
 			<?php } else {  ?>
