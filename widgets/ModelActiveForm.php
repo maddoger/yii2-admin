@@ -57,16 +57,18 @@ class ModelActiveForm extends ActiveForm
 	/**
 	 * @inheritdoc
 	 */
-	public function errorSummary($options = [])
+	public function errorSummary($model, $options = [])
 	{
-		return parent::errorSummary($this->model, $options);
+		if (!$model) $model=$this->model;
+		return parent::errorSummary($model, $options);
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function field($attribute, $options = [])
+	public function field($model, $attribute, $options = [])
 	{
+		if (!$model) $model=$this->model;
 		return parent::field($this->model, $attribute, $options);
 	}
 
@@ -75,7 +77,7 @@ class ModelActiveForm extends ActiveForm
 		$res = '';
 		$fields = $this->getFields();
 		foreach ($fields as $field=>$options) {
-			$f = $this->field($field);
+			$f = $this->field($this->model, $field);
 			switch ($options['type']) {
 				case 'checkbox':
 					$f->checkbox(isset($options['inputOptions']) ? $options['inputOptions'] : []);
