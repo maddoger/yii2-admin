@@ -1,8 +1,8 @@
 <?php
 
-namespace rusporting\admin\widgets;
+namespace maddoger\admin\widgets;
 
-use rusporting\elfinder\CoreAsset;
+use maddoger\elfinder\CoreAsset;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -80,13 +80,13 @@ class ImageInput extends InputWidget
 			$this->previewHeight = $this->height;
 		}
 
-		if (!isset(Yii::$app->getI18n()->translations['rusporting/admin'])) {
+		if (!isset(Yii::$app->getI18n()->translations['maddoger/admin'])) {
 			//register translation messages from module
 			//so no need do add to config/main.php
-			Yii::$app->getI18n()->translations['rusporting/admin'] =
+			Yii::$app->getI18n()->translations['maddoger/admin'] =
 				array(
 					'class' => 'yii\i18n\PhpMessageSource',
-					'basePath' => '@rusporting/admin/messages',
+					'basePath' => '@maddoger/admin/messages',
 				);
 		}
 	}

@@ -1,12 +1,12 @@
 <?php
 
-namespace rusporting\admin;
+namespace maddoger\admin;
 
 use yii\web\AssetBundle;
 
 class AdminAsset extends AssetBundle
 {
-	public $sourcePath = '@rusporting/admin/assets';
+	public $sourcePath = '@maddoger/admin/assets';
 	public $css = [
 		'font-awesome/css/font-awesome.min.css',
 		'js/select2/select2.css',

@@ -1,6 +1,6 @@
 <?php
 
-namespace rusporting\admin\widgets;
+namespace maddoger\admin\widgets;
 
 use yii\base\Exception;
 use yii\web\JsExpression;
@@ -8,7 +8,7 @@ use yii\web\JsExpression;
 class Select2Taggable extends Select2
 {
 	/**
-	 * @var \rusporting\core\behaviors\Taggable
+	 * @var \maddoger\core\behaviors\Taggable
 	 */
 	public $behavior = null;
 
@@ -34,7 +34,7 @@ class Select2Taggable extends Select2
 		window.Select2.util.markMatch(result.text, query.term, markup, escapeMarkup);
 		var str = markup.join("");
 		if (result.isNew) {
-			str = \'<span class="label label-success">' . \Yii::t('rusporting/admin', 'New') . '</span> \' + str;
+			str = \'<span class="label label-success">' . \Yii::t('maddoger/admin', 'New') . '</span> \' + str;
 		}
 		return str;
 	}'),

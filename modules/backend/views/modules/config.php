@@ -1,13 +1,13 @@
 <?php
 
 use yii\base\View;
-use rusporting\core\Module;
+use maddoger\core\Module;
 use yii\helpers\Html;
-use rusporting\admin\widgets\ModelActiveForm;
+use maddoger\admin\widgets\ModelActiveForm;
 
 /**
  * @var \yii\base\View $this
- * @var \rusporting\core\Module $module
+ * @var \maddoger\core\Module $module
  */
 
 if ($configView !== null) {
@@ -30,7 +30,7 @@ if ($configView !== null) {
 		<br>
 
 		<div class="form-group">
-			<?= Html::submitButton(Yii::t('rusporting/admin', 'Save'), ['class' => 'btn btn-primary']) ?>
+			<?= Html::submitButton(Yii::t('maddoger/admin', 'Save'), ['class' => 'btn btn-primary']) ?>
 		</div>
 
 		<?php

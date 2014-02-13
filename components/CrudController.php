@@ -1,8 +1,8 @@
 <?php
 
-namespace rusporting\admin\components;
+namespace maddoger\admin\components;
 
-use rusporting\core\BackendController;
+use maddoger\core\BackendController;
 
 class CrudController extends BackendController
 {

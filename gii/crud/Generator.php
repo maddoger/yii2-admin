@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace rusporting\admin\gii\crud;
+namespace maddoger\admin\gii\crud;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -25,7 +25,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $modelClass;
 	public $moduleID;
 	public $controllerClass;
-	public $baseControllerClass = 'rusporting\core\BackendController';
+	public $baseControllerClass = 'maddoger\core\BackendController';
 	public $indexWidgetType = 'grid';
 	public $searchModelClass;
 	public $languageCategory;
@@ -33,7 +33,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 
 	public function getName()
 	{
-		return 'CRUD Generator by Rusporting';
+		return 'CRUD Generator by maddoger';
 	}
 
 	public function getDescription()

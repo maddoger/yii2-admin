@@ -1,12 +1,12 @@
 <?php
 
-namespace rusporting\admin\controllers;
+namespace maddoger\admin\controllers;
 
-use rusporting\core\BackendController;
+use maddoger\core\BackendController;
 use Yii;
 
 /**
- * @property \rusporting\admin\AdminModule $module
+ * @property \maddoger\admin\AdminModule $module
  */
 class DashboardController extends BackendController
 {
@@ -14,7 +14,7 @@ class DashboardController extends BackendController
 	{
 		parent::init();
 
-		$this->title = Yii::t('rusporting/admin', 'Dashboard');
+		$this->title = Yii::t('maddoger/admin', 'Dashboard');
 	}
 
 	public function actions()

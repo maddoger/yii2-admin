@@ -1,6 +1,6 @@
 <?php
 
-namespace rusporting\admin\controllers;
+namespace maddoger\admin\controllers;
 
 use yii\web\Controller;
 use Yii;
@@ -65,13 +65,13 @@ class ErrorController extends Controller
 		if ($exception instanceof Exception) {
 			$name = $exception->getName();
 		} else {
-			$name = $this->defaultName ?: Yii::t('rusporting/admin', 'Error');
+			$name = $this->defaultName ?: Yii::t('maddoger/admin', 'Error');
 		}
 
 		if ($exception instanceof UserException) {
 			$message = $exception->getMessage();
 		} else {
-			$message = $this->defaultMessage ?: Yii::t('rusporting/admin', 'An internal server error occurred.');
+			$message = $this->defaultMessage ?: Yii::t('maddoger/admin', 'An internal server error occurred.');
 		}
 
 		if (Yii::$app->request->isAjax) {

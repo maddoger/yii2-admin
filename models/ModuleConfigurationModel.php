@@ -1,8 +1,8 @@
 <?php
 
-namespace rusporting\admin\models;
+namespace maddoger\admin\models;
 
-use rusporting\core\ModuleConfigurationModel as BaseModel;
+use maddoger\core\ModuleConfigurationModel as BaseModel;
 
 class ModuleConfigurationModel extends BaseModel
 {

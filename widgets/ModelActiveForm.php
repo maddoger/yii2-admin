@@ -1,6 +1,6 @@
 <?php
 
-namespace rusporting\admin\widgets;
+namespace maddoger\admin\widgets;
 
 use yii\widgets\ActiveForm;
 use yii\base\Model;

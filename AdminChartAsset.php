@@ -1,12 +1,12 @@
 <?php
 
-namespace rusporting\admin;
+namespace maddoger\admin;
 
 use yii\web\AssetBundle;
 
 class AdminChartAsset extends AssetBundle
 {
-	public $sourcePath = '@rusporting/admin/assets';
+	public $sourcePath = '@maddoger/admin/assets';
 	public $css = [];
 	public $js = [
 		'js/flot/chart-data-flot.js',
@@ -18,6 +18,6 @@ class AdminChartAsset extends AssetBundle
 		'js/morris/chart-data-morris.js',
 	];
 	public $depends = [
-		'rusporting\admin\AdminAsset',
+		'maddoger\admin\AdminAsset',
 	];
 }

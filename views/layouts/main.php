@@ -1,14 +1,14 @@
 <?php
-use rusporting\admin\AdminAsset;
+use maddoger\admin\AdminAsset;
 use yii\helpers\Html;
-use rusporting\admin\widgets\Breadcrumbs;
-use rusporting\admin\widgets\Menu;
-use rusporting\user\widgets\Alert;
+use maddoger\admin\widgets\Breadcrumbs;
+use maddoger\admin\widgets\Menu;
+use maddoger\user\widgets\Alert;
 
 /**
  * @var \yii\web\View $this
  * @var string $content
- * @var \rusporting\admin\AdminModule $module
+ * @var \maddoger\admin\AdminModule $module
  */
 
 AdminAsset::register($this);
@@ -59,7 +59,7 @@ NavBar::end();*/
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-				<span class="sr-only"><?= Yii::t('rusporting/admin', 'Toggle navigation') ?></span>
+				<span class="sr-only"><?= Yii::t('maddoger/admin', 'Toggle navigation') ?></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -84,7 +84,7 @@ NavBar::end();*/
 				if (Yii::$app->controller->module->id == 'backend') {
 					$route = str_replace('/backend', '', $route);
 				}
-				array_unshift($items, ['label'=> Yii::t('rusporting/admin', 'Dashboard'), 'url'=> ['/admin/dashboard/index'], 'fa' => 'dashboard']);
+				array_unshift($items, ['label'=> Yii::t('maddoger/admin', 'Dashboard'), 'url'=> ['/admin/dashboard/index'], 'fa' => 'dashboard']);
 				echo Menu::widget([
 					'options' => ['class' => 'nav navbar-nav side-nav'],
 					'items' => $items,
@@ -101,17 +101,17 @@ NavBar::end();*/
 
 				?>
 				<ul class="nav navbar-nav navbar-right navbar-user">
-					<li><a href="<?= Yii::$app->urlManager->createUrl('/..') ?>"><i class="fa fa-reply"></i> <?= Yii::t('rusporting/admin', 'To site') ?></a></li>
+					<li><a href="<?= Yii::$app->urlManager->createUrl('/..') ?>"><i class="fa fa-reply"></i> <?= Yii::t('maddoger/admin', 'To site') ?></a></li>
 					<li class="divider"></li>
 					<li class="dropdown user-dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
 								class="fa fa-user"></i> <?= Html::encode($identity->short_name) ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/users/view', ['id' => $identity->getId()]) ?>"><i class="fa fa-user"></i> <?= Yii::t('rusporting/admin', 'Profile') ?></a></li>
+							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/users/view', ['id' => $identity->getId()]) ?>"><i class="fa fa-user"></i> <?= Yii::t('maddoger/admin', 'Profile') ?></a></li>
 							<!--<li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>-->
-							<!--<li><a href="<?/*= Yii::$app->urlManager->createUrl('/config') */?>"><i class="fa fa-gear"></i> <?/*= Yii::t('rusporting/admin', 'Settings') */?></a></li>-->
+							<!--<li><a href="<?/*= Yii::$app->urlManager->createUrl('/config') */?>"><i class="fa fa-gear"></i> <?/*= Yii::t('maddoger/admin', 'Settings') */?></a></li>-->
 							<li class="divider"></li>
-							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/logout') ?>"><i class="fa fa-power-off"></i> <?= Yii::t('rusporting/admin', 'Log Out') ?></a></li>
+							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/logout') ?>"><i class="fa fa-power-off"></i> <?= Yii::t('maddoger/admin', 'Log Out') ?></a></li>
 						</ul>
 					</li>
 				</ul>
@@ -138,9 +138,9 @@ NavBar::end();*/
 				<?php
 				$breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : null;
 				if (!$breadcrumbs) {
-					$breadcrumbs = [['label'=>Yii::t('rusporting/admin', 'Dashboard'), 'fa'=>'dashboard']];
+					$breadcrumbs = [['label'=>Yii::t('maddoger/admin', 'Dashboard'), 'fa'=>'dashboard']];
 				} else {
-					array_unshift($breadcrumbs, ['label'=>Yii::t('rusporting/admin', 'Dashboard'), 'url'=>['/admin/dashboard/index'], 'fa'=>'dashboard']);
+					array_unshift($breadcrumbs, ['label'=>Yii::t('maddoger/admin', 'Dashboard'), 'url'=>['/admin/dashboard/index'], 'fa'=>'dashboard']);
 				}
 				echo Breadcrumbs::widget(['homeLink'=>false, 'links' => $breadcrumbs]);
 				?>

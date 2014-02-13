@@ -1,11 +1,11 @@
 <?php
 
-use rusporting\admin\widgets\ModelActiveForm;
+use maddoger\admin\widgets\ModelActiveForm;
 use yii\helpers\Html;
 
 /**
  * @var \yii\web\View $this
- * @var \rusporting\core\DynamicModel $model
+ * @var \maddoger\core\DynamicModel $model
  */
 
 ?>
@@ -19,7 +19,7 @@ use yii\helpers\Html;
 		<br>
 
 		<div class="form-group">
-			<?= Html::submitButton(Yii::t('rusporting/admin', 'Save'), ['class' => 'btn btn-primary']) ?>
+			<?= Html::submitButton(Yii::t('maddoger/admin', 'Save'), ['class' => 'btn btn-primary']) ?>
 		</div>
 
 		<?php

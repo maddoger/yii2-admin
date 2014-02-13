@@ -1,10 +1,10 @@
-Yii2 Admin Panel Module by Rusporting
+Yii2 Admin Panel Module by maddoger
 
 Default layout
 
 ```
 ...
-'layout' => '@rusporting/admin/views/layouts/main.php',
+'layout' => '@maddoger/admin/views/layouts/main.php',
 ...
 ```
 

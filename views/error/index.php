@@ -12,15 +12,15 @@ $this->title = $name.' #'.$code;
 				</div> <!-- /error-details -->
 				<div class="error-actions">
 					<a href="<?= Yii::$app->request->getReferrer(); ?>" class="btn btn-primary btn-lg">
-						<i class="fa fa-chevron-left"></i> <?= Yii::t('rusporting/admin', 'Return back') ?>
+						<i class="fa fa-chevron-left"></i> <?= Yii::t('maddoger/admin', 'Return back') ?>
 					</a> &nbsp;
 					<?php if (Yii::$app->user->isGuest) { ?>
 					<a href="<?php Yii::$app->urlManager->createUrl('/..') ?>" class="btn btn-info btn-lg">
-						<i class=fa fa-home"></i> <?= Yii::t('rusporting/admin', 'Back to index') ?>
+						<i class=fa fa-home"></i> <?= Yii::t('maddoger/admin', 'Back to index') ?>
 					</a>
 					<?php } else { ?>
 					<a href="<?= Yii::$app->homeUrl ?>" class="btn btn-info btn-lg">
-						<i class=fa fa-home"></i> <?= Yii::t('rusporting/admin', 'Back to dashboard') ?>
+						<i class=fa fa-home"></i> <?= Yii::t('maddoger/admin', 'Back to dashboard') ?>
 					</a>
 					<?php }	?>
 				</div>

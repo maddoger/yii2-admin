@@ -1,8 +1,8 @@
 <?php
 
-namespace rusporting\admin\widgets;
+namespace maddoger\admin\widgets;
 
-use rusporting\admin\TextEditorAsset;
+use maddoger\admin\TextEditorAsset;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;

@@ -1,8 +1,8 @@
 <?php
 
-namespace rusporting\admin\widgets;
+namespace maddoger\admin\widgets;
 
-use rusporting\admin\DateTimeEditorAsset;
+use maddoger\admin\DateTimeEditorAsset;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;

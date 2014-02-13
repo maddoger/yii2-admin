@@ -1,8 +1,8 @@
 <?php
 
-namespace rusporting\admin\modules\backend\controllers;
+namespace maddoger\admin\modules\backend\controllers;
 
-use rusporting\core\BackendController;
+use maddoger\core\BackendController;
 use yii\helpers\FileHelper;
 use yii\helpers\Inflector;
 use yii\validators\FileValidator;
@@ -82,7 +82,7 @@ class FilesController extends BackendController
 
 		return array(
 			'connector' => array(
-				'class' => 'rusporting\elfinder\ConnectorAction',
+				'class' => 'maddoger\elfinder\ConnectorAction',
 				'clientOptions'=>array(
 					'locale' => '',
 					'debug'  => false,
@@ -143,7 +143,7 @@ class FilesController extends BackendController
 		}
 
 		//Yii::$app->response->setStatusCode('400');
-		return json_encode(['error'=>\Yii::t('rusporting/admin', 'Bad file.')]);
+		return json_encode(['error'=>\Yii::t('maddoger/admin', 'Bad file.')]);
 	}
 
 	public function actionClipboardUpload()
@@ -177,7 +177,7 @@ class FilesController extends BackendController
 		}
 
 		//Yii::$app->response->setStatusCode('400');
-		return json_encode(['error'=>\Yii::t('rusporting/admin', 'Bad file.')]);
+		return json_encode(['error'=>\Yii::t('maddoger/admin', 'Bad file.')]);
 	}
 
 	public function actionImageUpload()
@@ -217,6 +217,6 @@ class FilesController extends BackendController
 		}
 
 		//Yii::$app->response->setStatusCode('400');
-		return json_encode(['error'=>\Yii::t('rusporting/admin', 'Bad file.')]);
+		return json_encode(['error'=>\Yii::t('maddoger/admin', 'Bad file.')]);
 	}*/
 }

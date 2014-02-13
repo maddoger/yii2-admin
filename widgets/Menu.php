@@ -1,6 +1,6 @@
 <?php
 
-namespace rusporting\admin\widgets;
+namespace maddoger\admin\widgets;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -11,7 +11,7 @@ use Yii;
  * Class Menu
  * Menu with fa icons support
  *
- * @package rusporting\admin\widgets
+ * @package maddoger\admin\widgets
  */
 class Menu extends BaseMenu
 {

@@ -2,23 +2,23 @@
 /**
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  * @link http://syrchikov.name/
- * @copyright Copyright (c) 2013-2014 Rusporting Inc.
+ * @copyright Copyright (c) 2013-2014 maddoger Inc.
  * @since 18.12.13
  */
 
-namespace rusporting\admin;
+namespace maddoger\admin;
 
 use Yii;
-use rusporting\core\Module;
+use maddoger\core\Module;
 use yii\caching\FileDependency;
 use yii\helpers\Html;
 use yii\rbac\Item;
 
 class AdminModule extends Module
 {
-	public $pageTitle = 'Rusporting Marketing';
+	public $pageTitle = 'maddoger Marketing';
 	public $brandLogo;
-	public $brandName = 'Rusporting Marketing';
+	public $brandName = 'maddoger Marketing';
 	public $dashboardUrl = null;
 
 	public $uploadsDir = '/uploads';
@@ -28,7 +28,7 @@ class AdminModule extends Module
 	 *
 	 * @var string
 	 */
-	public $translationCategory = 'rusporting/admin';
+	public $translationCategory = 'maddoger/admin';
 
 	protected $hasFrontend = false;
 	protected $hasBackend = true;
@@ -42,7 +42,7 @@ class AdminModule extends Module
 
 		//Console
 		if (Yii::$app instanceof \yii\console\Application) {
-			$this->controllerNamespace = 'rusporting\admin\console\controllers';
+			$this->controllerNamespace = 'maddoger\admin\console\controllers';
 		}
 
 		//register translation messages from module
@@ -50,7 +50,7 @@ class AdminModule extends Module
 		Yii::$app->getI18n()->translations[$this->translationCategory] =
 			array(
 				'class' => 'yii\i18n\PhpMessageSource',
-				'basePath' => '@rusporting/admin/messages',
+				'basePath' => '@maddoger/admin/messages',
 			);
 	}
 
@@ -59,7 +59,7 @@ class AdminModule extends Module
 	 */
 	public function getName()
 	{
-		return Yii::t('rusporting/admin', '_module_name_');
+		return Yii::t('maddoger/admin', '_module_name_');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class AdminModule extends Module
 	 */
 	public function getDescription()
 	{
-		return Yii::t('rusporting/admin', '_module_description_');
+		return Yii::t('maddoger/admin', '_module_description_');
 	}
 
 	/**
@@ -101,10 +101,10 @@ class AdminModule extends Module
 	{
 		$model = parent::getConfigurationModel();
 		$model->addAttributes([
-			'pageTitle' => ['label' => Yii::t('rusporting/admin', 'Window title in admin panel')],
-			'brandName' => ['label' => Yii::t('rusporting/admin', 'Brand name'), 'help' => Yii::t('rusporting/admin', 'Help text')],
-			'brandLogo' => ['type'=>'file', 'label' => Yii::t('rusporting/admin', 'Brand logo file')],
-			'uploadsDir' => ['label' => Yii::t('rusporting/admin', 'Uploads directory')],
+			'pageTitle' => ['label' => Yii::t('maddoger/admin', 'Window title in admin panel')],
+			'brandName' => ['label' => Yii::t('maddoger/admin', 'Brand name'), 'help' => Yii::t('maddoger/admin', 'Help text')],
+			'brandLogo' => ['type'=>'file', 'label' => Yii::t('maddoger/admin', 'Brand logo file')],
+			'uploadsDir' => ['label' => Yii::t('maddoger/admin', 'Uploads directory')],
 		]);
 		return $model;
 	}
@@ -120,9 +120,9 @@ class AdminModule extends Module
 	public function getRbacRoles()
 	{
 		return [
-			'admin.modulesConfiguration' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('rusporting/admin', 'Modules Configuration')],
-			'uploads.read' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('rusporting/admin', 'View uploaded files')],
-			'uploads.write' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('rusporting/admin', 'Upload files')],
+			'admin.modulesConfiguration' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('maddoger/admin', 'Modules Configuration')],
+			'uploads.read' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('maddoger/admin', 'View uploaded files')],
+			'uploads.write' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('maddoger/admin', 'Upload files')],
 		];
 	}
 
@@ -133,24 +133,24 @@ class AdminModule extends Module
 	{
 		return [
 			[
-				'label' => Yii::t('rusporting/admin', 'File manager'),
+				'label' => Yii::t('maddoger/admin', 'File manager'),
 				'fa'=>'files-o',
 				'url' => ['/'.$this->id . '/files/index'],
 				'roles' => ['uploads.read'],
 			],
 			[
-				'label' => Yii::t('rusporting/admin', 'Settings'),
+				'label' => Yii::t('maddoger/admin', 'Settings'),
 				'fa'=>'gears',
 				//'url' => 'user/user-backend/index',
 				'items' => [
 					[
-						'label' => Yii::t('rusporting/admin', 'Modules'), 'fa'=>'gears',
+						'label' => Yii::t('maddoger/admin', 'Modules'), 'fa'=>'gears',
 						'url'=> ['/'.$this->id.'/modules/index'],
 						'activeUrl'=> ['/'.$this->id.'/modules/*'],
 						'roles' => ['admin.modulesConfiguration'],
 					],
 					/*[
-						'label' => Yii::t('rusporting/admin', 'Routes'), 'fa'=>'arrows',
+						'label' => Yii::t('maddoger/admin', 'Routes'), 'fa'=>'arrows',
 						'url'=> ['/'.$this->id.'/routes/index'],
 						'activeUrl'=> ['/'.$this->id.'/routes/*'],
 					],*/
@@ -232,7 +232,7 @@ class AdminModule extends Module
 			if (is_array($module)) {
 				$module = Yii::$app->getModule($id);
 			}
-			//If is rusporting module with info
+			//If is maddoger module with info
 			if ($module instanceof Module) {
 				if ($module->hasBackend()) {
 					$backendModules[] = $module;

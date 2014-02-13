@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-namespace rusporting\admin\widgets;
+namespace maddoger\admin\widgets;
 
 use Yii;
 use yii\helpers\Json;

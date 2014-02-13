@@ -6,7 +6,7 @@ use yii\helpers\Html;
  * @var string $content
  */
 
-\rusporting\elfinder\CoreAsset::register($this);
+\maddoger\elfinder\CoreAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>

@@ -1,9 +1,9 @@
 <?php
 
-namespace rusporting\admin\modules\backend\controllers;
+namespace maddoger\admin\modules\backend\controllers;
 
-use rusporting\core\BackendController;
-use rusporting\core\DynamicModel;
+use maddoger\core\BackendController;
+use maddoger\core\DynamicModel;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
@@ -11,8 +11,8 @@ use yii\web\NotFoundHttpException;
 /**
  * Class ModulesController
  *
- * @property \rusporting\admin\AdminModule $module
- * @package rusporting\admin\controllers
+ * @property \maddoger\admin\AdminModule $module
+ * @package maddoger\admin\controllers
  */
 class ModulesController extends BackendController
 {
@@ -37,14 +37,14 @@ class ModulesController extends BackendController
 	public function init()
 	{
 		parent::init();
-		$this->title = Yii::t('rusporting/admin', 'Modules');
+		$this->title = Yii::t('maddoger/admin', 'Modules');
 
-		$this->breadcrumbs[] = ['label'=>Yii::t('rusporting/admin', 'Modules'), 'fa'=>'gears', 'url'=> ['/admin/modules']];
+		$this->breadcrumbs[] = ['label'=>Yii::t('maddoger/admin', 'Modules'), 'fa'=>'gears', 'url'=> ['/admin/modules']];
 	}
 
 	public function actionIndex()
 	{
-		$this->subtitle = Yii::t('rusporting/admin', 'Installed modules');
+		$this->subtitle = Yii::t('maddoger/admin', 'Installed modules');
 		$modules = Yii::$app->getModule('admin')->getBackendModules();
 		return $this->render('index', ['modules' => $modules]);
 	}
@@ -52,20 +52,20 @@ class ModulesController extends BackendController
 	public function actionConfig($module, $back_url=null)
 	{
 		/**
-		 * @var \rusporting\core\Module $moduleObject
+		 * @var \maddoger\core\Module $moduleObject
 		 */
 		$moduleObject = Yii::$app->getModule($module);
 		if (!$moduleObject) {
-			throw new NotFoundHttpException(Yii::t('rusporting/admin', 'Module not found.'));
+			throw new NotFoundHttpException(Yii::t('maddoger/admin', 'Module not found.'));
 		}
 
 		$this->breadcrumbs[] = ['label'=>$moduleObject->getName(), 'url'=> ['/admin/modules/config', 'module'=>$moduleObject->id], 'fa'=>$moduleObject->getFaIcon()];
-		$this->breadcrumbs[] = ['label'=>Yii::t('rusporting/admin', 'Configuration')];
+		$this->breadcrumbs[] = ['label'=>Yii::t('maddoger/admin', 'Configuration')];
 
 		//Get model for configuration
 		$model = $moduleObject->getConfigurationModel();
 		if (!$model) {
-			throw new NotFoundHttpException(Yii::t('rusporting/admin', 'Settings not found.'));
+			throw new NotFoundHttpException(Yii::t('maddoger/admin', 'Settings not found.'));
 		}
 		$model->scenario = 'all';
 		$attributes = $model->attributes();
@@ -87,7 +87,7 @@ class ModulesController extends BackendController
 			$modulesConfig[$module] = array_merge($oldConfig, array_filter($model->getAttributes()));
 
 			if (file_put_contents($path, '<?php return '.var_export($modulesConfig, true).';')) {
-				Yii::$app->getSession()->setFlash('success', Yii::t('rusporting/admin', 'Configuration was saved successfully.'));
+				Yii::$app->getSession()->setFlash('success', Yii::t('maddoger/admin', 'Configuration was saved successfully.'));
 
 				if ($back_url !== null) {
 					return $this->redirect($back_url);
@@ -96,12 +96,12 @@ class ModulesController extends BackendController
 				}
 
 			} else {
-				Yii::$app->getSession()->setFlash('error', Yii::t('rusporting/admin', 'Couldn\'t save configuration file.'));
+				Yii::$app->getSession()->setFlash('error', Yii::t('maddoger/admin', 'Couldn\'t save configuration file.'));
 			}
 		}
 
 		$this->title = $moduleObject->getName();
-		$this->subtitle = Yii::t('rusporting/admin', 'Module configuration');
+		$this->subtitle = Yii::t('maddoger/admin', 'Module configuration');
 
 		return $this->render('config', ['module' => $moduleObject, 'model'=>$model, 'configView'=>$configView]);
 	}
