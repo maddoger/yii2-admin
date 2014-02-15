@@ -11,7 +11,7 @@ class AdminAsset extends AssetBundle
 		'font-awesome/css/font-awesome.min.css',
 		'js/select2/select2.css',
 		'js/select2/select2-bootstrap.css',
-		'css/fileinput.css',
+		'css/fileinput.css?!',
 		'css/sb-admin.less'
 	];
 	public $js = [];
