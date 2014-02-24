@@ -107,7 +107,7 @@ NavBar::end();*/
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
 								class="fa fa-user"></i> <?= Html::encode($identity->short_name) ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="<?= Yii::$app->urlManager->createUrl('/user/users/view', ['id' => $identity->getId()]) ?>"><i class="fa fa-user"></i> <?= Yii::t('maddoger/admin', 'Profile') ?></a></li>
+							<li><a href="<?= Yii::$app->urlManager->createUrl(['/user/users/view', 'id' => $identity->getId()]) ?>"><i class="fa fa-user"></i> <?= Yii::t('maddoger/admin', 'Profile') ?></a></li>
 							<!--<li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>-->
 							<!--<li><a href="<?/*= Yii::$app->urlManager->createUrl('/config') */?>"><i class="fa fa-gear"></i> <?/*= Yii::t('maddoger/admin', 'Settings') */?></a></li>-->
 							<li class="divider"></li>
