@@ -4,17 +4,10 @@
 	$list = [];
 
 	foreach ($navigation as $moduleNavigation) {
-		if (isset($moduleNavigation['roles']) && !Yii::$app->user->checkAccess($moduleNavigation['roles'])) {
-			continue;
-		}
 		echo '<li class="well"><h3>'.$moduleNavigation['label'].'</h3>';
 		if (isset($moduleNavigation['items']) && count($moduleNavigation['items'])>0) {
 			echo '<ul>';
 			foreach ($moduleNavigation['items'] as $link) {
-
-				if (isset($link['roles']) && !Yii::$app->user->checkAccess($link['roles'])) {
-					continue;
-				}
 
 				echo '<li><a href="'.\yii\helpers\Html::url($link['url']).'"><i class="fa fa-'.@$link['fa'].'"></i> '.$link['label'].'</a></li>';
 			}
