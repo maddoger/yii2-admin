@@ -14,6 +14,7 @@ class FileInputAsset extends AssetBundle
 
 	public $js = [
 		'js/fileinput.js',
+		'js/holder.js',
 	];
 
 	public  $depends = [

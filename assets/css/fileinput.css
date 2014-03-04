@@ -52,6 +52,9 @@
   margin-bottom: 10px;
   white-space: nowrap;
 }
+.file-input .actions-bar .choose-button {
+	overflow: hidden;
+}
 .file-input .actions-bar input {
   position: absolute;
   top: 0;
