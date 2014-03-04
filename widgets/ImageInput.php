@@ -2,6 +2,7 @@
 
 namespace maddoger\admin\widgets;
 
+use maddoger\admin\FileInputAsset;
 use maddoger\elfinder\CoreAsset;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
@@ -135,6 +136,7 @@ class ImageInput extends InputWidget
 	protected function registerPlugin()
 	{
 		$view = $this->getView();
+		FileInputAsset::register($view);
 
 		$id = $this->options['id'];
 

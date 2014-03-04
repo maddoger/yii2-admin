@@ -8,6 +8,7 @@
 
 namespace maddoger\admin\widgets;
 
+use maddoger\admin\Select2Asset;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
@@ -202,6 +203,7 @@ class Select2 extends JsInputWidget {
      */
     public function registerAssets() {
         $view = $this->getView();
+		Select2Asset::register($view);
         $this->pluginOptions['width'] = 'resolve';
 /*
 		if ($this->language != false) {
