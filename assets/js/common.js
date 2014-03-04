@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 function docReady() {
 	$("table.table-sorter").tablesorter(/*{debug: true}*/);
-	$('.select2').select2();
+	//$('.select2').select2();
 	$('.checkbox-hidden').each(function(){
 		var label = $(this);
 		var input = $(this).find('input');
