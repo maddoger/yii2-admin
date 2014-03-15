@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * @var \yii\web\View $this
@@ -49,7 +50,7 @@ use yii\helpers\Html;
 		var funcNum = getUrlParam('CKEditorFuncNum');
 
 		var elf = $('#elfinder').elfinder({
-			url : '<?= Html::url(['files/connector']); ?>',
+			url : '<?= Url::to(['files/connector']); ?>',
 			lang: '<?= substr(Yii::$app->language,0,2) ?>',
 			getFileCallback : function(file) {
 				window.opener.CKEDITOR.tools.callFunction(funcNum, file.url);

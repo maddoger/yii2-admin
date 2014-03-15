@@ -4,6 +4,7 @@ namespace maddoger\admin\widgets;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Menu as BaseMenu;
 use Yii;
 
@@ -102,7 +103,7 @@ class Menu extends BaseMenu
 		if (isset($item['url'])) {
 			$template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
 			return strtr($template, [
-				'{url}' => Html::url($item['url']),
+				'{url}' => Url::to($item['url']),
 				'{icon}' => $icon,
 				'{label}' => $item['label'],
 			]);

@@ -36,7 +36,7 @@ URL helper
 		];
 
 		foreach ($urls as $url) {
-			echo (is_array($url) ? 'array ['.$url[0].']' : $url),' -> ',Html::url($url),'<br />';
+			echo (is_array($url) ? 'array ['.$url[0].']' : $url),' -> ',Url::to($url),'<br />';
 			echo (is_array($url) ? 'array ['.$url[0].']' : $url),' -> ',
 			(is_array($url) ? $man->createUrl($url[0], array_slice($url, 1)) : $man->createUrl($url) ),
 			'<br /><br />';

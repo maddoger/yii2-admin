@@ -7,6 +7,7 @@ use maddoger\elfinder\CoreAsset;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\widgets\InputWidget;
 use Yii;
 
@@ -124,7 +125,7 @@ class ImageInput extends InputWidget
 		echo $this->render('imageInput', $params);
 		if ($this->browseServer) {
 			CoreAsset::register($this->view);
-			$this->options['browseServerConnectorUrl'] = Html::url(['/admin/files/connector']);
+			$this->options['browseServerConnectorUrl'] = Url::to(['/admin/files/connector']);
 		}
 
 		$this->registerPlugin();

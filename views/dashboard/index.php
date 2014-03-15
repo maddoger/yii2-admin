@@ -9,13 +9,13 @@
 			echo '<ul>';
 			foreach ($moduleNavigation['items'] as $link) {
 
-				echo '<li><a href="'.\yii\helpers\Html::url($link['url']).'"><i class="fa fa-'.@$link['fa'].'"></i> '.$link['label'].'</a></li>';
+				echo '<li><a href="'.\yii\helpers\Url::to($link['url']).'"><i class="fa fa-'.@$link['fa'].'"></i> '.$link['label'].'</a></li>';
 			}
 			echo '</ul>';
 		} else {
 			echo '<ul>
 			<li>
-			<a href="'.\yii\helpers\Html::url($moduleNavigation['url']).'"><i class="fa fa-'.@$moduleNavigation['fa'].'"></i> '.$moduleNavigation['label'].'</a>
+			<a href="'.\yii\helpers\Url::to($moduleNavigation['url']).'"><i class="fa fa-'.@$moduleNavigation['fa'].'"></i> '.$moduleNavigation['label'].'</a>
 			</li>
 			</ul>';
 		}
