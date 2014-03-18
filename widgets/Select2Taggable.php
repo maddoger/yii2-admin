@@ -27,7 +27,6 @@ class Select2Taggable extends Select2
 		$pluginsOptions = [
 			'allowClear' => true,
 			'minimumInputLength' => 1,
-			'maximumInputLength' => 20,
 			'multiple' => true,
 			'formatResult' => new JsExpression('function(result, container, query, escapeMarkup) {
 		var markup=[];
