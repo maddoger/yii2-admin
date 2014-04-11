@@ -9,7 +9,7 @@ use yii\validators\FileValidator;
 use yii\validators\ImageValidator;
 use yii\web\BadRequestHttpException;
 use yii\web\UploadedFile;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
 use Yii;
 
 /**
@@ -21,7 +21,7 @@ class FilesController extends BackendController
 	{
 		return [
 			'access' => [
-				'class' => 'yii\web\AccessControl',
+				'class' => 'yii\filters\AccessControl',
 				'rules' => [
 					[
 						'actions' => ['index', 'connector', 'dialog'],

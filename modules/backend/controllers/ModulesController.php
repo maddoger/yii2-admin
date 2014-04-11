@@ -20,7 +20,7 @@ class ModulesController extends BackendController
 	{
 		return [
 			'access' => [
-				'class' => 'yii\web\AccessControl',
+				'class' => 'yii\filters\AccessControl',
 				'rules' => [
 					[
 						'allow' => true,

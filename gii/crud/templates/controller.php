@@ -34,7 +34,7 @@ use <?= ltrim($generator->modelClass, '\\') ?>;
 use <?= ltrim($generator->searchModelClass, '\\') ?><?php if (isset($searchModelAlias)):?> as <?= $searchModelAlias ?><?php endif ?>;
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
-use yii\web\VerbFilter;
+use yii\filters\VerbFilter;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -46,7 +46,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 		return [
 <? if (!empty($generator->rolesPrefix)) { ?>
 			'access' => [
-				'class' => 'yii\web\AccessControl',
+				'class' => 'yii\filters\AccessControl',
 				'rules' => [
 					[
 						'actions' => ['index', 'view'],
@@ -179,7 +179,7 @@ if (count($pks) === 1) {
 	$condition = '[' . implode(', ', $condition) . ']';
 }
 ?>
-		if (($model = <?= $modelClass ?>::find(<?= $condition ?>)) !== null) {
+		if (($model = <?= $modelClass ?>::findOne(<?= $condition ?>)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException(Yii::t('<?= $generator->languageCategory ?>', 'The requested page does not exist.'));
