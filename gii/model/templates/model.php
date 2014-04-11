@@ -7,9 +7,9 @@
  * @var string $tableName full table name
  * @var string $className class name
  * @var yii\db\TableSchema $tableSchema
- * @var string[] $labels list of attribute labels (name=>label)
+ * @var string[] $labels list of attribute labels (name => label)
  * @var string[] $rules list of validation rules
- * @var array $relations list of relations (name=>relation declaration)
+ * @var array $relations list of relations (name => relation declaration)
  */
 
 echo "<?php\n";
@@ -34,43 +34,43 @@ use Yii;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
-	/**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return <?php if (strpos($tableName, Yii::$app->db->tablePrefix) === 0) {
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return <?php if (strpos($tableName, Yii::$app->db->tablePrefix) === 0) {
 	echo 'Yii::$app->db->tablePrefix.\''.substr($tableName, strlen(Yii::$app->db->tablePrefix)).'\'';
 } else { echo '\'', $tableName, '\''; } ?>;
-	}
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [<?= "\n\t\t\t" . implode(",\n\t\t\t", $rules) . "\n\t\t" ?>];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [<?= "\n            " . implode(",\n            ", $rules) . "\n        " ?>];
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels()
-	{
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
 <?php foreach ($labels as $name => $label): ?>
-			<?= "'$name' => Yii::t('app', '" . addslashes($label) . "'),\n" ?>
+            <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
 <?php endforeach; ?>
-		];
-	}
+        ];
+    }
 <?php foreach ($relations as $name => $relation): ?>
 
-	/**
-	 * @return \yii\db\ActiveRelation
-	 */
-	public function get<?= $name ?>()
-	{
-		<?= $relation[0] . "\n" ?>
-	}
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function get<?= $name ?>()
+    {
+        <?= $relation[0] . "\n" ?>
+    }
 <?php endforeach; ?>
 }
