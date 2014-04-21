@@ -69,7 +69,7 @@ class FilesController extends BackendController
 				'locked' => true
 			),
 		);
-		if (!Yii::$app->user->checkAccess('uploads.write')) {
+		if (!Yii::$app->user->can('uploads.write')) {
 			//deny to uploading
 			$attributes[] = array(
 				'pattern' => '//',

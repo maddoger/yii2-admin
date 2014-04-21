@@ -203,7 +203,7 @@ class AdminModule extends Module
 				//check roles
 				$allow = false;
 				foreach ($item['roles'] as $role) {
-					if (Yii::$app->user->checkAccess($role)) {
+					if (Yii::$app->user->can($role)) {
 						$allow = true;
 						break;
 					}
