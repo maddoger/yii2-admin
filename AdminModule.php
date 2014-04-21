@@ -120,9 +120,9 @@ class AdminModule extends Module
 	public function getRbacRoles()
 	{
 		return [
-			'admin.modulesConfiguration' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('maddoger/admin', 'Modules Configuration')],
-			'uploads.read' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('maddoger/admin', 'View uploaded files')],
-			'uploads.write' => ['type'=>Item::TYPE_OPERATION, 'description' => Yii::t('maddoger/admin', 'Upload files')],
+			'admin.modulesConfiguration' => ['type'=>Item::TYPE_PERMISSION, 'description' => Yii::t('maddoger/admin', 'Modules Configuration')],
+			'uploads.read' => ['type'=>Item::TYPE_PERMISSION, 'description' => Yii::t('maddoger/admin', 'View uploaded files')],
+			'uploads.write' => ['type'=>Item::TYPE_PERMISSION, 'description' => Yii::t('maddoger/admin', 'Upload files')],
 		];
 	}
 
