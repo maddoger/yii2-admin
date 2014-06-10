@@ -82,7 +82,7 @@ class DateTimeEditor extends InputWidget
 				$this->options['class'] = 'form-control';
 			}
 
-			$fieldName = $this->attribute;
+            $fieldName = $this->name ? $this->name : $this->attribute;
 
 			if (!is_null($this->model)) {
 				$fieldName = Html::getInputName($this->model, $this->attribute);
