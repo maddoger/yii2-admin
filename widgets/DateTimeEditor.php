@@ -106,7 +106,7 @@ class DateTimeEditor extends InputWidget
 
 			echo '<div id="'.$this->config['id'].'" class="input-group datetime-editor">';
 			echo Html::textInput($fieldName, $this->value, $this->options);
-			echo '<span class="input-group-addon"><i class="fa fa-calendar"></i></span>';
+			echo '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
 			echo '</div>';
 		}
 
