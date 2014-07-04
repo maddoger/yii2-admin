@@ -49,6 +49,10 @@ class ImageInput extends InputWidget
 	 */
 	public $height = 200;
 
+    /**
+     * @var string text to be displayed when no file selected
+     */
+    public $text = null;
 
 	/**
 	 * @var array the event handlers for the underlying Jasny file input JS plugin.
@@ -103,6 +107,7 @@ class ImageInput extends InputWidget
 
 		$params = [
 			'widget' => $this,
+            'text' => $this->text,
 		];
 
 		if ($this->hasModel()) {

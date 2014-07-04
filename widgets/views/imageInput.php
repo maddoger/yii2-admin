@@ -4,6 +4,10 @@
  * @var maddoger\admin\widgets\FileInput $widget
  * @var string $field
  */
+
+if (empty($text)) {
+    $text = ($widget->width ? $widget->width : '...') .'x'.($widget->height ? $widget->height : '...');
+}
 ?>
 <div class="file-input <?= (empty($value) ? 'no-file' : 'has-file') ?>" id="<?= $widget->id ?>">
 
@@ -12,9 +16,7 @@
 	<div class="preview-container">
 		<!--<div class="no-file message"><?php /*echo Yii::t('maddoger/admin', 'No file'); */?><br /><br /></div>-->
 		<div class="preview no-file"><img data-src="holder.js/<?=
-			($widget->previewWidth ? $widget->previewWidth : '200') .'x'.($widget->previewHeight ? $widget->previewHeight : '200') ?>/text:<?=
-			($widget->width ? $widget->width : '...') .'x'.($widget->height ? $widget->height : '...') ?>" alt="<?=
-			($widget->width ? $widget->width : '...') .'x'.($widget->height ? $widget->height : '...') ?>"></div>
+			($widget->previewWidth ? $widget->previewWidth : '200') .'x'.($widget->previewHeight ? $widget->previewHeight : '200') ?>/text:<?= $text ?>" alt="<?= $text ?>"></div>
 		<div class="preview has-file" style="width: <?=($widget->previewWidth ? $widget->previewWidth.'px' : 'auto')?>; height: <?=($widget->previewHeight ? $widget->previewHeight.'px' : 'auto')?>;"><? if (!empty($value)) { ?><a href="<?= \yii\helpers\Html::encode($value) ?>" target="_blank" title="<?= \yii\helpers\Html::encode($value) ?>"><?= $widget->thumbnail ?></a><?php } ?></div>
 		<div class="has-file file-info"><span class="filename"></span></div>
 	</div>
