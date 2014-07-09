@@ -1,6 +1,6 @@
-/*
+/*!
 
-Holder - 2.3 - client side image placeholders
+Holder - 2.3.2 - client side image placeholders
 (c) 2012-2014 Ivan Malopinsky / http://imsky.co
 
 Provided under the MIT License.
@@ -9,7 +9,6 @@ Commercial use requires attribution.
 */
 var Holder = Holder || {};
 (function (app, win) {
-
 var system_config = {
 	use_svg: false,
 	use_canvas: false,
@@ -151,11 +150,15 @@ function text_size(width, height, template) {
 }
 
 var svg_el = (function(){
+	//Prevent IE <9 from initializing SVG renderer
+	if(!window.XMLSerializer) return;
 	var serializer = new XMLSerializer();
 	var svg_ns = "http://www.w3.org/2000/svg"
 	var svg = document.createElementNS(svg_ns, "svg");
-	svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
-	svg.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+	//IE throws an exception if this is set and Chrome requires it to be set
+	if(svg.webkitMatchesSelector){
+		svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+	}
 	var bg_el = document.createElementNS(svg_ns, "rect")
 	var text_el = document.createElementNS(svg_ns, "text")
 	var textnode_el = document.createTextNode(null)
@@ -163,7 +166,7 @@ var svg_el = (function(){
 	text_el.appendChild(textnode_el)
 	svg.appendChild(bg_el)
 	svg.appendChild(text_el)
-		
+
 	return function(props){
 		svg.setAttribute("width",props.width);
 		svg.setAttribute("height", props.height);
@@ -266,7 +269,7 @@ function draw_svg(args){
 		font:font, 
 		template:template
 	})
-	return "data:image/svg+xml;base64,"+btoa(string);
+	return "data:image/svg+xml;base64,"+btoa(unescape(encodeURIComponent(string)));
 }
 
 function draw(args) {
@@ -497,6 +500,7 @@ app.add_image = function (src, el) {
 };
 
 app.run = function (o) {
+
 	instance_config = extend({}, system_config)
 	preempted = true;
 
@@ -504,12 +508,12 @@ app.run = function (o) {
 		images = [],
 		imageNodes = [],
 		bgnodes = [];
-		
+
 	if(options.use_canvas != null && options.use_canvas){
 		instance_config.use_canvas = true;
 		instance_config.use_svg = false;
 	}
-		
+			
 	if (typeof (options.images) == "string") {
 		imageNodes = selector(options.images);
 	} else if (window.NodeList && options.images instanceof window.NodeList) {
@@ -528,6 +532,7 @@ app.run = function (o) {
 		bgnodes = [options.bgnodes];
 	}
 	for (i = 0, l = imageNodes.length; i < l; i++) images.push(imageNodes[i]);
+	
 	var holdercss = document.getElementById("holderjs-style");
 	if (!holdercss) {
 		holdercss = document.createElement("style");
@@ -535,13 +540,17 @@ app.run = function (o) {
 		holdercss.type = "text/css";
 		document.getElementsByTagName("head")[0].appendChild(holdercss);
 	}
+	
 	if (!options.nocss) {
 		if (holdercss.styleSheet) {
 			holdercss.styleSheet.cssText += options.stylesheet;
 		} else {
-			holdercss.appendChild(document.createTextNode(options.stylesheet));
+			if(options.stylesheet.length){
+				holdercss.appendChild(document.createTextNode(options.stylesheet));
+			}
 		}
 	}
+	
 	var cssregex = new RegExp(options.domain + "\/(.*?)\"?\\)");
 	for (var l = bgnodes.length, i = 0; i < l; i++) {
 		var src = window.getComputedStyle(bgnodes[i], null)
@@ -595,6 +604,10 @@ contentLoaded(win, function () {
 		window.attachEvent("onresize", resizable_update)
 	}
 	preempted || app.run({});
+
+	if (typeof window.Turbolinks === "object") {
+		document.addEventListener("page:change", function() { app.run({}) })
+	}
 });
 if (typeof define === "function" && define.amd) {
 	define([], function () {
