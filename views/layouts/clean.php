@@ -11,6 +11,7 @@ use yii\helpers\Html;
 <html lang="<?= Yii::$app->language ?>">
 <head>
 	<meta charset="<?= Yii::$app->charset ?>"/>
+    <?= Html::csrfMetaTags() ?>
 	<title><?= Html::encode($this->title) ?></title>
 	<?php $this->head() ?>
 </head>
