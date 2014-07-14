@@ -9,7 +9,7 @@ class AdminAsset extends AssetBundle
 	public $sourcePath = '@maddoger/admin/assets';
 	public $css = [
 		'font-awesome/css/font-awesome.min.css',
-		'css/sb-admin.less'
+		'css/sb-admin.css'
 	];
 	public $js = [];
 	public $depends = [
