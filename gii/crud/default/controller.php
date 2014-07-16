@@ -44,7 +44,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 	public function behaviors()
 	{
 		return [
-<? if (!empty($generator->rolesPrefix)) { ?>
+<?php if (!empty($generator->rolesPrefix)) { ?>
 			'access' => [
 				'class' => 'yii\filters\AccessControl',
 				'rules' => [
