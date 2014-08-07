@@ -20,7 +20,7 @@ class DateTimeEditor extends InputWidget
 {
     public $config = [];
 
-	public $options = [];
+    public $options = [];
 
     /*
      * @var object model for active text area
@@ -42,20 +42,20 @@ class DateTimeEditor extends InputWidget
      */
     public $value = '';
 
-	/**
-	 * @var string format
-	 */
-	public $jsFormat = 'DD.MM.YYYY - HH:mm';
+    /**
+     * @var string format
+     */
+    public $jsFormat = 'DD.MM.YYYY - HH:mm';
 
-	/**
-	 * @var string format
-	 */
-	public $phpFormat = 'd.m.Y - H:i';
+    /**
+     * @var string format
+     */
+    public $phpFormat = 'd.m.Y - H:i';
 
-	/**
-	 * @var null|int Max characters count. Default is null (unlimited)
-	 */
-	public $maxLength = null;
+    /**
+     * @var null|int Max characters count. Default is null (unlimited)
+     */
+    public $maxLength = null;
 
     /**
      * Initializes the widget.
@@ -74,41 +74,41 @@ class DateTimeEditor extends InputWidget
      */
     public function run()
     {
-		if (!$this->selector) {
-			$this->selector = '#' . $this->config['id'];
-			$this->options['id'] = $this->config['id'];
+        if (!$this->selector) {
+            $this->selector = '#' . $this->config['id'];
+            $this->options['id'] = $this->config['id'];
 
-			if (!isset($this->options['class'])) {
-				$this->options['class'] = 'form-control';
-			}
+            if (!isset($this->options['class'])) {
+                $this->options['class'] = 'form-control';
+            }
 
             $fieldName = $this->name ? $this->name : $this->attribute;
 
-			if (!is_null($this->model)) {
-				$fieldName = Html::getInputName($this->model, $this->attribute);
-				if (!array_key_exists('id', $this->options)) {
-					$this->options['id'] = Html::getInputId($this->model, $this->attribute);
-				}
-				if (empty($this->value)) {
-					$value = Html::getAttributeValue($this->model, $this->attribute);
-					if ($value !== null) {
-						if (!is_numeric($value)) {
-							$value = strtotime($value);
-							$this->value = date($this->phpFormat, $value);
-						}
-					}
-				}
-			}
+            if (!is_null($this->model)) {
+                $fieldName = Html::getInputName($this->model, $this->attribute);
+                if (!array_key_exists('id', $this->options)) {
+                    $this->options['id'] = Html::getInputId($this->model, $this->attribute);
+                }
+                if (empty($this->value)) {
+                    $value = Html::getAttributeValue($this->model, $this->attribute);
+                    if ($value !== null) {
+                        if (!is_numeric($value)) {
+                            $datetime = new \DateTime($value);
+                            $this->value = $datetime->format($this->phpFormat);
+                        }
+                    }
+                }
+            }
 
-			if (!isset($this->options['class'])) {
-				$this->options['class'] = 'form-control';
-			}
+            if (!isset($this->options['class'])) {
+                $this->options['class'] = 'form-control';
+            }
 
-			echo '<div id="'.$this->config['id'].'" class="input-group datetime-editor">';
+            echo '<div id="'.$this->config['id'].'" class="input-group datetime-editor">';
             echo '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>';
             echo Html::textInput($fieldName, $this->value, $this->options);
-			echo '</div>';
-		}
+            echo '</div>';
+        }
 
         DateTimeEditorAsset::register($this->getView());
         $this->registerClientScript();
@@ -127,7 +127,8 @@ class DateTimeEditor extends InputWidget
          */
         $appLanguage = strtolower(substr(Yii::$app->language , 0, 2)); //First 2 letters
         $this->config['language'] = $appLanguage;
-		$this->config['format'] = $this->jsFormat;
+        $this->config['format'] = $this->jsFormat;
+        $this->config['startDate'] = '1.01.1900';
 
         $config = empty($this->config) ? '' : Json::encode($this->config);
         $js = "jQuery('" . $this->selector . "').datetimepicker($config);";
