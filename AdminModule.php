@@ -16,9 +16,9 @@ use yii\rbac\Item;
 
 class AdminModule extends Module
 {
-	public $pageTitle = 'maddoger Marketing';
+	public $pageTitle = 'Site';
 	public $brandLogo;
-	public $brandName = 'maddoger Marketing';
+	public $brandName = 'Site';
 	public $dashboardUrl = null;
 
 	public $uploadsDir = '/uploads';
@@ -135,7 +135,7 @@ class AdminModule extends Module
 			[
 				'label' => Yii::t('maddoger/admin', 'File manager'),
 				'fa'=>'files-o',
-				'url' => ['/'.$this->id . '/files/index'],
+				'url' => ['/'.$this->id . '/backend/files/index'],
 				'roles' => ['uploads.read'],
 			],
 			[
@@ -145,8 +145,8 @@ class AdminModule extends Module
 				'items' => [
 					[
 						'label' => Yii::t('maddoger/admin', 'Modules'), 'fa'=>'gears',
-						'url'=> ['/'.$this->id.'/modules/index'],
-						'activeUrl'=> ['/'.$this->id.'/modules/*'],
+						'url'=> ['/'.$this->id.'/backend/modules/index'],
+						'activeUrl'=> ['/'.$this->id.'/backend/modules/*'],
 						'roles' => ['admin.modulesConfiguration'],
 					],
 					/*[
