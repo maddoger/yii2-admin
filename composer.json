@@ -10,11 +10,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.4.0",
         "yiisoft/yii2": "*",
-	    "maddoger/yii2-core": "*",
-	    "maddoger/yii2-user": "*",
-	    "maddoger/yii2-elfinder": "*"
+	    "maddoger/yii2-core": "*"
     },
 	"autoload": {
 		"psr-4": {
