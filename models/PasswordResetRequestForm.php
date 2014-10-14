@@ -10,6 +10,7 @@ use yii\base\Model;
 class PasswordResetRequestForm extends Model
 {
     public $email;
+    public $code;
 
     /**
      * @inheritdoc
@@ -25,6 +26,7 @@ class PasswordResetRequestForm extends Model
                 'filter' => ['status' => User::STATUS_ACTIVE],
                 'message' => 'There is no user with such email.'
             ],
+            ['code', 'captcha', 'captchaAction' => 'admin/site/captcha'],
         ];
     }
 
@@ -50,7 +52,7 @@ class PasswordResetRequestForm extends Model
                 return \Yii::$app->mailer->compose('passwordResetToken', ['user' => $user])
                     ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
                     ->setTo($this->email)
-                    ->setSubject('Password reset for ' . \Yii::$app->name)
+                    ->setSubject(\Yii::t('maddoger/admin', 'Password reset for {app}', ['app' => \Yii::$app->name]))
                     ->send();
             }
         }

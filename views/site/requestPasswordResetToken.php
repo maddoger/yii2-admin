@@ -1,4 +1,5 @@
 <?php
+use yii\captcha\Captcha;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -6,22 +7,40 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\PasswordResetRequestForm */
 
-$this->title = 'Request password reset';
+$this->title = Yii::t('maddoger/admin', 'Request password reset');
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['bodyClass'] = 'bg-black';
+
 ?>
 <div class="site-request-password-reset">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out your email. A link to reset password will be sent there.</p>
+    <div class="form-box" id="request-password-box">
+        <div class="header"><?= Html::encode($this->title) ?></div>
+        <?php $form = ActiveForm::begin([
+            'id' => 'request-password-reset-form',
+            'fieldConfig' => [
+                'template' => "{input}\n{hint}\n{error}\n",
+            ],
+        ]); ?>
+        <div class="body bg-gray">
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
-                <?= $form->field($model, 'email') ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Send', ['class' => 'btn btn-primary']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
+        <p><?= Yii::t('maddoger/admin', 'Please fill out your email. A link to reset password will be sent there.') ?></p>
+
+                <?= $form->field($model, 'email')->textInput(['placeholder' => $model->getAttributeLabel('email')]) ?>
+                <?= $form->field($model, 'code')->widget(Captcha::className(), [
+                    'template' => '<div class="row"><div class="col-lg-5">{image}</div><div class="col-lg-7">{input}</div></div>',
+                    'options' => [
+                        'placeholder' => $model->getAttributeLabel('code'),
+                        'class' => 'form-control',
+                    ],
+                ]) ?>
+
+            <div class="footer">
+                <?= Html::submitButton(Yii::t('maddoger/admin', 'Send'), ['class' => 'btn bg-olive btn-block']) ?>
+                <p><?= Html::a(Yii::t('maddoger/admin', 'I remembered my password!'), ['login']) ?></p>
+            </div>
         </div>
+        <?php ActiveForm::end() ?>
     </div>
 </div>

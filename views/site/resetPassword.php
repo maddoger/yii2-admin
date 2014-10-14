@@ -6,22 +6,32 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ResetPasswordForm */
 
-$this->title = 'Reset password';
+$this->title = Yii::t('maddoger/admin', 'Reset password');
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['bodyClass'] = 'bg-black';
 ?>
 <div class="site-reset-password">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please choose your new password:</p>
+    <div class="form-box" id="request-password-box">
+        <div class="header"><?= Html::encode($this->title) ?></div>
+        <?php $form = ActiveForm::begin([
+            'id' => 'reset-password-form',
+            'fieldConfig' => [
+                'template' => "{input}\n{hint}\n{error}\n",
+            ],
+        ]); ?>
+        <div class="body bg-gray">
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
+            <p><?= Yii::t('maddoger/admin', 'Please choose your new password:') ?></p>
+
+            <?= $form->field($model, 'password')->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
+
+            <div class="footer">
+                <?= Html::submitButton(Yii::t('maddoger/admin', 'Save'), ['class' => 'btn bg-olive btn-block']) ?>
+                <p><?= Html::a(Yii::t('maddoger/admin', 'I remembered my old password!'), ['login']) ?></p>
+            </div>
         </div>
+        <?php ActiveForm::end() ?>
     </div>
 </div>

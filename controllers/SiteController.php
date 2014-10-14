@@ -35,7 +35,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'reset-password', 'request-password-reset'],
+                        'actions' => ['login', 'error', 'reset-password', 'request-password-reset', 'captcha'],
                         'allow' => true,
                     ],
                     [
@@ -81,6 +81,10 @@ class SiteController extends Controller
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'width' => 240,
+                'height' => 100,
+                'padding' => 1,
+                'foreColor' => 0x3d9970,
             ],
         ];
     }
@@ -117,15 +121,16 @@ class SiteController extends Controller
 
     public function actionRequestPasswordReset()
     {
-        //TODO: Переделать и перевести
+        $this->layout = 'base';
+
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->getSession()->setFlash('success', Yii::t('maddoger/admin', 'Check your email for further instructions.'));
 
                 return $this->goHome();
             } else {
-                Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
+                Yii::$app->getSession()->setFlash('error', Yii::t('maddoger/admin', 'Sorry, we are unable to reset password for email provided.'));
             }
         }
 
@@ -136,7 +141,8 @@ class SiteController extends Controller
 
     public function actionResetPassword($token)
     {
-        //TODO: Переделать и перевести
+        $this->layout = 'base';
+
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidParamException $e) {
@@ -144,8 +150,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash('success', 'New password was saved.');
-
+            Yii::$app->getSession()->setFlash('success', Yii::t('maddoger/admin', 'New password was saved.'));
             return $this->goHome();
         }
 
