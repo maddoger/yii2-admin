@@ -1,0 +1,29 @@
+<?php
+/**
+ * @copyright Copyright (c) 2014 Vitaliy Syrchikov
+ * @link http://syrchikov.name
+ */
+
+namespace maddoger\admin\assets;
+
+use yii\web\AssetBundle;
+
+/**
+ * AdminIEAsset HTML5 fixes for IE8 and bellow
+ *
+ * @author Vitaliy Syrchikov <maddoger@gmail.com>
+ * @link http://syrchikov.name
+ * @package maddoger\admin
+ */
+class AdminIEAsset extends AssetBundle
+{
+    public $js = [
+        '//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',
+        '//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js',
+    ];
+
+    public $jsOptions = [
+        'condition' => 'lte IE9',
+        'position' => \yii\web\View::POS_HEAD,
+    ];
+}

@@ -65,8 +65,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
 
-            [['username'], 'unique', 'message' => Yii::t('admin', 'This username is already registered.')],
-            [['email'], 'unique', 'message' => Yii::t('admin', 'This email is already registered.')],
+            [['username'], 'unique', 'message' => Yii::t('maddoger/admin', 'This username is already registered.')],
+            [['email'], 'unique', 'message' => Yii::t('maddoger/admin', 'This email is already registered.')],
 
         ];
     }
@@ -77,20 +77,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('admin', 'ID'),
-            'username' => Yii::t('admin', 'Username'),
-            'auth_key' => Yii::t('admin', 'Auth key'),
-            'access_token' => Yii::t('admin', 'Access token'),
-            'password_hash' => Yii::t('admin', 'Password hash'),
-            'password_reset_token' => Yii::t('admin', 'Password reset token'),
-            'email' => Yii::t('admin', 'Email'),
-            'real_name' => Yii::t('admin', 'Real name'),
-            'avatar' => Yii::t('admin', 'Avatar'),
-            'role' => Yii::t('admin', 'Role'),
-            'status' => Yii::t('admin', 'Status'),
-            'last_visit_at' => Yii::t('admin', 'Last visit at'),
-            'created_at' => Yii::t('admin', 'Created at'),
-            'updated_at' => Yii::t('admin', 'Updated at'),
+            'id' => Yii::t('maddoger/admin', 'ID'),
+            'username' => Yii::t('maddoger/admin', 'Username'),
+            'auth_key' => Yii::t('maddoger/admin', 'Auth key'),
+            'access_token' => Yii::t('maddoger/admin', 'Access token'),
+            'password_hash' => Yii::t('maddoger/admin', 'Password hash'),
+            'password_reset_token' => Yii::t('maddoger/admin', 'Password reset token'),
+            'email' => Yii::t('maddoger/admin', 'Email'),
+            'real_name' => Yii::t('maddoger/admin', 'Real name'),
+            'avatar' => Yii::t('maddoger/admin', 'Avatar'),
+            'role' => Yii::t('maddoger/admin', 'Role'),
+            'status' => Yii::t('maddoger/admin', 'Status'),
+            'last_visit_at' => Yii::t('maddoger/admin', 'Last visit at'),
+            'created_at' => Yii::t('maddoger/admin', 'Created at'),
+            'updated_at' => Yii::t('maddoger/admin', 'Updated at'),
         ];
     }
 
