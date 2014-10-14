@@ -25,6 +25,7 @@ class AdminAsset extends AssetBundle
 
     public $depends = [
         'maddoger\admin\assets\AdminIEAsset',
+        'maddoger\admin\assets\FontAwesomeAsset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',

@@ -48,10 +48,25 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    //'logout' => ['post'],
                 ],
             ],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'error') {
+            if (!Yii::$app->user->isGuest) {
+                $this->layout = 'main';
+            } else {
+                $this->layout = 'minimal';
+            }
+        }
+        return parent::beforeAction($action);
     }
 
     /**
