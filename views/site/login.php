@@ -1,4 +1,5 @@
 <?php
+use maddoger\admin\widgets\Alerts;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -6,11 +7,15 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
+$this->title = Yii::t('maddoger/admin', 'Sign in');
 $this->params['bodyClass'] = 'bg-black';
 
 ?>
 <div class="form-box" id="login-box">
-    <div class="header"><?= Yii::t('maddoger/admin', 'Sign in') ?></div>
+
+    <?= Alerts::widget() ?>
+
+    <div class="header"><?= $this->title ?></div>
     <?php $form = ActiveForm::begin([
         'fieldConfig' => [
             'template' => "{input}\n{hint}\n{error}\n",

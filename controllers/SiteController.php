@@ -8,6 +8,7 @@ namespace maddoger\admin\controllers;
 
 use maddoger\admin\models\PasswordResetRequestForm;
 use maddoger\admin\models\ResetPasswordForm;
+use maddoger\admin\widgets\Alerts;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -126,11 +127,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('maddoger/admin', 'Check your email for further instructions.'));
+                Yii::$app->getSession()->setFlash(Alerts::FLASH_SUCCESS, Yii::t('maddoger/admin', 'Check your email for further instructions.'));
 
                 return $this->goHome();
             } else {
-                Yii::$app->getSession()->setFlash('error', Yii::t('maddoger/admin', 'Sorry, we are unable to reset password for email provided.'));
+                Yii::$app->getSession()->setFlash(Alerts::FLASH_ERROR, Yii::t('maddoger/admin', 'Sorry, we are unable to reset password for email provided.'));
             }
         }
 
@@ -150,7 +151,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('maddoger/admin', 'New password was saved.'));
+            Yii::$app->getSession()->setFlash(Alerts::FLASH_SUCCESS, Yii::t('maddoger/admin', 'New password was saved.'));
             return $this->goHome();
         }
 
