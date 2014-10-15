@@ -17,7 +17,13 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Access token' => '',
+    'Access token' => 'Код доступа',
+    'ID' => '',
+    'New password' => 'Новый пароль',
+    'Password reset token' => 'Код для сброса пароля',
+    'Password reset token cannot be blank.' => 'Не задан код для сброса пароля.',
+    'Verification code' => 'Проверочный код',
+    'Wrong password reset token.' => 'Неверный код для сброса пароля',
     'Admin Panel Module' => 'Модуль панели администратора',
     'Auth key' => 'Ключ авторизации',
     'Avatar' => 'Аватар',
@@ -31,13 +37,11 @@ return [
     'I forgot my password' => 'Я забыл пароль',
     'I remembered my old password!' => 'Я вспомнил старый пароль!',
     'I remembered my password!' => 'Я вспомнил свой пароль!',
-    'ID' => '',
     'Last visit at' => 'Последнее посещение в',
     'New password was saved.' => 'Новый пароль сохранен.',
     'Password' => 'Пароль',
     'Password hash' => 'Хеш пароля',
     'Password reset for {app}' => 'Сброс пароля для {app}',
-    'Password reset token' => '',
     'Please choose your new password:' => 'Выберите новый пароль:',
     'Please fill out your email. A link to reset password will be sent there.' => 'Напишите адрес своей электронной почты. Мы вышлем на него ссылку для сброса пароля.',
     'Real name' => 'Настоящее имя',

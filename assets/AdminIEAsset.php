@@ -17,9 +17,13 @@ use yii\web\AssetBundle;
  */
 class AdminIEAsset extends AssetBundle
 {
+    public $sourcePath = '@maddoger/admin/assets/dist';
+
     public $js = [
-        '//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',
-        '//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js',
+        'js/html5shiv.min.js',
+        'js/respond.min.js',
+        //'//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',
+        //'//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js',
     ];
 
     public $jsOptions = [

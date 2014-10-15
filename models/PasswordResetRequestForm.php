@@ -1,8 +1,14 @@
 <?php
+/**
+ * @copyright Copyright (c) 2014 Vitaliy Syrchikov
+ * @link http://syrchikov.name
+ */
+
 namespace maddoger\admin\models;
 
 use maddoger\admin\models\User;
 use yii\base\Model;
+use Yii;
 
 /**
  * Password reset request form
@@ -27,6 +33,17 @@ class PasswordResetRequestForm extends Model
                 'message' => 'There is no user with such email.'
             ],
             ['code', 'captcha', 'captchaAction' => 'admin/site/captcha'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'email' => Yii::t('maddoger/admin', 'Email'),
+            'code' => Yii::t('maddoger/admin', 'Verification code'),
         ];
     }
 
