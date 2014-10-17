@@ -7,6 +7,7 @@
 namespace maddoger\admin;
 
 use maddoger\core\BackendModule;
+use maddoger\core\DynamicModel;
 use Yii;
 
 /**
@@ -18,6 +19,31 @@ use Yii;
  */
 class Module extends BackendModule
 {
+    /**
+     * @var string URL to logo for admin panel
+     */
+    public $logoUrl;
+
+    /**
+     * @var string view for sidebar
+     */
+    public $sidebarView = '@maddoger/admin/views/layouts/_sidebar.php';
+
+    /**
+     * @var string view for main menu
+     */
+    public $menuView = '@maddoger/admin/views/layouts/_menu.php';
+
+    /**
+     * @var string view for user menu in the header
+     */
+    public $headerUserView = '@maddoger/admin/views/layouts/_headerUser.php';
+
+    /**
+     * @var string view for notifications menu in the header
+     */
+    public $headerNotificationsView = '@maddoger/admin/views/layouts/_headerNotifications.php';
+
     /**
      * Init module
      */
@@ -53,4 +79,58 @@ class Module extends BackendModule
     {
         return 'dev';
     }
+
+    /**
+     * Returns configuration model
+     *
+     * @return \yii\base\Model
+     */
+    public function getConfigurationModel()
+    {
+        $model = new DynamicModel();
+
+        //Logo url
+        $model->defineAttribute('logoUrl', $this->logoUrl, Yii::t('maddoger/admin', 'Url to logo for admin panel'));
+        $model->addRule('logoUrl', 'string');
+        $model->addRule('logoUrl', 'default', ['value' => null]);
+
+        //Sort number
+        $model->defineAttribute('sortNumber', $this->sortNumber, Yii::t('maddoger/admin', 'Sort number'));
+        $model->addRule('sortNumber', 'integer');
+        $model->addRule('sortNumber', 'filter', ['filter' => 'intval']);
+
+        return $model;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getNavigation()
+    {
+        return [
+            [
+                'label' => Yii::t('maddoger/admin', 'Admin panel'),
+                'icon' => 'fa fa-gear',
+                'items' => [
+                    [
+                        'label' => Yii::t('maddoger/admin', 'Users'),
+                        'url' => ['/'.$this->id.'/users/index'],
+                        'icon' => 'fa fa-user',
+                    ],
+                    [
+                        'label' => Yii::t('maddoger/admin', 'User roles'),
+                        'url' => ['/'.$this->id.'/roles/index'],
+                        'icon' => 'fa fa-users',
+                    ],
+                    [
+                        'label' => Yii::t('maddoger/admin', 'Modules'),
+                        'url' => ['/'.$this->id.'/modules/index'],
+                        'icon' => 'fa fa-gears',
+                    ],
+                ]
+            ]
+        ];
+    }
+
+
 }

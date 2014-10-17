@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var \yii\base\View $this
+ * @var $this yii\web\View
  * @var string $content
  */
 ?>

@@ -22,6 +22,9 @@ class AdminAsset extends AssetBundle
     public $css = [
         'css/admin.css',
     ];
+    public $js = [
+        'js/app.js',
+    ];
 
     public $depends = [
         'maddoger\admin\assets\AdminIEAsset',

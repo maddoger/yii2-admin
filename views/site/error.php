@@ -6,7 +6,7 @@ use yii\web\HttpException;
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $message string */
-/* @var $exception Exception */
+/* @var $exception HttpException */
 
 $this->title = $name;
 
@@ -24,13 +24,13 @@ if ($exception instanceof HttpException) {
         <p class="message">
             <?= nl2br(Html::encode($message)) ?>
         </p>
-        <form class='search-form'>
-            <div class='input-group'>
-                <input type="text" name="search" class='form-control' placeholder="<?= Yii::t('maddoger/admin', 'Search') ?>"/>
-                <div class="input-group-btn">
-                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                </div>
-            </div><!-- /.input-group -->
-        </form>
+        <?= Html::beginForm(['admin/site/search'], 'get', ['class' => 'search-form']) ?>
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="<?= Yii::t('maddoger/admin', 'Search...') ?>"/>
+                        <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                    </span>
+        </div>
+        <?= Html::endForm(); ?>
     </div><!-- /.error-content -->
 </div><!-- /.error-page -->

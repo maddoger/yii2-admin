@@ -164,6 +164,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->real_name ? : $this->username;
+    }
+
+    /**
      * @inheritdoc
      */
     public function getId()
