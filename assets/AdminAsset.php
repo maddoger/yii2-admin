@@ -20,9 +20,10 @@ class AdminAsset extends AssetBundle
     public $sourcePath = '@maddoger/admin/assets/dist';
 
     public $css = [
-        'css/admin.css',
+        'css/app.css',
     ];
     public $js = [
+        'js/slimscroll/jquery.slimscroll.min.js',
         'js/app.js',
     ];
 
