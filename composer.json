@@ -11,7 +11,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": "*",
+        "yiisoft/yii2": "2.*",
 	    "maddoger/yii2-core": "*",
         "bower-asset/font-awesome": "4.*@stable"
     },
@@ -19,5 +19,10 @@
 		"psr-4": {
 			"maddoger\\admin\\": ""
 		}
-	}
+	},
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
 }
