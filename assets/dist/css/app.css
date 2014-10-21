@@ -1206,6 +1206,10 @@ body > .header .logo .icon {
 .radio {
   padding-left: 0;
 }
+.checkbox-list label,
+.radio-list label {
+  font-weight: normal;
+}
 /* 
     Compenent: Progress bars
 --------------------------------

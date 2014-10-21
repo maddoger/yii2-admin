@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="panel-body">
 
-                    <?= $form->field($model, 'childRoles', ['template' => '{input}'])->checkboxList(Role::getRolesList($model->name), ['separator' => '<br/>']) ?>
+                    <?= $form->field($model, 'childRoles', ['template' => '{input}'])->checkboxList(Role::getRolesList($model->name), ['separator' => '<br/>', 'class' => 'checkbox-list']) ?>
 
                 </div>
             </div>
@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="panel-body">
 
-                    <?= $form->field($model, 'childPermissions', ['template' => '{input}'])->checkboxList(Role::getPermissionsList(), ['separator' => '<br/>']) ?>
+                    <?= $form->field($model, 'childPermissions', ['template' => '{input}'])->checkboxList(Role::getPermissionsList(), ['separator' => '<br/>', 'class' => 'checkbox-list']) ?>
 
                 </div>
             </div>
