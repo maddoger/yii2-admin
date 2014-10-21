@@ -99,6 +99,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function afterDelete()
+    {
+        Yii::$app->authManager->revokeAll($this->id);
+        parent::afterDelete();
+    }
 
     /**
      * @inheritdoc
@@ -246,5 +254,15 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function getAuthAssignment()
+    {
+        return $this->hasMany(AuthAssignment::className(), ['id' => 'user_id']);
+    }
+
+    public function getAuthItems()
+    {
+        return $this->hasOne(AuthAssignment::className(), ['id' => 'user_id']);
     }
 }

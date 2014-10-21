@@ -7,6 +7,7 @@
 use maddoger\admin\Module;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use maddoger\admin\widgets\Menu;
 
 /**
  * @var \maddoger\core\BackendModule $module
@@ -36,78 +37,25 @@ foreach (Yii::$app->modules as $module) {
         $menu = array_merge($menu, $navigation);
     }
 }
-//Сортируем меню
+//Sort
 usort($menu, function($a, $b){
     $res = 0;
     if ($a['sort'] != $b['sort']) {
         $res = $a['sort']>$b['sort'] ? -1 : 1;
     }
-    if (!$res) {
+    /*if (!$res) {
         $res = strcmp($a['label'], $b['label']);
-    }
+    }*/
     return $res;
 });
 
-//Route and its params
-$currentRoute = null;
-$routeParams = Yii::$app->request->getQueryParams();
-if (Yii::$app->controller !== null) {
-    $currentRoute = Yii::$app->controller->getRoute();
-}
-
-$menu_items = function($items, $child=false) use (&$menu_items, $currentRoute)
-{
-    if (!$items) {
-        return '';
-    }
-    $res = '';
-    foreach ($items as $item) {
-
-        $label = ArrayHelper::getValue($item, 'label', '-undefined-');
-        $url = ArrayHelper::getValue($item, 'url', '#');
-        $icon = ArrayHelper::getValue($item, 'icon');
-        $items = ArrayHelper::getValue($item, 'items');
-        $options = ArrayHelper::getValue($item, 'options', []);
-        $active = ArrayHelper::getValue($item, 'active');
-        if ($active === null) {
-            $active = false;
-            if (is_array($url) && isset($url[0])) {
-                $route = $url[0];
-                if ($route[0] !== '/' && Yii::$app->controller) {
-                    $route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
-                }
-                if (ltrim($route, '/') === $currentRoute) {
-                    $active = true;
-                }
-                //var_dump(ltrim($route, '/'), $currentRoute);
-            }
-        }
-        if ($active) {
-            Html::addCssClass($options, 'active');
-        }
-
-        $content = Html::tag('span', $label);
-        if ($icon) {
-            $content = Html::tag('i', '', ['class' => $icon]).' ' . $content;
-        }
-
-        if ($items) {
-            $content .= Html::tag('i', '', ['class' => 'fa fa-angle-left pull-right']);
-            $content = Html::a($content, $url);
-            $content .= $menu_items($item['items'], true);
-            Html::addCssClass($options, 'treeview');
-        } else {
-            $content = Html::a($content, $url);
-        }
-        $res .= Html::tag('li', $content, $options);
-
-    }
-    if (!empty($res)) {
-        return Html::tag('ul', $res, ['class' => $child ? 'treeview-menu' : 'sidebar-menu']);
-    }
-    return empty($res) ? '' : '<ul>'.$res.'</ul>';
-};
-
-echo $menu_items($menu);
-
-?>
+echo Menu::widget([
+    'items' => $menu,
+    'activateParents' => true,
+    'labelTemplate' => '<a href="#">{label} <i class="fa fa-angle-left pull-right"></i></a>',
+    'submenuTemplate' => "\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n",
+    'submenuItemClass' => 'treeview',
+    'options' => [
+        'class' => 'sidebar-menu',
+    ],
+]);

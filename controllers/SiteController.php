@@ -8,6 +8,7 @@ namespace maddoger\admin\controllers;
 
 use maddoger\admin\models\PasswordResetRequestForm;
 use maddoger\admin\models\ResetPasswordForm;
+use maddoger\admin\models\User;
 use maddoger\admin\widgets\Alerts;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
@@ -16,6 +17,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use maddoger\admin\models\LoginForm;
 use Yii;
+use yii\web\ForbiddenHttpException;
 
 /**
  * SiteController for authorisation
@@ -40,16 +42,23 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    //'logout' => ['post'],
+                    [
+                        'actions' => ['index'],
+                        'roles' => ['admin.user.dashboard'],
+                        'allow' => true,
+                    ],
+                    //For superuser
+                    [
+                        'allow' => (
+                            $this->module->superUserId &&
+                            Yii::$app->user->id &&
+                            Yii::$app->user->id == $this->module->superUserId
+                        )
+                    ],
                 ],
             ],
         ];

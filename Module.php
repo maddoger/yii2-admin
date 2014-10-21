@@ -9,6 +9,7 @@ namespace maddoger\admin;
 use maddoger\core\BackendModule;
 use maddoger\core\DynamicModel;
 use Yii;
+use yii\rbac\Item;
 
 /**
  * Module
@@ -43,6 +44,18 @@ class Module extends BackendModule
      * @var string view for notifications menu in the header
      */
     public $headerNotificationsView = '@maddoger/admin/views/layouts/_headerNotifications.php';
+
+    /**
+     * @var string superuser role name.
+     * It will be used as a parent for all RBAC roles loaded from modules.
+     */
+    public $superUserRole = 'superuser';
+
+    /**
+     * @var int superuser id
+     * This user will get all RBAC roles loaded from modules.
+     */
+    public $superUserId;
 
     /**
      * Init module
@@ -114,23 +127,104 @@ class Module extends BackendModule
                 'items' => [
                     [
                         'label' => Yii::t('maddoger/admin', 'Users'),
-                        'url' => ['/'.$this->id.'/users/index'],
+                        'url' => ['/' . $this->id . '/user/index'],
                         'icon' => 'fa fa-user',
                     ],
                     [
                         'label' => Yii::t('maddoger/admin', 'User roles'),
-                        'url' => ['/'.$this->id.'/roles/index'],
+                        'url' => ['/' . $this->id . '/role/index'],
+                        'activeUrl' => '/' . $this->id . '/role/*',
                         'icon' => 'fa fa-users',
                     ],
-                    [
+                    /*[
                         'label' => Yii::t('maddoger/admin', 'Modules'),
                         'url' => ['/'.$this->id.'/modules/index'],
                         'icon' => 'fa fa-gears',
-                    ],
+                    ],*/
                 ]
             ]
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getRbacItems()
+    {
+        return [
+            //Users
+            'admin.user.dashboard' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Access to dashboard'),
+                ],
+            'admin.user.profile' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Update own profile'),
+                ],
+            'admin.user.view' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. View admins'),
+                ],
+            'admin.user.create' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Create admins'),
+                ],
+            'admin.user.update' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Update admins'),
+                ],
+            'admin.user.delete' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Delete admins'),
+                ],
+            'admin.user.manager' =>
+                [
+                    'type' => Item::TYPE_ROLE,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Manage admins'),
+                    'children' => [
+                        'admin.user.view',
+                        'admin.user.create',
+                        'admin.user.update',
+                        'admin.user.delete',
+                    ],
+                ],
+            //RBAC
+            'admin.rbac.updateFromModules' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Update user roles from modules'),
+                ],
+            'admin.rbac.manageRoles' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Create, update and delete user roles'),
+                ],
+            'admin.rbac.manager' =>
+                [
+                    'type' => Item::TYPE_ROLE,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Manage user roles'),
+                    'children' => [
+                        'admin.rbac.manageRoles',
+                        'admin.rbac.updateFromModules',
+                    ]
+                ],
+            //Admin
+            'admin.base' =>
+                [
+                    'type' => Item::TYPE_ROLE,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Base access to admin panel'),
+                    'children' => [
+                        'admin.user.dashboard',
+                        'admin.rbac.updateFromModules',
+                    ]
+                ],
+        ];
+    }
 
 }

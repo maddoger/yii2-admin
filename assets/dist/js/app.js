@@ -98,7 +98,7 @@ $(function() {
      **/
     function _fix() {
 
-        console.log('_fix');
+        //console.log('_fix');
 
         //Get window height and the wrapper height
         var height = $(window).height() - $("body > .header").height() - ($("body > .footer").outerHeight() || 0);
@@ -116,7 +116,7 @@ $(function() {
 
     function fix_sidebar() {
 
-        console.log('fix_sidebar');
+        //console.log('fix_sidebar');
 
         //Make sure the body tag has the .fixed class
         if (!$("body").hasClass("fixed")) {

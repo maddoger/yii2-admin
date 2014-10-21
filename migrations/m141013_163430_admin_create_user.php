@@ -4,7 +4,7 @@ use yii\db\Schema;
 use yii\db\Migration;
 use maddoger\admin\models\User;
 
-class m141013_163430_create_admin_user extends Migration
+class m141013_163430_admin_create_user extends Migration
 {
     public function safeUp()
     {

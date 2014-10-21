@@ -5,7 +5,7 @@ use yii\db\Migration;
 use yii\rbac\DbManager;
 use yii\base\InvalidConfigException;
 
-class m141017_143038_rbac_init extends Migration
+class m141017_143038_admin_rbac_init extends Migration
 {
     /**
      * @throws yii\base\InvalidConfigException
