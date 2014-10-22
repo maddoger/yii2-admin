@@ -71,7 +71,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['avatar', 'real_name', 'password'], 'string'],
             [['rbacRoles'], 'safe'],
 
-            [['user_name'], 'string', 'min' => 3],
+            [['username'], 'string', 'min' => 3],
             [['email'], 'email'],
 
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
