@@ -362,6 +362,29 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $timestamp + $expire >= time();
     }
 
+    /**
+     * Update last visit time event handler
+     *
+     *
+     * in user component:
+     * 'on afterLogin'   => ['maddoger\admin\models\User', 'updateLastVisit'],
+     * 'on afterLogout'  => ['maddoger\admin\models\User', 'updateLastVisit'],
+     * @param $event
+     * @return bool
+     */
+    public static function updateLastVisit($event)
+    {
+        if ($event->isValid) {
+            /**
+             * @var User $user
+             */
+            $user = $event->identity;
+            $user->last_visit_at = time();
+            $user->updateAttributes(['last_visit_at']);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * List of all possible roles

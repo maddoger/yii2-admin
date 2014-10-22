@@ -1,5 +1,6 @@
 <?php
 
+use maddoger\admin\models\Role;
 use maddoger\admin\models\User;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -10,6 +11,12 @@ use yii\widgets\DetailView;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('maddoger/admin', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$childRoles = $model->getRbacRoles();
+if ($childRoles) {
+    $childRoles = array_intersect_key(Role::getRolesList(), array_flip($childRoles));
+}
+
 ?>
 <div class="user-view">
 
@@ -50,7 +57,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]),
                         'format' => 'html',
                     ],
+                    [
+                        'attribute' => 'rbacRoles',
+                        'value' => $childRoles ? Html::ul($childRoles, ['class' => 'list-unstyled']) : null,
+                        'format' => 'html',
+                    ],
+
                     'last_visit_at:datetime',
+
                     'created_at:datetime',
                     'updated_at:datetime',
                 ],
