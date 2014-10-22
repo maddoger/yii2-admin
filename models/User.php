@@ -9,6 +9,7 @@ namespace maddoger\admin\models;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use yii\rbac\Item;
 use yii\web\IdentityInterface;
 
 /**
@@ -29,13 +30,18 @@ use yii\web\IdentityInterface;
  * @property integer $last_visit_at
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $name read-only real_name or username
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const STATUS_BLOCKED = 9;
+
     const ROLE_USER = 10;
     const ROLE_ADMIN = 1;
+
+    private $_rbacRoles;
 
     /**
      * @inheritdoc
@@ -62,10 +68,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'required'],
-            [['avatar', 'real_name'], 'string'],
+            [['avatar', 'real_name', 'password'], 'string'],
+            [['rbacRoles'], 'safe'],
+
+            [['user_name'], 'string', 'min' => 3],
+            [['email'], 'email'],
 
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_BLOCKED]],
 
             ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
@@ -73,7 +83,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['username'], 'unique', 'message' => Yii::t('maddoger/admin', 'This username is already registered.')],
             [['email'], 'unique', 'message' => Yii::t('maddoger/admin', 'This email is already registered.')],
 
+            [['avatar'], 'default', 'value' => null],
         ];
+    }
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        //Profile editing
+        $scenarios['profile'] = ['username', 'password', 'email', 'avatar', 'real_name'];
+        return $scenarios;
     }
 
     /**
@@ -92,11 +111,39 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'real_name' => Yii::t('maddoger/admin', 'Real name'),
             'avatar' => Yii::t('maddoger/admin', 'Avatar'),
             'role' => Yii::t('maddoger/admin', 'Role'),
+            'roleDescription' => Yii::t('maddoger/admin', 'Role'),
             'status' => Yii::t('maddoger/admin', 'Status'),
+            'statusDescription' => Yii::t('maddoger/admin', 'Status'),
             'last_visit_at' => Yii::t('maddoger/admin', 'Last visit at'),
             'created_at' => Yii::t('maddoger/admin', 'Created at'),
             'updated_at' => Yii::t('maddoger/admin', 'Updated at'),
+            'rbacRoles' => Yii::t('maddoger/admin', 'Roles'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        //RBAC Roles
+        if ($this->isAttributeSafe('rbacRoles')) {
+
+            if (!$insert) {
+                Yii::$app->authManager->revokeAll($this->id);
+            }
+            if ($this->_rbacRoles) {
+
+                foreach ($this->_rbacRoles as $roleName) {
+                    $role = Yii::$app->authManager->getRole($roleName);
+                    if (!$role) {
+                        continue;
+                    }
+                    Yii::$app->authManager->assign($role, $this->id);
+                }
+            }
+        }
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**
@@ -106,6 +153,150 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         Yii::$app->authManager->revokeAll($this->id);
         parent::afterDelete();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->real_name ? : $this->username;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getId()
+    {
+        return $this->getPrimaryKey();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    /**
+     * Validates password
+     *
+     * @param string $password password to validate
+     * @return boolean if password provided is valid for current user
+     */
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
+    public function getPassword()
+    {
+        return null;
+    }
+
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        if (!empty($password)) {
+            $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        }
+    }
+
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString(32);
+    }
+
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAccessToken()
+    {
+        $this->access_token = Yii::$app->security->generateRandomString(32);
+    }
+
+    /**
+     * Generates new password reset token
+     */
+    public function generatePasswordResetToken()
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
+    /**
+     * Removes password reset token
+     */
+    public function removePasswordResetToken()
+    {
+        $this->password_reset_token = null;
+    }
+
+    /**
+     * @return null
+     */
+    public function getRbacRoles()
+    {
+        if ($this->_rbacRoles === null) {
+            $roles = Yii::$app->authManager->getRolesByUser($this->id);
+            if ($roles) {
+                foreach ($roles as $child) {
+                    if ($child->type == Item::TYPE_ROLE) {
+                        $this->_rbacRoles[] = $child->name;
+                    }
+                }
+            }
+        }
+        return $this->_rbacRoles;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setRbacRoles($value)
+    {
+        $this->_rbacRoles = $value;
+    }
+
+    /**
+     * Role sting representation
+     * @return string
+     */
+    public function getRoleDescription()
+    {
+        static $list = null;
+        if ($list === null) {
+            $list = static::getRoleList();
+        }
+        return (isset($list[$this->role])) ? $list[$this->role] : $this->role;
+    }
+
+    /**
+     * Status sting representation
+     * @return string
+     */
+    public function getStatusDescription()
+    {
+        static $list = null;
+        if ($list === null) {
+            $list = static::getStatusList();
+        }
+        return (isset($list[$this->status])) ? $list[$this->status] : $this->status;
     }
 
     /**
@@ -171,98 +362,29 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $timestamp + $expire >= time();
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->real_name ? : $this->username;
-    }
 
     /**
-     * @inheritdoc
+     * List of all possible roles
+     * @return array
      */
-    public function getId()
+    public static function getRoleList()
     {
-        return $this->getPrimaryKey();
+        return [
+            self::ROLE_USER => Yii::t('maddoger/admin', 'User'),
+            self::ROLE_ADMIN => Yii::t('maddoger/admin', 'Admin'),
+        ];
     }
 
     /**
-     * @inheritdoc
+     * List of all possible statuses
+     * @return array
      */
-    public function getAuthKey()
+    public static function getStatusList()
     {
-        return $this->auth_key;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->getAuthKey() === $authKey;
-    }
-
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return boolean if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
-    }
-
-    /**
-     * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
-    }
-
-    /**
-     * Generates "remember me" authentication key
-     */
-    public function generateAuthKey()
-    {
-        $this->auth_key = Yii::$app->security->generateRandomString(32);
-    }
-
-    /**
-     * Generates "remember me" authentication key
-     */
-    public function generateAccessToken()
-    {
-        $this->access_token = Yii::$app->security->generateRandomString(32);
-    }
-
-    /**
-     * Generates new password reset token
-     */
-    public function generatePasswordResetToken()
-    {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-    }
-
-    /**
-     * Removes password reset token
-     */
-    public function removePasswordResetToken()
-    {
-        $this->password_reset_token = null;
-    }
-
-    public function getAuthAssignment()
-    {
-        return $this->hasMany(AuthAssignment::className(), ['id' => 'user_id']);
-    }
-
-    public function getAuthItems()
-    {
-        return $this->hasOne(AuthAssignment::className(), ['id' => 'user_id']);
+        return [
+            self::STATUS_ACTIVE => Yii::t('maddoger/admin', 'Active'),
+            self::STATUS_BLOCKED => Yii::t('maddoger/admin', 'Blocked'),
+            self::STATUS_DELETED => Yii::t('maddoger/admin', 'Deleted'),
+        ];
     }
 }

@@ -83,13 +83,13 @@ class Role extends Model
             $this->isNewRecord = false;
 
             $authManager->removeChildren($item);
-            if ($this->_childRoles) {
+            if ($this->_childRoles !== null) {
                 foreach ($this->_childRoles as $childName) {
                     $child = $authManager->getRole($childName);
                     $authManager->addChild($item, $child);
                 }
             }
-            if ($this->_childPermissions) {
+            if ($this->_childPermissions !== null) {
                 foreach ($this->_childPermissions as $childName) {
                     $child = $authManager->getPermission($childName);
                     $authManager->addChild($item, $child);

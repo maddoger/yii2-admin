@@ -128,6 +128,7 @@ class Module extends BackendModule
                     [
                         'label' => Yii::t('maddoger/admin', 'Users'),
                         'url' => ['/' . $this->id . '/user/index'],
+                        'activeUrl' => '/' . $this->id . '/user/*',
                         'icon' => 'fa fa-user',
                     ],
                     [

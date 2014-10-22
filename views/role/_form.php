@@ -2,7 +2,7 @@
 
 use maddoger\admin\models\Role;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model maddoger\admin\models\Role */
@@ -25,11 +25,11 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-                    <div class="form-group">
-                        <?= Html::submitButton($model->isNewRecord ? Yii::t('maddoger/admin', 'Create') : Yii::t('maddoger/admin', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-                    </div>
 
                 </div>
+            </div>
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('maddoger/admin', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
             </div>
         </div>
         <div class="col-md-7">
@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
                 </div>
                 <div class="panel-body">
 
-                    <?= $form->field($model, 'childRoles', ['template' => '{input}'])->checkboxList(Role::getRolesList($model->name), ['separator' => '<br/>', 'class' => 'checkbox-list']) ?>
+                    <?= $form->field($model, 'childRoles', ['template' => '{input}'])->checkboxList(Role::getRolesList($model->name)) ?>
 
                 </div>
             </div>
@@ -48,9 +48,7 @@ use yii\widgets\ActiveForm;
                     <div class="panel-title"><?= Yii::t('maddoger/admin', 'Special permissions') ?></div>
                 </div>
                 <div class="panel-body">
-
-                    <?= $form->field($model, 'childPermissions', ['template' => '{input}'])->checkboxList(Role::getPermissionsList(), ['separator' => '<br/>', 'class' => 'checkbox-list']) ?>
-
+                    <?= $form->field($model, 'childPermissions', ['template' => '{input}'])->checkboxList(Role::getPermissionsList()) ?>
                 </div>
             </div>
         </div>

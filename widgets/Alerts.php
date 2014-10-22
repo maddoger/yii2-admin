@@ -19,10 +19,10 @@ use yii\helpers\Html;
  */
 class Alerts extends Widget
 {
-    const FLASH_ERROR = '__flash_error';
-    const FLASH_SUCCESS = '__flash_success';
-    const FLASH_INFO = '__flash_info';
-    const FLASH_WARNING = '__flash_warning';
+    const FLASH_ERROR = 'error';
+    const FLASH_SUCCESS = 'success';
+    const FLASH_INFO = 'info';
+    const FLASH_WARNING = 'warning';
 
     /**
      * @var array the alert types configuration for the flash messages.
@@ -41,7 +41,7 @@ class Alerts extends Widget
      */
     public $alertIcons = [
         self::FLASH_ERROR => 'ban',
-        self::FLASH_SUCCESS => 'info',
+        self::FLASH_SUCCESS => 'check',
         self::FLASH_INFO => 'warning',
         self::FLASH_WARNING => 'check'
     ];

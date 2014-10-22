@@ -35,7 +35,7 @@ $user = Yii::$app->user->getIdentity()
         <!-- Menu Footer-->
         <li class="user-footer">
             <div class="pull-left">
-                <a href="<?= Url::to(['/'.$adminModule->id.'/users/update', 'id' => $user->id]) ?>" class="btn btn-default btn-flat"><?= Yii::t('maddoger/admin', 'Profile') ?></a>
+                <a href="<?= Url::to(['/'.$adminModule->id.'/user/profile']) ?>" class="btn btn-default btn-flat"><?= Yii::t('maddoger/admin', 'Profile') ?></a>
             </div>
             <div class="pull-right">
                 <a href="<?= Url::to(['/'.$adminModule->id.'/site/logout']) ?>" class="btn btn-default btn-flat"><?= Yii::t('maddoger/admin', 'Sign out') ?></a>
