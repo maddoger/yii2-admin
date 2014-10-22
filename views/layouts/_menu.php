@@ -5,49 +5,56 @@
  * @var string $content
  */
 use maddoger\admin\Module;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use maddoger\admin\widgets\Menu;
 
 /**
  * @var \maddoger\core\BackendModule $module
  */
 
-$menu = [
-    [
-        'label' => Yii::t('maddoger/admin', 'Dashboard'),
-        'class' => 'fa fa-dashboard',
-        'url' => ['/'.Module::getInstance()->id.'/site/index'],
-        'sort' => -1,
-    ],
-];
+Yii::beginProfile('SIDEBAR_MENU');
 
+$cacheKey = 'ADMIN_SIDEBAR_MENU';
+$menu = Yii::$app->cache->get($cacheKey);
+
+if (!$menu) {
+
+    $menu = [
+        [
+            'label' => Yii::t('maddoger/admin', 'Dashboard'),
+            'class' => 'fa fa-dashboard',
+            'url' => ['/'.Module::getInstance()->id.'/site/index'],
+            'sort' => -1,
+        ],
+    ];
 
 //Get navigation from modules
-foreach (Yii::$app->modules as $module) {
-    if ($module instanceof \maddoger\core\BackendModule) {
+    foreach (Yii::$app->modules as $module) {
+        if ($module instanceof \maddoger\core\BackendModule) {
 
-        $sort = $module->sortNumber;
-        $navigation = $module->getNavigation();
-        foreach ($navigation as $key=>$value) {
-            if (!isset($navigation[$key]['sort'])) {
-                $navigation[$key]['sort'] = $sort;
+            $sort = $module->sortNumber;
+            $navigation = $module->getNavigation();
+            foreach ($navigation as $key=>$value) {
+                if (!isset($navigation[$key]['sort'])) {
+                    $navigation[$key]['sort'] = $sort;
+                }
             }
+            $menu = array_merge($menu, $navigation);
         }
-        $menu = array_merge($menu, $navigation);
     }
+    //Sort
+    usort($menu, function($a, $b){
+        $res = 0;
+        if ($a['sort'] != $b['sort']) {
+            $res = $a['sort']>$b['sort'] ? -1 : 1;
+        }
+        /*if (!$res) {
+            $res = strcmp($a['label'], $b['label']);
+        }*/
+        return $res;
+    });
+
+    Yii::$app->cache->set($cacheKey, $menu, 60);
 }
-//Sort
-usort($menu, function($a, $b){
-    $res = 0;
-    if ($a['sort'] != $b['sort']) {
-        $res = $a['sort']>$b['sort'] ? -1 : 1;
-    }
-    /*if (!$res) {
-        $res = strcmp($a['label'], $b['label']);
-    }*/
-    return $res;
-});
 
 echo Menu::widget([
     'items' => $menu,
@@ -59,3 +66,5 @@ echo Menu::widget([
         'class' => 'sidebar-menu',
     ],
 ]);
+
+Yii::endProfile('SIDEBAR_MENU');

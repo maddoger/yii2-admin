@@ -130,12 +130,14 @@ class Module extends BackendModule
                         'url' => ['/' . $this->id . '/user/index'],
                         'activeUrl' => '/' . $this->id . '/user/*',
                         'icon' => 'fa fa-user',
+                        'roles' => ['admin.user.view'],
                     ],
                     [
                         'label' => Yii::t('maddoger/admin', 'User roles'),
                         'url' => ['/' . $this->id . '/role/index'],
                         'activeUrl' => '/' . $this->id . '/role/*',
                         'icon' => 'fa fa-users',
+                        'roles' => ['admin.rbac.manageRoles'],
                     ],
                     /*[
                         'label' => Yii::t('maddoger/admin', 'Modules'),

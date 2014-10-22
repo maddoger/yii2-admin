@@ -58,6 +58,15 @@ class Menu extends BaseMenu
     protected function normalizeItems($items, &$active)
     {
         foreach ($items as $i => $item) {
+
+            if (isset($item['roles'])) {
+                foreach ($item['roles'] as $role) {
+                    if (Yii::$app->user->can($role)) {
+                        $item['visible'] = false;
+                        break;
+                    }
+                }
+            }
             if (isset($item['visible']) && !$item['visible']) {
                 unset($items[$i]);
                 continue;
