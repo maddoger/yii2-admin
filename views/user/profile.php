@@ -17,6 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
             <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title"><?= Yii::t('maddoger/admin', 'Authentication') ?></div>
+                    </div>
+                    <div class="panel-body">
+                        <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
+                        <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+                        <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="panel-title"><?= Yii::t('maddoger/admin', 'Bio') ?></div>
@@ -31,18 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::submitButton(Yii::t('maddoger/admin', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                 </div>
 
-            </div>
-            <div class="col-md-6">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <div class="panel-title"><?= Yii::t('maddoger/admin', 'Authentication') ?></div>
-                    </div>
-                    <div class="panel-body">
-                        <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
-                        <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
-                        <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255]) ?>
-                    </div>
-                </div>
             </div>
         </div>
 

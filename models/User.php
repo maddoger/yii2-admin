@@ -84,6 +84,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['email'], 'unique', 'message' => Yii::t('maddoger/admin', 'This email is already registered.')],
 
             [['avatar'], 'default', 'value' => null],
+
+            //Create
+            [['username', 'email', 'password_hash'], 'required', 'on' => 'create'],
         ];
     }
 
@@ -119,6 +122,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'updated_at' => Yii::t('maddoger/admin', 'Updated at'),
             'rbacRoles' => Yii::t('maddoger/admin', 'Roles'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if ($insert) {
+            $this->generateAuthKey();
+            $this->generateAccessToken();
+        }
+        return parent::beforeSave($insert);
     }
 
     /**

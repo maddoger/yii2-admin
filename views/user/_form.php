@@ -16,15 +16,6 @@ use yii\bootstrap\ActiveForm;
 
     <div class="row">
         <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-title"><?= Yii::t('maddoger/admin', 'Bio') ?></div>
-                </div>
-                <div class="panel-body">
-                    <?= $form->field($model, 'real_name')->textInput(['maxlength' => 255]) ?>
-                    <?= $form->field($model, 'avatar')->textInput(['maxlength' => 255]) ?>
-                </div>
-            </div>
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title"><?= Yii::t('maddoger/admin', 'Authentication') ?></div>
@@ -33,6 +24,15 @@ use yii\bootstrap\ActiveForm;
                     <?= $form->field($model, 'username')->textInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
                     <?= $form->field($model, 'email')->textInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
                     <?= $form->field($model, 'password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off', 'value' => '']) ?>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title"><?= Yii::t('maddoger/admin', 'Bio') ?></div>
+                </div>
+                <div class="panel-body">
+                    <?= $form->field($model, 'real_name')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'avatar')->textInput(['maxlength' => 255]) ?>
                 </div>
             </div>
         </div>
