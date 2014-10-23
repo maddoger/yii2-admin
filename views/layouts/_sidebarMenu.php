@@ -8,6 +8,11 @@ use maddoger\admin\Module;
 use maddoger\admin\widgets\Menu;
 
 /**
+ * @var \maddoger\admin\Module $adminModule
+ */
+$adminModule = Module::getInstance();
+
+/**
  * @var \maddoger\core\BackendModule $module
  */
 
@@ -18,22 +23,23 @@ $menu = Yii::$app->cache->get($cacheKey);
 
 if (!$menu) {
 
-    $menu = [
+    $menu = $adminModule->sidebarMenu ?:
         [
-            'label' => Yii::t('maddoger/admin', 'Dashboard'),
-            'class' => 'fa fa-dashboard',
-            'url' => ['/'.Module::getInstance()->id.'/site/index'],
-            'sort' => -1,
-        ],
-    ];
+            [
+                'label' => Yii::t('maddoger/admin', 'Dashboard'),
+                'class' => 'fa fa-dashboard',
+                'url' => ['/' . Module::getInstance()->id . '/site/index'],
+                'sort' => -1,
+            ],
+        ];
 
-//Get navigation from modules
+    //Get navigation from modules
     foreach (Yii::$app->modules as $module) {
         if ($module instanceof \maddoger\core\BackendModule) {
 
             $sort = $module->sortNumber;
             $navigation = $module->getNavigation();
-            foreach ($navigation as $key=>$value) {
+            foreach ($navigation as $key => $value) {
                 if (!isset($navigation[$key]['sort'])) {
                     $navigation[$key]['sort'] = $sort;
                 }
@@ -42,10 +48,10 @@ if (!$menu) {
         }
     }
     //Sort
-    usort($menu, function($a, $b){
+    usort($menu, function ($a, $b) {
         $res = 0;
         if ($a['sort'] != $b['sort']) {
-            $res = $a['sort']>$b['sort'] ? -1 : 1;
+            $res = $a['sort'] > $b['sort'] ? -1 : 1;
         }
         /*if (!$res) {
             $res = strcmp($a['label'], $b['label']);

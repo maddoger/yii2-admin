@@ -40,4 +40,4 @@ $adminModule = Module::getInstance();
     </div>
 <?= Html::endForm(); ?>
     <!-- /.search form -->
-<?= $this->render($adminModule->menuView) ?>
+<?= $this->render($adminModule->sidebarMenuView) ?>

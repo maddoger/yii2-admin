@@ -26,6 +26,11 @@ class Module extends BackendModule
     public $logoUrl;
 
     /**
+     * @var array menu items for sidebar menu
+     */
+    public $sidebarMenu;
+
+    /**
      * @var string view for sidebar
      */
     public $sidebarView = '@maddoger/admin/views/layouts/_sidebar.php';
@@ -33,7 +38,7 @@ class Module extends BackendModule
     /**
      * @var string view for main menu
      */
-    public $menuView = '@maddoger/admin/views/layouts/_menu.php';
+    public $sidebarMenuView = '@maddoger/admin/views/layouts/_sidebarMenu.php';
 
     /**
      * @var string view for user menu in the header
@@ -224,7 +229,7 @@ class Module extends BackendModule
                     'description' => Yii::t('maddoger/admin', 'Admin. Base access to admin panel'),
                     'children' => [
                         'admin.user.dashboard',
-                        'admin.rbac.updateFromModules',
+                        'admin.user.profile',
                     ]
                 ],
         ];
