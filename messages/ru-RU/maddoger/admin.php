@@ -17,12 +17,12 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Active' => 'Активен',
-    'Admin' => 'Администратор',
-    'Blocked' => 'Заблокирован',
+    'Delete avatar' => 'Удалить аватар',
     '"{itemName}" ... error ({error})' => '"{itemName}" ... ошибка ({error})',
     '"{itemName}" ... ok' => '"{itemName}" ... ok',
     'Access token' => 'Код доступа',
+    'Active' => 'Активен',
+    'Admin' => 'Администратор',
     'Admin Panel Module' => 'Модуль панели администратора',
     'Admin panel' => 'Панель администратора',
     'Admin. Access to dashboard' => 'Администратор. Доступ к главной странице',
@@ -41,6 +41,7 @@ return [
     'Authentication' => 'Аутентификация',
     'Avatar' => 'Аватар',
     'Bio' => 'Личные данные',
+    'Blocked' => 'Заблокирован',
     'Changes have been saved.' => 'Изменения сохранены.',
     'Check your email for further instructions.' => 'Проверьте свою почту для дальнейших инструкций.',
     'Child permissions' => 'Дочерние разрешения',
@@ -59,7 +60,7 @@ return [
 {link}' => 'Для смены пароля проследуйте по ссылке:
 {link}',
     'Go back' => 'Вернуться',
-    'Hello {username}' => 'Здравствуйте, {username}',
+    'Hello {username}' => 'Здравствуйте,<br />{username}',
     'I forgot my password' => 'Я забыл пароль',
     'I remembered my old password!' => 'Я вспомнил старый пароль!',
     'I remembered my password!' => 'Я вспомнил свой пароль!',

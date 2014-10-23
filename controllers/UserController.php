@@ -6,6 +6,7 @@ use Yii;
 use maddoger\admin\models\User;
 use maddoger\admin\models\search\UserSearch;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -21,7 +22,7 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index'],
                         'roles' => ['admin.user.view'],
                         'allow' => true,
                     ],
@@ -95,7 +96,6 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-        $model->scenario = 'create';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

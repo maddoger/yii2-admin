@@ -32,7 +32,10 @@ use yii\bootstrap\ActiveForm;
                 </div>
                 <div class="panel-body">
                     <?= $form->field($model, 'real_name')->textInput(['maxlength' => 255]) ?>
-                    <?= $form->field($model, 'avatar')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'avatar', [
+                        'template' => '{label} <br />'.($model->avatar ? Html::img($model->avatar) : '').'{input} {hint} {error}',
+                    ])->fileInput() ?>
+                    <?= $form->field($model, 'delete_avatar')->checkbox() ?>
                 </div>
             </div>
         </div>

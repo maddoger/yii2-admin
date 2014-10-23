@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use maddoger\admin\models\Role;
-use maddoger\admin\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model maddoger\admin\models\User */
@@ -13,7 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-update">
 
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            'options' => [
+                'enctype' => 'multipart/form-data',
+            ],
+        ]); ?>
 
         <div class="row">
             <div class="col-md-6">
@@ -35,7 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="panel-body">
                         <?= $form->field($model, 'real_name')->textInput(['maxlength' => 255]) ?>
-                        <?= $form->field($model, 'avatar')->textInput(['maxlength' => 255]) ?>
+                        <?= $form->field($model, 'avatar', [
+                            'template' => '{label} <br />'.($model->avatar ? Html::img($model->avatar) : '').'{input} {hint} {error}',
+                        ])->fileInput() ?>
+                        <?= $form->field($model, 'delete_avatar')->checkbox() ?>
                     </div>
                 </div>
 

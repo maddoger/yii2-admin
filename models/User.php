@@ -6,8 +6,8 @@
 
 namespace maddoger\admin\models;
 
+use maddoger\imagecache\ImageBehavior;
 use Yii;
-use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\rbac\Item;
 use yii\web\IdentityInterface;
@@ -41,6 +41,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     const ROLE_USER = 10;
     const ROLE_ADMIN = 1;
 
+    /**
+     * @var bool Delete avatar
+     */
+    public $delete_avatar;
+
     private $_rbacRoles;
 
     /**
@@ -58,6 +63,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
+
+            //Avatar
+            [
+                'class' => ImageBehavior::className(),
+                'attribute' => 'avatar',
+                'fileName' => 'id',
+                'deleteAttribute' => 'delete_avatar',
+                'basePath' => '@static/users/avatars',
+                'baseUrl' => '@staticUrl/users/avatars',
+            ],
         ];
     }
 
@@ -68,7 +83,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'required'],
-            [['avatar', 'real_name', 'password'], 'string'],
+            [['real_name', 'password'], 'string'],
             [['rbacRoles'], 'safe'],
 
             [['username'], 'string', 'min' => 3],
@@ -83,7 +98,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['username'], 'unique', 'message' => Yii::t('maddoger/admin', 'This username is already registered.')],
             [['email'], 'unique', 'message' => Yii::t('maddoger/admin', 'This email is already registered.')],
 
+            //Avatar
+            ['avatar', 'image'],
             [['avatar'], 'default', 'value' => null],
+            ['delete_avatar', 'boolean'],
 
             //Create
             [['username', 'email', 'password_hash'], 'required', 'on' => 'create'],
@@ -94,7 +112,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         $scenarios = parent::scenarios();
         //Profile editing
-        $scenarios['profile'] = ['username', 'password', 'email', 'avatar', 'real_name'];
+        $scenarios['profile'] = ['username', 'password', 'email', 'avatar', 'real_name', 'delete_avatar'];
         return $scenarios;
     }
 
@@ -121,6 +139,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'created_at' => Yii::t('maddoger/admin', 'Created at'),
             'updated_at' => Yii::t('maddoger/admin', 'Updated at'),
             'rbacRoles' => Yii::t('maddoger/admin', 'Roles'),
+            'delete_avatar' => Yii::t('maddoger/admin', 'Delete avatar'),
         ];
     }
 
