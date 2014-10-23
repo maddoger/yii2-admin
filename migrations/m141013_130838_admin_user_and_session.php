@@ -17,7 +17,7 @@ class m141013_130838_admin_user_and_session extends Migration
             'id' => Schema::TYPE_PK,
             'username' => Schema::TYPE_STRING . ' NOT NULL',
             'auth_key' => Schema::TYPE_STRING . '(32) NOT NULL',
-            'access_token' => Schema::TYPE_STRING . '(32) NOT NULL',
+            'access_token' => Schema::TYPE_STRING . '(32)',
             'password_hash' => Schema::TYPE_STRING . ' NOT NULL',
             'password_reset_token' => Schema::TYPE_STRING,
             'email' => Schema::TYPE_STRING . ' NOT NULL',
@@ -31,7 +31,6 @@ class m141013_130838_admin_user_and_session extends Migration
         ], $tableOptions);
         $this->createIndex($this->db->tablePrefix.'admin_user_username_uq', '{{%admin_user}}', 'username', true);
         $this->createIndex($this->db->tablePrefix.'admin_user_email_uq', '{{%admin_user}}', 'email', true);
-        $this->createIndex($this->db->tablePrefix.'admin_user_access_token_uq', '{{%admin_user}}', 'access_token', true);
 
         $this->createTable('{{%admin_session}}', [
             'id' => Schema::TYPE_STRING. '(40) NOT NULL',
@@ -46,7 +45,6 @@ class m141013_130838_admin_user_and_session extends Migration
         $this->dropPrimaryKey($this->db->tablePrefix.'admin_session_pk', '{{%admin_session}}');
         $this->dropTable('{{%admin_session}}');
 
-        $this->dropIndex($this->db->tablePrefix.'admin_user_access_token_uq', '{{%admin_user}}');
         $this->dropIndex($this->db->tablePrefix.'admin_user_email_uq', '{{%admin_user}}');
         $this->dropIndex($this->db->tablePrefix.'admin_user_username_uq', '{{%admin_user}}');
         $this->dropTable('{{%admin_user}}');

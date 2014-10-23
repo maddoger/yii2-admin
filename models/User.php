@@ -131,7 +131,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         if ($insert) {
             $this->generateAuthKey();
-            $this->generateAccessToken();
+            //$this->generateAccessToken();
         }
         return parent::beforeSave($insert);
     }
@@ -327,6 +327,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
+        if ($token === null) {
+            return null;
+        }
         return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
     }
 
