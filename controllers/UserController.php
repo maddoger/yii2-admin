@@ -22,7 +22,7 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'view'],
                         'roles' => ['admin.user.view'],
                         'allow' => true,
                     ],
