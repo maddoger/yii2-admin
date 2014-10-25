@@ -14,7 +14,7 @@ use yii\web\NotFoundHttpException;
 /**
  * RoleController implements the CRUD actions for Role model.
  *
- * @property \maddoger\admin\AdminModule $module
+ * @property \maddoger\admin\Module $module
  */
 class RoleController extends Controller
 {

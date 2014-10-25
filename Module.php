@@ -7,7 +7,6 @@
 namespace maddoger\admin;
 
 use maddoger\core\BackendModule;
-use maddoger\core\DynamicModel;
 use Yii;
 use yii\rbac\Item;
 
@@ -18,7 +17,7 @@ use yii\rbac\Item;
  * @link http://syrchikov.name
  * @package maddoger/yii2-admin
  */
-class AdminModule extends BackendModule
+class Module extends BackendModule
 {
     /**
      * @var string URL to logo for admin panel

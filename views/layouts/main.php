@@ -4,7 +4,7 @@
  * @var $this yii\web\View
  * @var string $content
  */
-use maddoger\admin\AdminModule;
+use maddoger\admin\Module;
 use maddoger\admin\widgets\Alerts;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -12,9 +12,9 @@ use yii\helpers\Url;
 $this->params['bodyClass'] = 'skin-blue';
 
 /**
- * @var \maddoger\admin\AdminModule $adminModule
+ * @var \maddoger\admin\Module $adminModule
  */
-$adminModule = AdminModule::getInstance();
+$adminModule = Module::getInstance();
 
 $logo = $adminModule->logoText ?: Yii::$app->name;
 if ($adminModule->logoUrl) {

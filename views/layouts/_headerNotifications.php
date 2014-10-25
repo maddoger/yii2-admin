@@ -4,9 +4,9 @@
  * @var $this yii\web\View
  * @var string $content
  */
-use maddoger\admin\AdminModule;
+use maddoger\admin\Module;
 
 /**
- * @var \maddoger\admin\AdminModule $adminModule
+ * @var \maddoger\admin\Module $adminModule
  */
-$adminModule = AdminModule::getInstance();
+$adminModule = Module::getInstance();

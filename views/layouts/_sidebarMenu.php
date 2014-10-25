@@ -4,15 +4,14 @@
  * @var $this yii\web\View
  * @var string $content
  */
-use maddoger\admin\AdminModule;
+use maddoger\admin\Module;
 use maddoger\admin\widgets\Menu;
 use maddoger\core\BackendModule;
-use yii\base\Module;
 
 /**
- * @var \maddoger\admin\AdminModule $adminModule
+ * @var \maddoger\admin\Module $adminModule
  */
-$adminModule = AdminModule::getInstance();
+$adminModule = Module::getInstance();
 
 /**
  * @var \maddoger\core\BackendModule $module
@@ -33,7 +32,7 @@ if (!$menu) {
             [
                 'label' => Yii::t('maddoger/admin', 'Dashboard'),
                 'icon' => 'fa fa-dashboard',
-                'url' => ['/' . AdminModule::getInstance()->id . '/site/index'],
+                'url' => ['/' . Module::getInstance()->id . '/site/index'],
                 'sort' => -1,
             ],
         ];
@@ -45,7 +44,7 @@ if (!$menu) {
         //Get navigation from modules
         foreach (Yii::$app->modules as $moduleId => $module) {
 
-            if (!($module instanceof Module)) {
+            if (!($module instanceof yii\base\Module)) {
                 $module = Yii::$app->getModule($moduleId, true);
             }
 
