@@ -18,7 +18,7 @@ use yii\rbac\Item;
  * @link http://syrchikov.name
  * @package maddoger\admin
  */
-class Module extends BackendModule
+class AdminModule extends BackendModule
 {
     /**
      * @var string URL to logo for admin panel

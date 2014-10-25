@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 /**
  * RoleController implements the CRUD actions for Role model.
  *
- * @property \maddoger\admin\Module $module
+ * @property \maddoger\admin\AdminModule $module
  */
 class RoleController extends Controller
 {

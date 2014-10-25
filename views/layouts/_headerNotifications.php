@@ -4,12 +4,10 @@
  * @var $this yii\web\View
  * @var string $content
  */
-use maddoger\admin\Module;
+use maddoger\admin\AdminModule;
 use yii\helpers\Html;
 
 /**
- * @var \maddoger\admin\Module $adminModule
+ * @var \maddoger\admin\AdminModule $adminModule
  */
-$adminModule = Module::getInstance();
-?>
-<!-- Messages: style can be found in dropdown.less-->
+$adminModule = AdminModule::getInstance();

@@ -4,13 +4,13 @@
  * @var $this yii\web\View
  * @var string $content
  */
-use maddoger\admin\Module;
+use maddoger\admin\AdminModule;
 use maddoger\admin\widgets\Menu;
 
 /**
- * @var \maddoger\admin\Module $adminModule
+ * @var \maddoger\admin\AdminModule $adminModule
  */
-$adminModule = Module::getInstance();
+$adminModule = AdminModule::getInstance();
 
 /**
  * @var \maddoger\core\BackendModule $module
@@ -28,7 +28,7 @@ if (!$menu) {
             [
                 'label' => Yii::t('maddoger/admin', 'Dashboard'),
                 'class' => 'fa fa-dashboard',
-                'url' => ['/' . Module::getInstance()->id . '/site/index'],
+                'url' => ['/' . AdminModule::getInstance()->id . '/site/index'],
                 'sort' => -1,
             ],
         ];

@@ -4,14 +4,14 @@
  * @var $this yii\web\View
  * @var string $content
  */
-use maddoger\admin\Module;
+use maddoger\admin\AdminModule;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
- * @var \maddoger\admin\Module $adminModule
+ * @var \maddoger\admin\AdminModule $adminModule
  */
-$adminModule = Module::getInstance();
+$adminModule = AdminModule::getInstance();
 
 /**
  * @var \maddoger\admin\models\User $user
