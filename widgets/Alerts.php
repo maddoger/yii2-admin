@@ -15,7 +15,7 @@ use yii\helpers\Html;
  *
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  * @link http://syrchikov.name
- * @package maddoger\admin
+ * @package maddoger/yii2-admin
  */
 class Alerts extends Widget
 {

@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
  *
  * @author Vitaliy Syrchikov <maddoger@gmail.com>
  * @link http://syrchikov.name
- * @package maddoger\admin
+ * @package maddoger/yii2-admin
  */
 class AdminAsset extends AssetBundle
 {

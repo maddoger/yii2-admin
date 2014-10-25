@@ -12,7 +12,7 @@ use Yii;
  * Class Menu
  * Menu with fa icons support
  *
- * @package maddoger\admin\widgets
+ * @package maddoger/yii2-admin\widgets
  */
 class Menu extends BaseMenu
 {
