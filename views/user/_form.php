@@ -2,8 +2,8 @@
 
 use maddoger\admin\models\Role;
 use maddoger\admin\models\User;
-use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model maddoger\admin\models\User */

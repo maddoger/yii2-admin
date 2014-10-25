@@ -1,8 +1,8 @@
 <?php
 
 use maddoger\admin\models\User;
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel maddoger\admin\models\search\UserSearch */

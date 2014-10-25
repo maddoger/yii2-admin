@@ -1,9 +1,9 @@
 <?php
 
-use yii\db\Schema;
-use yii\db\Migration;
-use yii\rbac\DbManager;
 use yii\base\InvalidConfigException;
+use yii\db\Migration;
+use yii\db\Schema;
+use yii\rbac\DbManager;
 
 class m141017_143038_admin_rbac_init extends Migration
 {

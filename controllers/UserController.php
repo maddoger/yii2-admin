@@ -2,11 +2,10 @@
 
 namespace maddoger\admin\controllers;
 
-use Yii;
-use maddoger\admin\models\User;
 use maddoger\admin\models\search\UserSearch;
+use maddoger\admin\models\User;
+use Yii;
 use yii\filters\AccessControl;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -89,6 +88,22 @@ class UserController extends Controller
     }
 
     /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return User the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -164,21 +179,5 @@ class UserController extends Controller
         $this->findModel($id)->updateAttributes(['status' => User::STATUS_DELETED]);
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the User model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return User the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = User::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }

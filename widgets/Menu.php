@@ -2,11 +2,11 @@
 
 namespace maddoger\admin\widgets;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Menu as BaseMenu;
-use Yii;
 
 /**
  * Class Menu

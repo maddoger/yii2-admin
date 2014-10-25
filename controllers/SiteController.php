@@ -6,18 +6,15 @@
 
 namespace maddoger\admin\controllers;
 
+use maddoger\admin\models\LoginForm;
 use maddoger\admin\models\PasswordResetRequestForm;
 use maddoger\admin\models\ResetPasswordForm;
-use maddoger\admin\models\User;
 use maddoger\admin\widgets\Alerts;
+use Yii;
 use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use maddoger\admin\models\LoginForm;
-use Yii;
-use yii\web\ForbiddenHttpException;
 
 /**
  * SiteController for authorisation

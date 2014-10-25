@@ -75,9 +75,6 @@ class AdminModule extends BackendModule
                 'class' => 'yii\i18n\PhpMessageSource',
                 'basePath' => '@maddoger/admin/messages',
                 'sourceLanguage' => 'en-US',
-                'fileMap' => [
-                    'maddoger/admin' => 'maddoger/admin.php',
-                ],
             ];
         }
     }

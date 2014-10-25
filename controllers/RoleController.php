@@ -10,7 +10,6 @@ use yii\filters\AccessControl;
 use yii\rbac\Item;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * RoleController implements the CRUD actions for Role model.

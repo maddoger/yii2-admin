@@ -2,8 +2,6 @@
 
 /* @var $this yii\web\View */
 
-use yii\helpers\Html;
-
 $this->title = Yii::t('maddoger/admin', 'Dashboard');
 
 /**

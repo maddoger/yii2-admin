@@ -6,9 +6,8 @@
 
 namespace maddoger\admin\models;
 
-use maddoger\admin\models\User;
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
 
 /**
  * Password reset request form

@@ -1,8 +1,7 @@
 <?php
 
-use yii\db\Schema;
-use yii\db\Migration;
 use maddoger\admin\models\User;
+use yii\db\Migration;
 
 class m141013_163430_admin_create_user extends Migration
 {
