@@ -114,6 +114,9 @@ class Menu extends BaseMenu
 	{
         $icon = ArrayHelper::getValue($item, 'icon');
 		if ($icon) {
+            if (strpos($icon, 'fa ') === 0) {
+                $icon .= ' fa-fw';
+            }
 			$icon = '<i class="'.$icon.'"></i>&nbsp;';
 		}
 

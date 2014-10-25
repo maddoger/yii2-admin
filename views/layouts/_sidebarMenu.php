@@ -32,7 +32,7 @@ if (!$menu) {
         [
             [
                 'label' => Yii::t('maddoger/admin', 'Dashboard'),
-                'class' => 'fa fa-dashboard',
+                'icon' => 'fa fa-dashboard',
                 'url' => ['/' . AdminModule::getInstance()->id . '/site/index'],
                 'sort' => -1,
             ],
@@ -85,7 +85,7 @@ if (!$menu) {
 echo Menu::widget([
     'items' => $menu,
     'activateParents' => true,
-    'labelTemplate' => '<a href="#">{label} <i class="fa fa-angle-left pull-right"></i></a>',
+    'labelTemplate' => '<a href="#">{icon}{label} <i class="fa fa-angle-left pull-right"></i></a>',
     'submenuTemplate' => "\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n",
     'submenuItemClass' => 'treeview',
     'options' => [
