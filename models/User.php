@@ -99,7 +99,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['email'], 'unique', 'message' => Yii::t('maddoger/admin', 'This email is already registered.')],
 
             //Avatar
-            ['avatar', 'image'],
+            ['avatar', 'image', 'maxWidth' => 512, 'maxHeight' => 512],
             [['avatar'], 'default', 'value' => null],
             ['delete_avatar', 'boolean'],
 
