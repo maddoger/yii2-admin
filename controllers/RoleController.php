@@ -139,7 +139,7 @@ class RoleController extends Controller
 
     /**
      * Updates rbac items from modules
-     * @param bool $only_find
+     * @param int $remove_all recreate all of items
      * @return mixed
      */
     public function actionUpdateFromModules($remove_all = 0)

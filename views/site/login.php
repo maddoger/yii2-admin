@@ -5,7 +5,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
+/* @var $model \maddoger\admin\models\LoginForm */
 
 $this->title = Yii::t('maddoger/admin', 'Sign in');
 $this->params['bodyClass'] = 'bg-black';
