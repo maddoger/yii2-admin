@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel-body">
 
             <p>
-                <?= Html::a(Yii::t('maddoger/admin', 'Create user'), ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('maddoger/admin', 'Create user'), ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([

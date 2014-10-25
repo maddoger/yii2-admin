@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="clearfix">
-            <?= Html::a(Html::tag('i', '', ['class' => 'glyphicon glyphicon-plus']).' '.Yii::t('maddoger/admin', 'Create new role'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="glyphicon glyphicon-plus"></i> '.Yii::t('maddoger/admin', 'Create new role'), ['create'], ['class' => 'btn btn-success']) ?>
 
                 <div class="btn-group pull-right">
                     <?= Html::a(
