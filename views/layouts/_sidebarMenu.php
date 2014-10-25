@@ -15,7 +15,6 @@ $adminModule = AdminModule::getInstance();
 /**
  * @var \maddoger\core\BackendModule $module
  */
-
 Yii::beginProfile('SIDEBAR_MENU');
 
 $cacheKey = 'ADMIN_SIDEBAR_MENU';
@@ -33,31 +32,34 @@ if (!$menu) {
             ],
         ];
 
-    //Get navigation from modules
-    foreach (Yii::$app->modules as $module) {
-        if ($module instanceof \maddoger\core\BackendModule) {
+    if ($adminModule->sidebarMenuUseModules) {
 
-            $sort = $module->sortNumber;
-            $navigation = $module->getNavigation();
-            foreach ($navigation as $key => $value) {
-                if (!isset($navigation[$key]['sort'])) {
-                    $navigation[$key]['sort'] = $sort;
+        //Get navigation from modules
+        foreach (Yii::$app->modules as $module) {
+            if ($module instanceof \maddoger\core\BackendModule) {
+
+                $sort = $module->sortNumber;
+                $navigation = $module->getNavigation();
+                foreach ($navigation as $key => $value) {
+                    if (!isset($navigation[$key]['sort'])) {
+                        $navigation[$key]['sort'] = $sort;
+                    }
                 }
+                $menu = array_merge($menu, $navigation);
             }
-            $menu = array_merge($menu, $navigation);
         }
+        //Sort
+        usort($menu, function ($a, $b) {
+            $res = 0;
+            if ($a['sort'] != $b['sort']) {
+                $res = $a['sort'] > $b['sort'] ? -1 : 1;
+            }
+            /*if (!$res) {
+                $res = strcmp($a['label'], $b['label']);
+            }*/
+            return $res;
+        });
     }
-    //Sort
-    usort($menu, function ($a, $b) {
-        $res = 0;
-        if ($a['sort'] != $b['sort']) {
-            $res = $a['sort'] > $b['sort'] ? -1 : 1;
-        }
-        /*if (!$res) {
-            $res = strcmp($a['label'], $b['label']);
-        }*/
-        return $res;
-    });
 
     Yii::$app->cache->set($cacheKey, $menu, 60);
 }

@@ -16,7 +16,10 @@ $this->params['bodyClass'] = 'skin-blue';
  */
 $adminModule = AdminModule::getInstance();
 
-$logo = $adminModule->logoUrl ? Html::img($adminModule->logoUrl, ['alt' => Yii::$app->name]): Yii::$app->name;
+$logo = $adminModule->logoText ?: Yii::$app->name;
+if ($adminModule->logoUrl) {
+    $logo = Html::img($adminModule->logoUrl, ['alt' => $logo, 'class' => 'icon']);
+}
 $header = isset($this->params['header']) ? $this->params['header'] : $this->title;
 
 $this->title = (empty($this->title) ? '' : $this->title.' :: ').Yii::$app->name;

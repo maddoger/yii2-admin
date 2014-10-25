@@ -26,9 +26,19 @@ class AdminModule extends BackendModule
     public $logoUrl;
 
     /**
+     * @var string logo text
+     */
+    public $logoText;
+
+    /**
      * @var array menu items for sidebar menu
      */
     public $sidebarMenu;
+
+    /**
+     * @var bool append modules navigation to sidebar menu
+     */
+    public $sidebarMenuUseModules = true;
 
     /**
      * @var string view for sidebar
@@ -96,28 +106,6 @@ class AdminModule extends BackendModule
     }
 
     /**
-     * Returns configuration model
-     *
-     * @return \yii\base\Model
-     */
-    public function getConfigurationModel()
-    {
-        $model = new DynamicModel();
-
-        //Logo url
-        $model->defineAttribute('logoUrl', $this->logoUrl, Yii::t('maddoger/admin', 'Url to logo for admin panel'));
-        $model->addRule('logoUrl', 'string');
-        $model->addRule('logoUrl', 'default', ['value' => null]);
-
-        //Sort number
-        $model->defineAttribute('sortNumber', $this->sortNumber, Yii::t('maddoger/admin', 'Sort number'));
-        $model->addRule('sortNumber', 'integer');
-        $model->addRule('sortNumber', 'filter', ['filter' => 'intval']);
-
-        return $model;
-    }
-
-    /**
      * @inheritdoc
      */
     public function getNavigation()
@@ -141,11 +129,6 @@ class AdminModule extends BackendModule
                         'icon' => 'fa fa-users',
                         'roles' => ['admin.rbac.manageRoles'],
                     ],
-                    /*[
-                        'label' => Yii::t('maddoger/admin', 'Modules'),
-                        'url' => ['/'.$this->id.'/modules/index'],
-                        'icon' => 'fa fa-gears',
-                    ],*/
                 ]
             ]
         ];
