@@ -6,6 +6,8 @@
  */
 use maddoger\admin\AdminModule;
 use maddoger\admin\widgets\Menu;
+use maddoger\core\BackendModule;
+use yii\base\Module;
 
 /**
  * @var \maddoger\admin\AdminModule $adminModule
@@ -17,8 +19,12 @@ $adminModule = AdminModule::getInstance();
  */
 Yii::beginProfile('SIDEBAR_MENU');
 
+$menu = null;
+
 $cacheKey = 'ADMIN_SIDEBAR_MENU';
-$menu = Yii::$app->cache->get($cacheKey);
+if ($adminModule->sidebarMenuCache !== false) {
+    $menu = Yii::$app->cache->get($cacheKey);
+}
 
 if (!$menu) {
 
@@ -34,25 +40,35 @@ if (!$menu) {
 
     if ($adminModule->sidebarMenuUseModules) {
 
-        //Get navigation from modules
-        foreach (Yii::$app->modules as $module) {
-            if ($module instanceof \maddoger\core\BackendModule) {
+        $sortIndex = 0;
 
-                $sort = $module->sortNumber;
+        //Get navigation from modules
+        foreach (Yii::$app->modules as $moduleId => $module) {
+
+            if (!($module instanceof Module)) {
+                $module = Yii::$app->getModule($moduleId, true);
+            }
+
+            if ($module instanceof BackendModule) {
+
+
+                $sort = $module->sortNumber ?: (++$sortIndex)*100;
                 $navigation = $module->getNavigation();
                 foreach ($navigation as $key => $value) {
                     if (!isset($navigation[$key]['sort'])) {
                         $navigation[$key]['sort'] = $sort;
                     }
                 }
+
                 $menu = array_merge($menu, $navigation);
             }
         }
+
         //Sort
         usort($menu, function ($a, $b) {
             $res = 0;
             if ($a['sort'] != $b['sort']) {
-                $res = $a['sort'] > $b['sort'] ? -1 : 1;
+                $res = $a['sort'] > $b['sort'] ? 1 : -1;
             }
             /*if (!$res) {
                 $res = strcmp($a['label'], $b['label']);
@@ -61,7 +77,9 @@ if (!$menu) {
         });
     }
 
-    Yii::$app->cache->set($cacheKey, $menu, 60);
+    if ($adminModule->sidebarMenuCache !== false) {
+        Yii::$app->cache->set($cacheKey, $menu, $adminModule->sidebarMenuCache);
+    }
 }
 
 echo Menu::widget([

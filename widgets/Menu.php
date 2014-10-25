@@ -60,9 +60,10 @@ class Menu extends BaseMenu
         foreach ($items as $i => $item) {
 
             if (isset($item['roles'])) {
+                $item['visible'] = false;
                 foreach ($item['roles'] as $role) {
                     if (Yii::$app->user->can($role)) {
-                        $item['visible'] = false;
+                        $item['visible'] = true;
                         break;
                     }
                 }

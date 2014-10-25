@@ -41,6 +41,14 @@ class AdminModule extends BackendModule
     public $sidebarMenuUseModules = true;
 
     /**
+     * @var int time in seconds for sidebar menu cache
+     * 0 - infinity
+     * false - disable caching
+     * Default: 60 seconds
+     */
+    public $sidebarMenuCache = 60;
+
+    /**
      * @var string view for sidebar
      */
     public $sidebarView = '@maddoger/admin/views/layouts/_sidebar.php';
