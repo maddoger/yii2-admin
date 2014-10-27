@@ -1855,6 +1855,10 @@ body > .header .logo .icon {
 .nav-tabs-custom > .nav-tabs > li.header > .ion {
   margin-right: 10px;
 }
+.nav-tabs-custom > .nav-tabs > li.tools {
+  line-height: 40px;
+  padding: 0 5px;
+}
 .nav-tabs-custom > .tab-content {
   padding: 10px;
 }
