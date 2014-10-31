@@ -470,6 +470,7 @@ a.desc:after {
   display: block;
   margin-top: 5px;
   color: #999;
+  font-size: 80%;
 }
 .error-summary {
   color: #a94442;
