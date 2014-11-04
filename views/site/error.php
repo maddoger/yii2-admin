@@ -24,6 +24,7 @@ if ($exception instanceof HttpException) {
         <p class="message">
             <?= nl2br(Html::encode($message)) ?>
         </p>
+        <?php if (!Yii::$app->user->isGuest) : ?>
         <?= Html::beginForm(['admin/site/search'], 'get', ['class' => 'search-form']) ?>
         <div class="input-group">
             <input type="text" name="q" class="form-control" placeholder="<?= Yii::t('maddoger/admin', 'Search...') ?>"/>
@@ -32,5 +33,6 @@ if ($exception instanceof HttpException) {
                     </span>
         </div>
         <?= Html::endForm(); ?>
+        <?php endif; ?>
     </div><!-- /.error-content -->
 </div><!-- /.error-page -->

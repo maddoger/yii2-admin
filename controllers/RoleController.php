@@ -144,17 +144,22 @@ class RoleController extends Controller
      */
     public function actionUpdateFromModules($remove_all = 0)
     {
+        $params = static::updateRoles($remove_all, $this->module->superUserId, $this->module->superUserRole);
+
+        return $this->render('updateFromModules', $params);
+    }
+
+    public static function updateRoles($removeAll = false, $superUserId = null, $superUserRoleName = null)
+    {
         $authManager = Yii::$app->authManager;
         $log = [];
         $hasError = false;
 
-        if ($remove_all) {
+        if ($removeAll) {
             $authManager->removeAll();
         }
 
         //Superuser
-        $superUserId = $this->module->superUserId;
-        $superUserRoleName = $this->module->superUserRole;
         if ($superUserRoleName) {
             $superUserRole = $authManager->getRole($superUserRoleName);
             if (!$superUserRole) {
@@ -331,11 +336,7 @@ class RoleController extends Controller
                 }
             }
         }
-
-        return $this->render('updateFromModules', [
-            'log' => $log,
-            'hasError' => $hasError,
-        ]);
+        return ['log' => $log, 'hasError' => $hasError];
     }
 
     /**

@@ -217,6 +217,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'auth_key' => Yii::t('maddoger/admin', 'Auth key'),
             'access_token' => Yii::t('maddoger/admin', 'Access token'),
             'password_hash' => Yii::t('maddoger/admin', 'Password hash'),
+            'password' => Yii::t('maddoger/admin', 'Password'),
             'password_reset_token' => Yii::t('maddoger/admin', 'Password reset token'),
             'email' => Yii::t('maddoger/admin', 'Email'),
             'real_name' => Yii::t('maddoger/admin', 'Real name'),

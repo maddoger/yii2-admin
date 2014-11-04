@@ -17,7 +17,10 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Delete avatar' => 'Удалить аватар',
+    'Administrator registration' => 'Регистрация администратора',
+    'Sign up' => 'Зарегистрировать',
+    'This email address has already been taken.' => 'Данный email уже занят.',
+    'This username has already been taken.' => 'Данное имя пользователя уже занято.',
     '"{itemName}" ... error ({error})' => '"{itemName}" ... ошибка ({error})',
     '"{itemName}" ... ok' => '"{itemName}" ... ok',
     'Access token' => 'Код доступа',
@@ -53,6 +56,7 @@ return [
     'Dashboard' => 'Главная',
     'Data' => 'Данные',
     'Delete' => 'Удалить',
+    'Delete avatar' => 'Удалить аватар',
     'Deleted' => 'Удален',
     'Description' => 'Описание',
     'Email' => 'Email',
@@ -68,7 +72,6 @@ return [
     'Last visit at' => 'Последнее посещение в',
     'Log' => 'Журнал',
     'Member since {0, date, MMM. yyyy}' => 'Участник с {0, date, MMMM yyyy}',
-    'Modules' => 'Модули',
     'New password' => 'Новый пароль',
     'New password was saved.' => 'Новый пароль сохранен.',
     'Password' => 'Пароль',
@@ -99,7 +102,6 @@ return [
     'Sign me in' => 'Войти',
     'Sign out' => 'Выйти',
     'Sorry, we are unable to reset password for email provided.' => 'Извините, но мы не можем сбросить пароль для данного адреса.',
-    'Sort number' => 'Сортировка',
     'Special permissions' => 'Специальные разрешения',
     'Status' => 'Статус',
     'Superuser' => 'Суперпользователь',
@@ -112,7 +114,6 @@ return [
     'Update user roles from modules' => 'Обновить роли пользователей из модулей',
     'Update user:' => 'Редактировать пользователя',
     'Updated at' => 'Обновлен в',
-    'Url to logo for admin panel' => 'URL логотипа для панели администратора',
     'User' => 'Пользователь',
     'User roles' => 'Роли пользователей',
     'Username' => 'Имя пользователя',

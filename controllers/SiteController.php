@@ -9,12 +9,16 @@ namespace maddoger\admin\controllers;
 use maddoger\admin\models\LoginForm;
 use maddoger\admin\models\PasswordResetRequestForm;
 use maddoger\admin\models\ResetPasswordForm;
+use maddoger\admin\models\SignupForm;
+use maddoger\admin\models\User;
 use maddoger\admin\widgets\Alerts;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\base\InvalidRouteException;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * SiteController for authorisation
@@ -35,7 +39,14 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'reset-password', 'request-password-reset', 'captcha'],
+                        'actions' => [
+                            'login',
+                            'error',
+                            'reset-password',
+                            'request-password-reset',
+                            'captcha',
+                            'install'
+                        ],
                         'allow' => true,
                     ],
                     [
@@ -133,11 +144,13 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash(Alerts::FLASH_SUCCESS, Yii::t('maddoger/admin', 'Check your email for further instructions.'));
+                Yii::$app->getSession()->setFlash(Alerts::FLASH_SUCCESS,
+                    Yii::t('maddoger/admin', 'Check your email for further instructions.'));
 
                 return $this->goHome();
             } else {
-                Yii::$app->getSession()->setFlash(Alerts::FLASH_ERROR, Yii::t('maddoger/admin', 'Sorry, we are unable to reset password for email provided.'));
+                Yii::$app->getSession()->setFlash(Alerts::FLASH_ERROR,
+                    Yii::t('maddoger/admin', 'Sorry, we are unable to reset password for email provided.'));
             }
         }
 
@@ -157,12 +170,35 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash(Alerts::FLASH_SUCCESS, Yii::t('maddoger/admin', 'New password was saved.'));
+            Yii::$app->getSession()->setFlash(Alerts::FLASH_SUCCESS,
+                Yii::t('maddoger/admin', 'New password was saved.'));
             return $this->goHome();
         }
 
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionInstall()
+    {
+        //Check users count
+        if (User::find()->count()>0) {
+            return $this->redirect(['index']);
+        }
+
+        $this->layout = 'base';
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $user = $model->signup()) {
+
+            //Update roles
+            RoleController::updateRoles(true, $user->id, $this->module->superUserRole);
+
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('signup', [
+                'model' => $model,
+            ]);
+        }
     }
 }
