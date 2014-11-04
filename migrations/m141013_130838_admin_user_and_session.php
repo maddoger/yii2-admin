@@ -29,24 +29,24 @@ class m141013_130838_admin_user_and_session extends Migration
             'created_at' => Schema::TYPE_INTEGER,
             'updated_at' => Schema::TYPE_INTEGER,
         ], $tableOptions);
-        $this->createIndex($this->db->tablePrefix.'admin_user_username_uq', '{{%admin_user}}', 'username', true);
-        $this->createIndex($this->db->tablePrefix.'admin_user_email_uq', '{{%admin_user}}', 'email', true);
+        $this->createIndex('username_uq', '{{%admin_user}}', 'username', true);
+        $this->createIndex('email_uq', '{{%admin_user}}', 'email', true);
 
         $this->createTable('{{%admin_session}}', [
             'id' => Schema::TYPE_STRING. '(40) NOT NULL',
             'expire' => Schema::TYPE_INTEGER,
             'data' => Schema::TYPE_BINARY,
         ], $tableOptions);
-        $this->addPrimaryKey($this->db->tablePrefix.'admin_session_pk', '{{%admin_session}}', 'id');
+        $this->addPrimaryKey('pk', '{{%admin_session}}', 'id');
     }
 
     public function safeDown()
     {
-        $this->dropPrimaryKey($this->db->tablePrefix.'admin_session_pk', '{{%admin_session}}');
+        $this->dropPrimaryKey('pk', '{{%admin_session}}');
         $this->dropTable('{{%admin_session}}');
 
-        $this->dropIndex($this->db->tablePrefix.'admin_user_email_uq', '{{%admin_user}}');
-        $this->dropIndex($this->db->tablePrefix.'admin_user_username_uq', '{{%admin_user}}');
+        $this->dropIndex('email_uq', '{{%admin_user}}');
+        $this->dropIndex('username_uq', '{{%admin_user}}');
         $this->dropTable('{{%admin_user}}');
     }
 }
