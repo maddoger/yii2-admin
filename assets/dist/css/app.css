@@ -1860,6 +1860,10 @@ body > .header .logo .icon {
   line-height: 40px;
   padding: 0 5px;
 }
+.nav-tabs-custom > .tools {
+  padding: 0 5px;
+  line-height: 40px;
+}
 .nav-tabs-custom > .tab-content {
   padding: 10px;
 }
