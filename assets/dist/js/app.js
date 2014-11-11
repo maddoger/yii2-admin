@@ -37,23 +37,7 @@ $(function() {
     /*
      * Add collapse and remove events to boxes
      */
-    $("[data-widget='collapse']").click(function() {
-        //Find the box parent
-        var panel = $(this).parents(".panel").first();
-        //Find the body and the footer
-        var bf = panel.find(".panel-body, .panel-footer");
-        if (!panel.hasClass("collapsed-panel")) {
-            panel.addClass("collapsed-panel");
-            //Convert minus into plus
-            $(this).children(".fa-minus").removeClass("fa-minus").addClass("fa-plus");
-            bf.slideUp('fast');
-        } else {
-            panel.removeClass("collapsed-panel");
-            //Convert plus into minus
-            $(this).children(".fa-plus").removeClass("fa-plus").addClass("fa-minus");
-            bf.slideDown('fast');
-        }
-    });
+    $("[data-widget='collapse']").collapse();
 
     /*
      * ADD SLIMSCROLL TO THE TOP NAV DROPDOWNS
@@ -217,6 +201,35 @@ $(function() {
 
                 $(this).css({"margin-left": pad + "px"});
             });
+
+        });
+
+    };
+
+    $.fn.collapse = function() {
+
+        return this.each(function() {
+
+            var t = $(this);
+            t.off('click');
+            t.click(function() {
+                //Find the box parent
+                var panel = $(this).parents(".panel").first();
+                //Find the body and the footer
+                var bf = panel.find(".panel-body, .panel-footer");
+                if (!panel.hasClass("collapsed-panel")) {
+                    panel.addClass("collapsed-panel");
+                    //Convert minus into plus
+                    $(this).children(".fa-minus").removeClass("fa-minus").addClass("fa-plus");
+                    bf.slideUp('fast');
+                } else {
+                    panel.removeClass("collapsed-panel");
+                    //Convert plus into minus
+                    $(this).children(".fa-plus").removeClass("fa-plus").addClass("fa-minus");
+                    bf.slideDown('fast');
+                }
+            });
+
 
         });
 
