@@ -39,19 +39,19 @@ $(function() {
      */
     $("[data-widget='collapse']").click(function() {
         //Find the box parent
-        var box = $(this).parents(".box").first();
+        var panel = $(this).parents(".panel").first();
         //Find the body and the footer
-        var bf = box.find(".box-body, .box-footer");
-        if (!box.hasClass("collapsed-box")) {
-            box.addClass("collapsed-box");
+        var bf = panel.find(".panel-body, .panel-footer");
+        if (!panel.hasClass("collapsed-panel")) {
+            panel.addClass("collapsed-panel");
             //Convert minus into plus
             $(this).children(".fa-minus").removeClass("fa-minus").addClass("fa-plus");
-            bf.slideUp();
+            bf.slideUp('fast');
         } else {
-            box.removeClass("collapsed-box");
+            panel.removeClass("collapsed-panel");
             //Convert plus into minus
             $(this).children(".fa-plus").removeClass("fa-plus").addClass("fa-minus");
-            bf.slideDown();
+            bf.slideDown('fast');
         }
     });
 

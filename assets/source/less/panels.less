@@ -130,7 +130,7 @@
 
     border-top: 0px;
     > .panel-heading {
-      padding-bottom: 0px !important;
+      //padding-bottom: 0px !important;
       .btn.btn-default {
         background: transparent;
       }
@@ -153,14 +153,17 @@
       .panel-solid-variant(@green);
     }
 
-    > .panel-heading > .panel-tools .btn {
-      border: 0;
-      box-shadow: none;
+    > .panel-heading > .panel-tools {
+      padding-top: 0;
+      .btn {
+        border: 0;
+        box-shadow: none;
+      }
     }
 
     // collapsed mode
-    &.collapsed-box {
-      .panel-heading {
+    &.collapsed-panel {
+      > .panel-heading {
         .border-radius(@box-border-radius);
       }
     }
@@ -194,14 +197,11 @@
     z-index: 1010;
     background: rgba(255, 255, 255, 0.7);
   }
-
   > .overlay.dark {
     background: rgba(0, 0, 0, 0.5);
   }
-
   > .loading-img {
     z-index: 1020;
     background: transparent url('../img/ajax-loader1.gif') 50% 50% no-repeat;
   }
-
 }
