@@ -5,6 +5,7 @@
  * @var string $content
  */
 use maddoger\admin\Module;
+use maddoger\admin\widgets\SearchForm;
 use yii\helpers\Html;
 
 /**
@@ -21,7 +22,8 @@ $adminModule = Module::getInstance();
         $user = Yii::$app->user->getIdentity()
         ?>
         <div class="pull-left image">
-            <?= $user->avatar ? Html::img($user->avatar, ['class' => 'img-circle', 'alt' => Yii::t('maddoger/admin', 'Avatar')]) : '' ?>
+            <?= $user->avatar ? Html::img($user->avatar,
+                ['class' => 'img-circle', 'alt' => Yii::t('maddoger/admin', 'Avatar')]) : '' ?>
         </div>
         <div class="pull-left info">
             <p><?= Yii::t('maddoger/admin', 'Hello {username}', ['username' => Html::encode($user->getName())]) ?></p>
@@ -29,15 +31,14 @@ $adminModule = Module::getInstance();
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
     </div>
-    <!-- search form -->
-<?= Html::beginForm(['admin/site/search'], 'get', ['class' => 'sidebar-form']) ?>
-    <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="<?= Yii::t('maddoger/admin', 'Search...') ?>"/>
-        <span class="input-group-btn">
-        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
-                                class="fa fa-search"></i></button>
-        </span>
-    </div>
-<?= Html::endForm(); ?>
-    <!-- /.search form -->
+
+<?= SearchForm::widget([
+    'options' => [
+        'class' => 'sidebar-form',
+    ],
+    'clientOptions' => [
+        'width' => 228,
+    ],
+]) ?>
+
 <?= $this->render($adminModule->sidebarMenuView) ?>

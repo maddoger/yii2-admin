@@ -56,7 +56,7 @@ class Alerts extends Widget
      */
     public $closeButton = [];
 
-    public function init()
+    public function run()
     {
         parent::init();
 
@@ -97,10 +97,13 @@ class Alerts extends Widget
             $session->removeFlash($type);
         }
 
-        if ($alerts)
-            echo strtr($this->template, [
+        if ($alerts) {
+            return strtr($this->template, [
                 '{alerts}' => $alerts
             ]);
+        }
+
+        return null;
     }
 
 }

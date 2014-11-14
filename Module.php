@@ -80,6 +80,16 @@ class Module extends BackendModule
     public $superUserId;
 
     /**
+     * @var bool
+     */
+    public $searchUseModulesSources = true;
+
+    /**
+     * @var
+     */
+    public $searchSources;
+
+    /**
      * Init module
      */
     public function init()
@@ -222,4 +232,35 @@ class Module extends BackendModule
         ];
     }
 
+    /**
+     * @return array
+     */
+    public function getSearchSources()
+    {
+        return [
+            [
+                'class' => '\maddoger\core\search\ArraySearchSource',
+                'data' => [
+                    [
+                        'label' => Yii::t('maddoger/admin', 'Users'),
+                        'url' => ['/' . $this->id . '/user/index'],
+                    ],
+                    [
+                        'label' => Yii::t('maddoger/admin', 'User roles'),
+                        'url' => ['/' . $this->id . '/role/index'],
+                    ],
+                ],
+                'roles' => ['admin.user.view', 'admin.rbac.manageRoles'],
+            ],
+            [
+                'class' => '\maddoger\core\search\ActiveSearchSource',
+                'modelClass' => '\maddoger\admin\models\User',
+                'searchAttributes' => ['username', 'email', 'real_name'],
+                'url' => ['/' . $this->id . '/user/view', 'id' => null],
+                'label' => 'username',
+                'labelPrefix' => Yii::t('maddoger/admin', 'User - '),
+                'roles' => ['admin.user.view'],
+            ],
+        ];
+    }
 }

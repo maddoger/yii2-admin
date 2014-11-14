@@ -24,6 +24,7 @@ class AdminAsset extends AssetBundle
     ];
     public $js = [
         'js/slimscroll/jquery.slimscroll.min.js',
+        'js/jquery.autocomplete.min.js',
         'js/app.js',
     ];
 

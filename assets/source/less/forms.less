@@ -77,3 +77,26 @@
     font-weight: normal;
   }
 }
+
+
+.autocomplete-selected {
+  background-color: @light-blue;
+  color: #f9f9f9;
+}
+
+.autocomplete-suggestion {
+  cursor: pointer;
+  //overflow: hidden; // From the jQuery Autocomplete README.
+  padding: 3px 10px; // Same as .dropdown-menu links.
+  white-space: nowrap; // From the jQuery Autocomplete README.
+}
+
+.autocomplete-suggestions {
+  background-color: #ffffff;
+  overflow: auto; // From the jQuery Autocomplete README.
+  padding: 5px 0; // From the .dropdown-menu rule.
+  border-radius: 0 0 2px 2px ;
+  border: 1px solid #dbdbdb;
+  border-top: none;
+  width: 100%;
+}

@@ -12,13 +12,14 @@ use maddoger\admin\models\ResetPasswordForm;
 use maddoger\admin\models\SignupForm;
 use maddoger\admin\models\User;
 use maddoger\admin\widgets\Alerts;
+use maddoger\core\BackendModule;
 use Yii;
 use yii\base\InvalidParamException;
-use yii\base\InvalidRouteException;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * SiteController for authorisation
@@ -55,7 +56,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index', 'search'],
                         'roles' => ['admin.user.dashboard'],
                         'allow' => true,
                     ],
@@ -107,11 +108,88 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
+    /**
+     * @return string
+     */
+    public function actionSearch($q)
+    {
+        $q = trim(strip_tags($q));
+
+        /**
+         * @var \maddoger\admin\Module $module
+         */
+        $module = $this->module;
+
+        $sources = $module->searchSources ?: [];
+        if ($module->searchUseModulesSources) {
+//Get navigation from modules
+            foreach (Yii::$app->modules as $moduleId => $module) {
+
+                if (!($module instanceof \yii\base\Module)) {
+                    $module = Yii::$app->getModule($moduleId, true);
+                }
+
+                if ($module instanceof BackendModule) {
+                    $moduleSources = $module->getSearchSources();
+                    if ($moduleSources) {
+                        $sources = array_merge($sources, $moduleSources);
+                    }
+                }
+            }
+        }
+
+        $content = [];
+
+        //Data to models
+        foreach ($sources as $source) {
+            if (is_array($source)) {
+                $roles = ArrayHelper::remove($source, 'roles');
+                if ($roles) {
+                    $can = false;
+                    foreach ($roles as $role) {
+                        if (Yii::$app->user->can($role)) {
+                            $can = true;
+                            break;
+                        }
+                    }
+                    if (!$can) {
+                        continue;
+                    }
+                }
+                $source = Yii::createObject($source);
+            }
+            /**
+             * @var \maddoger\core\search\BaseSearchSource $source
+             */
+            $result = $source->getResult($q);
+            if ($result) {
+                $content = array_merge($content, $result);
+            }
+        }
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $content;
+        }
+
+
+        return $this->render('search', [
+            'query' => $q,
+            'result' => $content,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
     public function actionLogin()
     {
         $this->layout = 'base';
@@ -130,6 +208,9 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * @return string
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -137,6 +218,9 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * @return string
+     */
     public function actionRequestPasswordReset()
     {
         $this->layout = 'base';
@@ -159,6 +243,11 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @param $token
+     * @return string|\yii\web\Response
+     * @throws BadRequestHttpException
+     */
     public function actionResetPassword($token)
     {
         $this->layout = 'base';
@@ -180,10 +269,13 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionInstall()
     {
         //Check users count
-        if (User::find()->count()>0) {
+        if (User::find()->count() > 0) {
             return $this->redirect(['index']);
         }
 

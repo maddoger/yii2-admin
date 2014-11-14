@@ -1,0 +1,25 @@
+.search-page {
+
+  .search-results {
+    list-style: none;
+    padding-left: 0;
+    > li + li {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid @box-border-color;
+    }
+
+    > li {
+      > a {
+        font-size: 110%;
+      }
+      .url {
+        margin-left: 10px;
+        display: inline-block;
+        color: #bbb;
+        font-size: 80%;
+      }
+    }
+  }
+
+}
