@@ -85,7 +85,7 @@ class Module extends BackendModule
     public $searchUseModulesSources = true;
 
     /**
-     * @var
+     * @var array
      */
     public $searchSources;
 

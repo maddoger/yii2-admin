@@ -42,8 +42,8 @@ class Alerts extends Widget
     public $alertIcons = [
         self::FLASH_ERROR => 'ban',
         self::FLASH_SUCCESS => 'check',
-        self::FLASH_INFO => 'warning',
-        self::FLASH_WARNING => 'check'
+        self::FLASH_INFO => 'info',
+        self::FLASH_WARNING => 'warning'
     ];
 
     /**
