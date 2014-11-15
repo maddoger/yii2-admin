@@ -156,6 +156,13 @@ class Module extends BackendModule
                         'icon' => 'fa fa-users',
                         'roles' => ['admin.rbac.manageRoles'],
                     ],
+                    [
+                        'label' => Yii::t('maddoger/admin', 'System messages'),
+                        'url' => ['/' . $this->id . '/system-messages/index'],
+                        'activeUrl' => '/' . $this->id . '/system-messages/*',
+                        'icon' => 'fa fa-warning',
+                        'roles' => ['admin.system-messages.viewList'],
+                    ],
                 ]
             ]
         ];
