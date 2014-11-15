@@ -17,8 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'An internal server error occurred.' => 'Внутренняя ошибка сервера.',
-    'Error' => 'Ошибка',
+    'To the website' => 'На сайт',
     '"{itemName}" ... error ({error})' => '"{itemName}" ... ошибка ({error})',
     '"{itemName}" ... ok' => '"{itemName}" ... ok',
     'Access token' => 'Код доступа',
@@ -41,6 +40,7 @@ return [
     'Admin. View system messages' => 'Администратор. Просмотр системных сообщений',
     'Admin. View system messages with details' => 'Администратор. Просмотр в деталях системных сообщений',
     'Administrator registration' => 'Регистрация администратора',
+    'An internal server error occurred.' => 'Внутренняя ошибка сервера.',
     'Are you sure you want to delete all items?' => 'Вы уверены, что хотите удалить все элементы?',
     'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить эту запись?',
     'Auth key' => 'Ключ авторизации',
@@ -64,6 +64,7 @@ return [
     'Deleted' => 'Удален',
     'Description' => 'Описание',
     'Email' => 'Email',
+    'Error' => 'Ошибка',
     'Follow the link below to reset your password:
 {link}' => 'Для смены пароля проследуйте по ссылке:
 {link}',

@@ -2,11 +2,8 @@
 
 /**
  * @var $this yii\web\View
- * @var string $content
  */
-use maddoger\admin\Module;
 
-/**
- * @var \maddoger\admin\Module $adminModule
- */
-$adminModule = Module::getInstance();
+use yii\helpers\Html;
+
+echo '<li>'.Html::a('<i class="fa fa-reply"></i>&nbsp;'.Yii::t('maddoger/admin', 'To the website'), '@frontendUrl/').'</li>';
