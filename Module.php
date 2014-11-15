@@ -286,6 +286,16 @@ class Module extends BackendModule
                 'roles' => ['admin.user.view', 'admin.rbac.manageRoles'],
             ],
             [
+                'class' => '\maddoger\core\search\ArraySearchSource',
+                'data' => [
+                    [
+                        'label' => Yii::t('maddoger/admin', 'System messages'),
+                        'url' => ['/' . $this->id . '/system-messages/index'],
+                    ],
+                ],
+                'roles' => ['admin.system-messages.viewList'],
+            ],
+            [
                 'class' => '\maddoger\core\search\ActiveSearchSource',
                 'modelClass' => '\maddoger\admin\models\User',
                 'searchAttributes' => ['username', 'email', 'real_name'],
