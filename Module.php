@@ -30,6 +30,11 @@ class Module extends BackendModule
     public $logoText;
 
     /**
+     * @var string
+     */
+    public $dashboardView;
+
+    /**
      * @var array menu items for sidebar menu
      */
     public $sidebarMenu;
@@ -85,9 +90,14 @@ class Module extends BackendModule
     public $searchUseModulesSources = true;
 
     /**
-     * @var array
+     * @var array additional search sources
      */
     public $searchSources;
+
+    /**
+     * @var bool
+     */
+    public $sendSystemMessageOnServerError = true;
 
     /**
      * Init module
@@ -220,6 +230,21 @@ class Module extends BackendModule
                     ]
                 ],
             //Admin
+            'admin.system-messages.viewList' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. View system messages'),
+                ],
+            'admin.system-messages.viewDetail' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. View system messages with details'),
+                ],
+            'admin.system-messages.delete' =>
+                [
+                    'type' => Item::TYPE_PERMISSION,
+                    'description' => Yii::t('maddoger/admin', 'Admin. Delete system messages'),
+                ],
             'admin.base' =>
                 [
                     'type' => Item::TYPE_ROLE,
@@ -227,6 +252,7 @@ class Module extends BackendModule
                     'children' => [
                         'admin.user.dashboard',
                         'admin.user.profile',
+                        'admin.system-messages.viewList',
                     ]
                 ],
         ];
@@ -262,5 +288,76 @@ class Module extends BackendModule
                 'roles' => ['admin.user.view'],
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getSidebarMenu()
+    {
+        $menu = null;
+
+        $cacheKey = 'ADMIN_SIDEBAR_MENU';
+        if ($this->sidebarMenuCache !== false) {
+            $menu = Yii::$app->cache->get($cacheKey);
+        }
+
+        if (!$menu) {
+
+            $menu = $this->sidebarMenu ?:
+                [
+                    [
+                        'label' => Yii::t('maddoger/admin', 'Dashboard'),
+                        'icon' => 'fa fa-dashboard',
+                        'url' => ['/' . Module::getInstance()->id . '/site/index'],
+                        'sort' => -1,
+                    ],
+                ];
+
+            if ($this->sidebarMenuUseModules) {
+
+                $sortIndex = 0;
+
+                //Get navigation from modules
+                foreach (Yii::$app->modules as $moduleId => $module) {
+
+                    if (!($module instanceof \yii\base\Module)) {
+                        $module = Yii::$app->getModule($moduleId, true);
+                    }
+
+                    if ($module instanceof BackendModule) {
+
+
+                        $sort = $module->sortNumber ?: (++$sortIndex)*100;
+                        $navigation = $module->getNavigation();
+                        foreach ($navigation as $key => $value) {
+                            if (!isset($navigation[$key]['sort'])) {
+                                $navigation[$key]['sort'] = $sort;
+                            }
+                        }
+
+                        $menu = array_merge($menu, $navigation);
+                    }
+                }
+
+                //Sort
+                usort($menu, function ($a, $b) {
+                    $res = 0;
+                    if ($a['sort'] != $b['sort']) {
+                        $res = $a['sort'] > $b['sort'] ? 1 : -1;
+                    }
+                    /*if (!$res) {
+                        $res = strcmp($a['label'], $b['label']);
+                    }*/
+                    return $res;
+                });
+            }
+
+            if ($this->sidebarMenuCache !== false) {
+                Yii::$app->cache->set($cacheKey, $menu, $this->sidebarMenuCache);
+            }
+        }
+
+        return $menu;
     }
 }

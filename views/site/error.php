@@ -14,7 +14,7 @@ $this->title = $name;
 if ($exception instanceof HttpException) {
     $code = $exception->statusCode;
 } else {
-    $code = $exception->getCode();
+    $code = YII_DEBUG ? $exception->getCode() : 500;
 }
 
 ?>

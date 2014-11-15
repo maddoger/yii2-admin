@@ -11,14 +11,19 @@ use maddoger\admin\models\PasswordResetRequestForm;
 use maddoger\admin\models\ResetPasswordForm;
 use maddoger\admin\models\SignupForm;
 use maddoger\admin\models\User;
+use maddoger\admin\Module;
 use maddoger\admin\widgets\Alerts;
 use maddoger\core\BackendModule;
+use maddoger\core\models\SystemMessage;
 use Yii;
+use yii\base\Exception;
 use yii\base\InvalidParamException;
+use yii\base\UserException;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\Response;
 
 /**
@@ -94,9 +99,9 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
+            /*'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
+            ],*/
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -113,7 +118,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $view = Module::getInstance()->dashboardView ?: 'dashboard';
+        return $this->render($view);
     }
 
     /**
@@ -290,6 +296,50 @@ class SiteController extends Controller
         } else {
             return $this->render('signup', [
                 'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function actionError()
+    {
+        if (($exception = Yii::$app->getErrorHandler()->exception) === null) {
+            return '';
+        }
+
+        if ($exception instanceof HttpException) {
+            $code = $exception->statusCode;
+        } else {
+            $code = $exception->getCode();
+        }
+        if ($exception instanceof Exception) {
+            $name = $exception->getName();
+        } else {
+            $name = Yii::t('maddoger/admin', 'Error');
+        }
+        if ($code) {
+            $name .= " (#$code)";
+        }
+
+        if ($exception instanceof UserException) {
+            $message = $exception->getMessage();
+        } else {
+            $message = Yii::t('maddoger/admin', 'An internal server error occurred.');
+            if (Module::getInstance()->sendSystemMessageOnServerError) {
+                SystemMessage::send($name . ' ' . Yii::$app->request->url, $exception->getMessage(), 'error',
+                    $exception->getTraceAsString());
+            }
+        }
+
+        if (Yii::$app->getRequest()->getIsAjax()) {
+            return "$name: $message";
+        } else {
+            return $this->render('error', [
+                'name' => $name,
+                'message' => $message,
+                'exception' => $exception,
             ]);
         }
     }
