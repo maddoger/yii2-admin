@@ -317,6 +317,8 @@ class Module extends BackendModule
         $cacheKey = 'ADMIN_SIDEBAR_MENU';
         if ($this->sidebarMenuCache !== false) {
             $menu = Yii::$app->cache->get($cacheKey);
+        } else {
+            Yii::$app->cache->delete($cacheKey);
         }
 
         if (!$menu) {
