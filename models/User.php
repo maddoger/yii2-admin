@@ -6,7 +6,7 @@
 
 namespace maddoger\admin\models;
 
-use maddoger\imagecache\ImageBehavior;
+use maddoger\core\file\FileBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\rbac\Item;
@@ -46,105 +46,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public $delete_avatar;
 
+    /**
+     * @var array
+     */
     private $_rbacRoles;
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%admin_user}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        if ($token === null) {
-            return null;
-        }
-        return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
-    }
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return boolean
-     */
-    public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-        $expire = isset(Yii::$app->params['user.passwordResetTokenExpire']) ?
-            Yii::$app->params['user.passwordResetTokenExpire'] : 60 * 60 * 24;
-        $parts = explode('_', $token);
-        $timestamp = (int)end($parts);
-        return $timestamp + $expire >= time();
-    }
-
-    /**
-     * Update last visit time event handler
-     *
-     *
-     * in user component:
-     * 'on afterLogin'   => ['maddoger\admin\models\User', 'updateLastVisit'],
-     * 'on afterLogout'  => ['maddoger\admin\models\User', 'updateLastVisit'],
-     * @param $event
-     * @return bool
-     */
-    public static function updateLastVisit($event)
-    {
-        if ($event->isValid) {
-            /**
-             * @var User $user
-             */
-            $user = $event->identity;
-            $user->last_visit_at = time();
-            $user->updateAttributes(['last_visit_at']);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * @inheritdoc
@@ -153,15 +58,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
-
             //Avatar
             [
-                'class' => ImageBehavior::className(),
+                'class' => FileBehavior::className(),
                 'attribute' => 'avatar',
                 'fileName' => 'id',
                 'deleteAttribute' => 'delete_avatar',
-                'basePath' => '@static/users/avatars',
-                'baseUrl' => '@staticUrl/users/avatars',
+                'basePath' => '@static/backend/avatars',
+                'baseUrl' => '@staticUrl/backend/avatars',
             ],
         ];
     }
@@ -175,24 +79,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['username', 'email'], 'required'],
             [['real_name', 'password'], 'string'],
             [['rbacRoles'], 'safe'],
-
             [['username'], 'string', 'min' => 3],
             [['email'], 'email'],
-
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_BLOCKED]],
-
             ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
-
             [['username'], 'unique', 'message' => Yii::t('maddoger/admin', 'This username is already registered.')],
             [['email'], 'unique', 'message' => Yii::t('maddoger/admin', 'This email is already registered.')],
-
             //Avatar
             ['avatar', 'image', 'maxWidth' => 512, 'maxHeight' => 512],
             [['avatar'], 'default', 'value' => null],
             ['delete_avatar', 'boolean'],
-
             //Create
             [['username', 'email', 'password_hash'], 'required', 'on' => 'create'],
         ];
@@ -448,4 +346,104 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             self::STATUS_DELETED => Yii::t('maddoger/admin', 'Deleted'),
         ];
     }
+
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%admin_user}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        if ($token === null) {
+            return null;
+        }
+        return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * Finds user by username
+     *
+     * @param string $username
+     * @return static|null
+     */
+    public static function findByUsername($username)
+    {
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * Finds user by password reset token
+     *
+     * @param string $token password reset token
+     * @return static|null
+     */
+    public static function findByPasswordResetToken($token)
+    {
+        if (!static::isPasswordResetTokenValid($token)) {
+            return null;
+        }
+
+        return static::findOne([
+            'password_reset_token' => $token,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+
+    /**
+     * Finds out if password reset token is valid
+     *
+     * @param string $token password reset token
+     * @return boolean
+     */
+    public static function isPasswordResetTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+        $expire = isset(Yii::$app->params['user.passwordResetTokenExpire']) ?
+            Yii::$app->params['user.passwordResetTokenExpire'] : 60 * 60 * 24;
+        $parts = explode('_', $token);
+        $timestamp = (int)end($parts);
+        return $timestamp + $expire >= time();
+    }
+
+    /**
+     * Update last visit time event handler
+     *
+     *
+     * in user component:
+     * 'on afterLogin'   => ['maddoger\admin\models\User', 'updateLastVisit'],
+     * 'on afterLogout'  => ['maddoger\admin\models\User', 'updateLastVisit'],
+     * @param $event
+     * @return bool
+     */
+    public static function updateLastVisit($event)
+    {
+        if ($event->isValid) {
+            /**
+             * @var User $user
+             */
+            $user = $event->identity;
+            $user->last_visit_at = time();
+            $user->updateAttributes(['last_visit_at']);
+            return true;
+        }
+        return false;
+    }
+
 }
